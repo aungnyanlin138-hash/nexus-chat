@@ -57,15 +57,18 @@
         .app-page { display: none; width: 100%; height: 100%; box-sizing: border-box; flex-direction: column; overflow-y: auto; }
         .app-page.active-page { display: flex !important; }
 
-        /* 💬 TABS 1 & TABS 2: CLEAN PLATFORM (စာတန်းဟောင်းများ ရှင်းလင်းပြီးသား မျက်နှာပြင်) */
-        .chat-list-container { display: flex; flex-direction: column; width: 100%; padding: 20px; text-align: center; color: var(--text-muted); font-size: 14px; }
-        .missed-calls-view { display: flex; flex-direction: column; width: 100%; padding: 20px; text-align: center; color: var(--text-muted); font-size: 14px; }
-        .missed-call-card { display: flex; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--border); width: 100%; box-sizing: border-box; text-align: left; }
-        .missed-icon-avatar { width: 42px; height: 42px; border-radius: 50%; background: rgba(255, 51, 51, 0.1); display: flex; align-items: center; justify-content: center; color: #ff3333; font-size: 16px; margin-right: 14px; border: 1px solid rgba(255, 51, 51, 0.2); }
-        .missed-details { flex: 1; }
-        .missed-time { font-size: 12px; color: var(--text-muted); }
-
-        /* 🚀 CHAT BOX INTERFACE (🚨 FULL SCREEN OVERLAY ENGINE WITH CALL BUTTONS) */
+        /* 💬 TABS 1: CHATS LIST DISPLAY */
+        .chat-list-container { display: flex; flex-direction: column; width: 100%; }
+        .chat-card { display: flex; align-items: center; padding: 16px; border-bottom: 1px solid var(--border); cursor: pointer; background: transparent; }
+        .avatar {
+            width: 48px; height: 48px; border-radius: 50%; background: var(--bg-card);
+            display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;
+            color: var(--accent); border: 1px solid var(--border); margin-right: 14px;
+        }
+        .chat-details { flex: 1; display: flex; flex-direction: column; gap: 4px; overflow: hidden; }
+        .name-row { display: flex; justify-content: space-between; font-size: 15px; font-weight: 600; }
+        
+        /* 🚀 CHAT BOX INTERFACE (🚨 FULL SCREEN OVERLAY ENGINE) */
         #chat-conversation-thread {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: #0c0f1d; z-index: 50; display: none; flex-direction: column;
@@ -85,6 +88,13 @@
         .chat-input-bar { padding: 10px; background: var(--bg-nav); border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; padding-bottom: env(safe-area-inset-bottom); }
         .chat-input { flex: 1; padding: 12px; background: var(--bg-card); border: 1px solid var(--border); color: white; border-radius: 20px; font-size: 14px; }
         .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); border: none; color: black; font-size: 16px; cursor: pointer; }
+
+        /* 📱 TABS 2: CLEAN CALLS VIEWPORT */
+        .missed-calls-view { display: flex; flex-direction: column; width: 100%; padding: 20px; text-align: center; color: var(--text-muted); font-size: 14px; }
+        .missed-call-card { display: flex; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--border); width: 100%; box-sizing: border-box; text-align: left; }
+        .missed-icon-avatar { width: 42px; height: 42px; border-radius: 50%; background: rgba(255, 51, 51, 0.1); display: flex; align-items: center; justify-content: center; color: #ff3333; font-size: 16px; margin-right: 14px; border: 1px solid rgba(255, 51, 51, 0.2); }
+        .missed-details { flex: 1; }
+        .missed-time { font-size: 12px; color: var(--text-muted); }
 
         /* ACTIVE EMERGENCY WEBRTC CALL RENDER BOX OVERLAY */
         #active-call-overlay {
@@ -115,7 +125,6 @@
         .mesh-circle-btn.scan-trigger { color: #ff9900; }
         .mesh-circle-btn:active { transform: scale(0.9); box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
         
-        /* Premium Dedicated Searching Bar */
         .mesh-search-wrapper {
             width: 100%; max-width: 320px; position: relative; display: flex; align-items: center;
         }
@@ -127,7 +136,6 @@
         .mesh-search-bar:focus { border-color: var(--accent); outline: none; }
         .mesh-search-icon { position: absolute; left: 18px; color: var(--text-muted); font-size: 15px; }
 
-        /* DYNAMIC POPUP MODAL OVERLAY DIRECTIVE (QR & SCANNER ENGINE) */
         .mesh-popup-modal-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(7, 9, 17, 0.96); z-index: 200; display: none;
@@ -147,7 +155,7 @@
         .setting-item { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border); }
         .theme-selector { background: #0c0f1d; border: 1px solid var(--border); color: white; padding: 6px 12px; border-radius: 8px; font-size: 12px; }
 
-        /* 🧱 PREMIUM 4-TAB BOTTOM NAVIGATION BAR FIXED STRUCTURE */
+        /* 🧱 PREMIUM 4-TAB NAVIGATION BAR */
         .bottom-nav-bar {
             height: 65px; min-height: 65px; background: var(--bg-nav); border-top: 1px solid var(--border);
             display: flex; justify-content: space-around; align-items: center; width: 100%; box-sizing: border-box;
@@ -184,7 +192,13 @@
             
             <div id="tab-page-chats" class="app-page active-page">
                 <div id="chats-list-dashboard" class="chat-list-container">
-                    <p style="margin-top: 40px; color: var(--text-muted);">စကားပြောခန်းမရှိသေးပါ။<br>အောက်ခြေက QR Mesh မှတစ်ဆင့် စတင်ချိတ်ဆက်ပါ သားကြီး။</p>
+                    <div class="chat-card" onclick="openActiveChatRoom('global-mesh-room')">
+                        <div class="avatar">N</div>
+                        <div class="chat-details" style="text-align: left;">
+                            <div class="name-row"><span>Global Mesh Room</span><span style="font-size:11px; color:var(--accent);">Active</span></div>
+                            <p style="margin:0; font-size:13px; color:var(--text-muted);">အရေးပေါ် စာတိုပေးပို့ရန် နှိပ်ပါ သားကြီး...</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -232,7 +246,6 @@
 
             <div id="tab-page-qr" class="app-page">
                 <div class="premium-mesh-workspace">
-                    
                     <div class="mesh-action-circle-row">
                         <div class="mesh-circle-btn qr-trigger" onclick="openMyQrPopupModal()" title="ကျွန်ုပ်၏ QR Code">
                             <i class="fas fa-qrcode"></i>
@@ -241,12 +254,10 @@
                             <i class="fas fa-camera"></i>
                         </div>
                     </div>
-
                     <div class="mesh-search-wrapper">
                         <i class="fas fa-search mesh-search-icon"></i>
                         <input type="text" id="manual-mesh-ip" class="mesh-search-bar" placeholder="တစ်ဖက်လူရဲ့ local ip နဲ့ရှာရန်...">
                     </div>
-
                 </div>
             </div>
 
@@ -337,22 +348,7 @@
             document.getElementById('page-secure-auth').style.display = 'none';
             alert(`🎉 မင်္ဂလာပါ သားကြီး ${userData.name}။ အကောင့်ဝင်ရောက်မှု အောင်မြင်ပါသည်။`);
             
-            // Dynamic generation of chat room directly upon Google authentication completion
-            activateActiveChatInstance();
             startRealtimeDatabaseMeshSync();
-        }
-
-        function activateActiveChatInstance() {
-            const container = document.getElementById('chats-list-dashboard');
-            container.innerHTML = `
-                <div class="chat-card" onclick="openActiveChatRoom('global-mesh-room')">
-                    <div class="avatar">N</div>
-                    <div class="chat-details" style="text-align: left;">
-                        <div class="name-row"><span>Global Mesh Room</span><span style="font-size:11px; color:var(--accent);">Active</span></div>
-                        <p style="margin:0; font-size:13px; color:var(--text-muted);">အရေးပေါ် စာတိုပေးပို့ရန် နှိပ်ပါ သားကြီး...</p>
-                    </div>
-                </div>
-            `;
         }
 
         function switchApplicationViewportTab(targetTab) {
@@ -476,7 +472,6 @@
 
         function logMissedCallSession(caller) {
             const container = document.getElementById('missed-calls-log-list');
-            // Remove initial empty state text if present
             if(container.querySelector('p')) container.innerHTML = '';
             
             const card = document.createElement('div');
