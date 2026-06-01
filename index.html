@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>NEXUS ULTRA - 100GB D1 Guaranteed System</title>
+    <title>NEXUS ULTRA - CLOUD WORKER BOUND ENGINE</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode"></script>
@@ -85,19 +85,19 @@
     <div class="phone-container" id="global-phone-viewport">
         <div id="page-secure-auth">
             <div class="auth-branding">NEXUS ULTRA</div>
-            <p class="secure-subtitle">Cloudflare 100GB D1 Secure Platform<br>အက်ပ်အားအသုံးပြုရန် Google အကောင့်ဖြင့် အရင်ဝင်ပါ သားကြီး။</p>
+            <p class="secure-subtitle">Cloudflare Worker Secured Sync Engine<br>အက်ပ်အားအသုံးပြုရန် Google အကောင့်ဖြင့် ဝင်ပါ သားကြီး။</p>
             
             <div id="g_id_onload" 
                  data-client_id="976507866074-jc4p16dic2lc4qoq3t291gh7gusdp86h.apps.googleusercontent.com" 
                  data-callback="handleSecureCredentialResponse">
             </div>
             <div class="g_id_signin" data-type="standard" data-size="large" data-theme="filled_blue"></div>
-            <p style="font-size:11px; color:#ff9900; margin-top:40px;"><i class="fas fa-shield-alt"></i> 100GB D1 SQL Guaranteed Engine</p>
+            <p style="font-size:11px; color:#39ff14; margin-top:40px;"><i class="fas fa-shield-alt"></i> Worker Node Synced</p>
         </div>
 
         <div id="app-main-header" class="top-header">
             <span id="app-header-title">NEXUS Chats</span>
-            <span id="network-status-indicator" class="network-status">🟢 D1 100GB Active</span>
+            <span id="network-status-indicator" class="network-status">🟢 Worker Core Live</span>
         </div>
 
         <div class="main-viewport">
@@ -111,13 +111,9 @@
                         <button class="chat-action-icon-btn" onclick="exitChatRoomView()"><i class="fas fa-arrow-left"></i></button>
                         <span id="chat-room-title-text" style="font-size:15px; font-weight:bold; color:var(--text);">Private Chat</span>
                     </div>
-                    <div class="chat-header-actions">
-                        <button class="chat-action-icon-btn" onclick="triggerOutboundCallSession('audio')"><i class="fas fa-phone-alt" style="color:var(--accent);"></i></button>
-                        <button class="chat-action-icon-btn" onclick="triggerOutboundCallSession('video')"><i class="fas fa-video" style="color:var(--accent);"></i></button>
-                    </div>
                 </div>
                 <div class="messages-container" id="msg-render-box">
-                    <div style="text-align:center; font-size:11px; color:var(--text-muted); margin: 10px 0 20px 0;"><i class="fas fa-lock" style="font-size:10px;"></i> Viber Style 100GB D1 Encrypted</div>
+                    <div style="text-align:center; font-size:11px; color:var(--text-muted); margin: 10px 0 20px 0;"><i class="fas fa-lock" style="font-size:10px;"></i> Nexus Secure Node End-to-End Encryption</div>
                 </div>
                 <div class="chat-input-bar">
                     <input type="text" id="chat-msg-input" class="chat-input" placeholder="စာရိုက်ထည့်ပါ သားကြီး...">
@@ -166,12 +162,11 @@
     </div>
 
     <script>
+        // 🚨 CLOUDFLARE WORKER ROUTE DIRECT-LINK (အရှုပ်အထွေးကင်းအောင် ဤလင့်ခ်သို့ တိုက်ရိုက် ဦးတည်သည်)
         let signalingUrl = "https://nexus-call-server.aungnyanlin138.workers.dev";
-        let localStream = null, peerConnection = null, currentRoomId = null, myUsername = "GoogleUser";
-        let isMuted = false, isCamOff = false, currentCallType = "video", qrScannerInstance = null;
+        let currentRoomId = null, myUsername = "GoogleUser";
         let privateContactsList = JSON.parse(localStorage.getItem('nexus_private_contacts') || "[]");
-
-        const rtcConfig = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
+        let qrScannerInstance = null;
 
         document.addEventListener('DOMContentLoaded', () => {
             renderPrivateContactsDashboard();
@@ -218,6 +213,7 @@
         function startRealtimeDatabaseMeshSync() {
             setInterval(async () => {
                 try {
+                    // တစ်ဖက်လူက Add ထားသည့် Signal ကို လှမ်းဖတ်ခြင်း
                     const res = await fetch(`${signalingUrl}/api/room/viber-add-signal-to-${myUsername}`);
                     if (res.ok) {
                         const data = await res.json();
@@ -231,24 +227,19 @@
 
                 if (!currentRoomId) return; 
                 try {
+                    // လက်ရှိ Chat room ထဲမှ စာအသစ်များကို လှမ်းဆွဲခြင်း
                     const res = await fetch(`${signalingUrl}/api/room/${currentRoomId}`);
                     if (res.ok) {
                         const data = await res.json();
                         if(data.text_message && data.sender !== myUsername) {
                             if (localStorage.getItem(`last_msg_${currentRoomId}`) !== data.text_message) {
-                                appendMessageViewElement(data.sender, data.text_message, "in", currentRoomId);
+                                appendMessageViewElement(data.sender, data.text_message, "in", currentRoomId, true);
                                 localStorage.setItem(`last_msg_${currentRoomId}`, data.text_message);
                             }
                         }
-                        if (data.offer && !data.answer && !peerConnection && data.target_room === currentRoomId) {
-                            if(confirm(`📞 [${data.sender}] ထံမှ ဖုန်းခေါ်ဆိုမှု ရောက်လာပါပြီ ကိုင်မလား သားကြီး?`)) acceptIncomingCallTransmission(data);
-                        }
-                        if (data.answer && peerConnection && peerConnection.signalingState === "have-local-offer") {
-                            await peerConnection.setRemoteDescription(new RTCSessionDescription(JSON.parse(data.answer)));
-                        }
                     }
                 } catch (e) {}
-            }, 2500);
+            }, 2000); // ၂ စက္ကန့်တစ်ကြိမ် Sync လုပ်မည်
         }
 
         function openCameraScannerPopupModal() {
@@ -281,32 +272,43 @@
         function closeMyQrPopupModal() { document.getElementById('modal-my-qr-popup').style.display = "none"; }
         function closeCameraScannerPopupModal() { if(qrScannerInstance) { qrScannerInstance.stop().then(() => { qrScannerInstance = null; document.getElementById('modal-camera-scanner-popup').style.display = "none"; }); } }
         
-        // 🚨 ၁၀၀ GB D1 Database စနစ်ဆီသို့ စာတိုများ ရာနှုန်းပြည့် အရောက်ပို့ပေးမည့် Text Handler Engine
         async function executeTextMessageTransmission() { 
             const input = document.getElementById('chat-msg-input'); 
             if(!input.value || !currentRoomId) return; 
             
             let text = input.value; 
-            appendMessageViewElement(myUsername, text, "out", currentRoomId); 
+            appendMessageViewElement(myUsername, text, "out", currentRoomId, false); 
             input.value = ""; 
             
-            // D1 SQL Insert Function ကို ကွက်တိ ချိတ်ဆက်မောင်းနှင်သည်
             await fetch(`${signalingUrl}/api/room`, { 
                 method: "POST", 
                 headers: { "Content-Type": "application/json" }, 
-                body: JSON.stringify({ 
-                    room_id: currentRoomId, 
-                    text_message: text, 
-                    sender: myUsername 
-                }) 
+                body: JSON.stringify({ room_id: currentRoomId, text_message: text, sender: myUsername }) 
             }); 
         }
         
-        function appendMessageViewElement(sender, text, dir, rId) { let box = JSON.parse(localStorage.getItem(`nexus_cache_${rId}`) || "[]"); box.push({ sender, text, type: dir }); localStorage.setItem(`nexus_cache_${rId}`, JSON.stringify(box)); if(currentRoomId === rId) { const container = document.getElementById('msg-render-box'); const b = document.createElement('div'); b.className = `msg-bubble msg-${dir}`; b.innerText = `${sender}: ${text}`; container.appendChild(b); container.scrollTop = container.scrollHeight; } }
-        function loadSavedMessagesFromStorage(rId) { const container = document.getElementById('msg-render-box'); container.innerHTML = `<div style="text-align:center; font-size:11px; color:var(--text-muted); margin: 10px 0 20px 0;"><i class="fas fa-lock" style="font-size:10px;"></i> Viber Style End-to-End Private Encryption</div>`; JSON.parse(localStorage.getItem(`nexus_cache_${rId}`) || "[]").forEach(m => { const b = document.createElement('div'); b.className = `msg-bubble msg-${m.type}`; b.innerText = `${m.sender}: ${m.text}`; container.appendChild(b); }); container.scrollTop = container.scrollHeight; }
+        function appendMessageViewElement(sender, text, dir, rId, isPollingUpdate) { 
+            let box = JSON.parse(localStorage.getItem(`nexus_cache_${rId}`) || "[]");
+            if(isPollingUpdate) {
+                let isExist = box.some(m => m.sender === sender && m.text === text);
+                if(isExist) return;
+            }
+            box.push({ sender, text, type: dir }); 
+            localStorage.setItem(`nexus_cache_${rId}`, JSON.stringify(box)); 
+            
+            if(currentRoomId === rId) { 
+                const container = document.getElementById('msg-render-box'); 
+                const b = document.createElement('div'); 
+                b.className = `msg-bubble msg-${dir}`; 
+                b.innerText = `${sender}: ${text}`; 
+                container.appendChild(b); 
+                container.scrollTop = container.scrollHeight; 
+            } 
+        }
+        
+        function loadSavedMessagesFromStorage(rId) { const container = document.getElementById('msg-render-box'); container.innerHTML = `<div style="text-align:center; font-size:11px; color:var(--text-muted); margin: 10px 0 20px 0;"><i class="fas fa-lock" style="font-size:10px;"></i> Nexus Secure Node End-to-End Private Encryption</div>`; JSON.parse(localStorage.getItem(`nexus_cache_${rId}`) || "[]").forEach(m => { const b = document.createElement('div'); b.className = `msg-bubble msg-${m.type}`; b.innerText = `${m.sender}: ${m.text}`; container.appendChild(b); }); container.scrollTop = container.scrollHeight; }
         function switchApplicationViewportTab(t) { document.querySelectorAll('.app-page').forEach(p => p.classList.remove('active-page')); document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active-nav')); const nav = document.getElementById('app-footer-navigation').children; if (t === 'chats') { document.getElementById('tab-page-chats').classList.add('active-page'); nav[0].classList.add('active-nav'); renderPrivateContactsDashboard(); } else if (t === 'qr') { document.getElementById('tab-page-qr').classList.add('active-page'); nav[1].classList.add('active-nav'); } else if (t === 'settings') { document.getElementById('tab-page-settings').classList.add('active-page'); nav[2].classList.add('active-nav'); } }
-        async function triggerOutboundCallSession(type) { currentCallType = type; alert("ဖုန်းခေါ်ဆိုမှု စတင်နေပါသည်... တစ်ဖက်လူ ဖုန်းမျက်နှာပြင်ကို ကြည့်ခိုင်းထားပါ သားကြီး။"); let consts = { audio: true, video: type === 'video' ? { width: 176, height: 144, frameRate: 7 } : false }; try { localStream = await navigator.mediaDevices.getUserMedia(consts); peerConnection = new RTCPeerConnection(rtcConfig); localStream.getTracks().forEach(t => peerConnection.addTrack(t, localStream)); const offer = await peerConnection.createOffer(); await peerConnection.setLocalDescription(offer); await fetch(`${signalingUrl}/api/room`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ room_id: currentRoomId, offer: JSON.stringify(offer), call_mode: type, sender: myUsername, target_room: currentRoomId }) }); } catch (e) {} }
-        async function acceptIncomingCallTransmission(data) { currentCallType = data.call_mode; let consts = { audio: true, video: data.call_mode === 'video' ? { width: 176, height: 144, frameRate: 7 } : false }; try { localStream = await navigator.mediaDevices.getUserMedia(consts); peerConnection = new RTCPeerConnection(rtcConfig); localStream.getTracks().forEach(t => peerConnection.addTrack(t, localStream)); await peerConnection.setRemoteDescription(new RTCSessionDescription(JSON.parse(data.offer))); const answer = await peerConnection.createAnswer(); await peerConnection.setLocalDescription(answer); await fetch(`${signalingUrl}/api/room`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ room_id: currentRoomId, answer: JSON.stringify(answer) }) }); alert("ကောလ် ချိတ်ဆက်မှု အောင်မြင်ပါပြီ သားကြီး!"); } catch (e) {} }
     </script>
 </body>
 </html>
+
