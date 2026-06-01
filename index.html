@@ -3,80 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>NEXUS ULTRA - CLOUD WORKER BOUND ENGINE</title>
+    <title>NEXUS ULTRA CORE ENGINE</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    
     <style>
-        :root {
-            --bg-main: #0c0f1d; --bg-card: #161b2e; --bg-nav: #111424;
-            --accent: #39ff14; --text: #ffffff; --text-muted: #8e9cb2; --border: rgba(255, 255, 255, 0.08);
-            --bubble-in: #161b2e; --bubble-out: #2c5364; --bubble-out-text: #ffffff; --body-bg: #070911;
-        }
-        [data-theme="romantic"] {
-            --bg-main: #f4f6f9; --bg-card: #ffffff; --bg-nav: #ecf0f5; --accent: #e91e63;
-            --text: #1a1a2e; --text-muted: #64748b; --border: rgba(0, 0, 0, 0.08);
-            --bubble-in: #e2e8f0; --bubble-out: #e91e63; --bubble-out-text: #ffffff; --body-bg: #cbd5e1;
-        }
-        [data-theme="glass"] {
-            --bg-main: rgba(22, 27, 46, 0.7); --bg-card: rgba(255, 255, 255, 0.05); --bg-nav: rgba(17, 20, 36, 0.8);
-            --accent: #00e5ff; --text: #ffffff; --text-muted: #a2b4cd; --border: rgba(255, 255, 255, 0.1);
-            --bubble-in: rgba(255, 255, 255, 0.08); --bubble-out: rgba(0, 229, 255, 0.3); --bubble-out-text: #ffffff;
-            --body-bg: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-        }
-        html, body { margin: 0; padding: 0; width: 100%; height: 100%; height: -webkit-fill-available; background: var(--body-bg); color: var(--text); font-family: -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; overflow: hidden; transition: background 0.3s; }
-        .phone-container { width: 100vw; max-width: 420px; height: 100vh; height: 100dvh; background: var(--bg-main); display: flex; flex-direction: column; position: relative; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+        :root { --bg-main: #0c0f1d; --bg-card: #161b2e; --bg-nav: #111424; --accent: #39ff14; --text: #ffffff; --text-muted: #8e9cb2; --border: rgba(255, 255, 255, 0.08); --bubble-in: #161b2e; --bubble-out: #2c5364; --bubble-out-text: #ffffff; --body-bg: #070911; }
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; height: -webkit-fill-available; background: var(--body-bg); color: var(--text); font-family: -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        .phone-container { width: 100vw; max-width: 420px; height: 100vh; height: 100dvh; background: var(--bg-main); display: flex; flex-direction: column; position: relative; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
         #page-secure-auth { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #0c0f1d; z-index: 9999999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; box-sizing: border-box; text-align: center; }
         .auth-branding { font-size: 42px; font-weight: 900; color: #39ff14; letter-spacing: 2px; margin-bottom: 5px; }
         .secure-subtitle { color: #8e9cb2; font-size: 13px; margin-bottom: 35px; line-height: 1.5; }
-        .top-header { padding: 0 16px; background: var(--bg-nav); border-bottom: 1px solid var(--border); font-size: 19px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; height: 55px; min-height: 55px; box-sizing: border-box; color: var(--text); }
-        .network-status { font-size: 11px; font-weight: bold; color: var(--accent); background: rgba(57, 255, 20, 0.1); padding: 4px 8px; border-radius: 8px; }
+        .top-header { padding: 0 16px; background: var(--bg-nav); border-bottom: 1px solid var(--border); font-size: 19px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; height: 55px; min-height: 55px; }
         .main-viewport { flex: 1; position: relative; width: 100%; overflow: hidden; }
         .app-page { display: none; width: 100%; height: 100%; box-sizing: border-box; flex-direction: column; overflow-y: auto; }
         .app-page.active-page { display: flex !important; }
         .chat-list-container { display: flex; flex-direction: column; width: 100%; }
-        .chat-card { display: flex; align-items: center; padding: 16px; border-bottom: 1px solid var(--border); cursor: pointer; background: transparent; }
-        .avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--bg-card); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px; color: var(--accent); border: 1px solid var(--border); margin-right: 14px; }
-        .chat-details { flex: 1; display: flex; flex-direction: column; gap: 4px; overflow: hidden; }
-        .name-row { display: flex; justify-content: space-between; font-size: 15px; font-weight: 600; color: var(--text); }
-        .empty-state-text { color: var(--text-muted); font-size: 14px; text-align: center; line-height: 1.6; padding: 40px 20px; }
+        .chat-card { display: flex; align-items: center; padding: 16px; border-bottom: 1px solid var(--border); cursor: pointer; }
+        .avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--bg-card); display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--accent); border: 1px solid var(--border); margin-right: 14px; }
+        .chat-details { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+        .name-row { display: flex; justify-content: space-between; font-size: 15px; font-weight: 600; }
+        .empty-state-text { color: var(--text-muted); font-size: 14px; text-align: center; padding: 40px 20px; }
         #chat-conversation-thread { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-main); z-index: 50; display: none; flex-direction: column; }
-        .chat-header-bar { height: 55px; background: var(--bg-nav); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 0 16px; box-sizing: border-box; }
-        .chat-header-actions { display: flex; gap: 20px; align-items: center; }
-        .chat-action-icon-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; outline: none; padding: 5px; }
+        .chat-header-bar { height: 55px; background: var(--bg-nav); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 0 16px; }
+        .chat-action-icon-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; }
         .messages-container { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
         .msg-bubble { max-width: 75%; padding: 10px 14px; border-radius: 16px; font-size: 14px; line-height: 1.4; word-break: break-word; }
         .msg-in { background: var(--bubble-in); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid var(--border); }
         .msg-out { background: var(--bubble-out); color: var(--bubble-out-text); align-self: flex-end; border-bottom-right-radius: 4px; }
-        .chat-input-bar { padding: 10px; background: var(--bg-nav); border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; padding-bottom: env(safe-area-inset-bottom); }
+        .chat-input-bar { padding: 10px; background: var(--bg-nav); border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; }
         .chat-input { flex: 1; padding: 12px; background: var(--bg-card); border: 1px solid var(--border); color: var(--text); border-radius: 20px; font-size: 14px; outline: none; }
-        .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); border: none; font-size: 16px; cursor: pointer; color: #000; }
-        #active-call-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #070911; z-index: 100; display: none; flex-direction: column; }
-        .video-grid { display: flex; flex-direction: column; gap: 10px; padding: 16px; flex: 1; box-sizing: border-box; }
-        .video-wrapper { position: relative; flex: 1; background: #111424; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
-        video { width: 100%; height: 100%; object-fit: cover; }
-        .video-label { position: absolute; bottom: 12px; left: 12px; background: rgba(0,0,0,0.6); padding: 4px 10px; border-radius: 8px; font-size: 11px; color: white; }
-        .call-controls { height: 70px; display: flex; justify-content: center; align-items: center; gap: 20px; background: #111424; }
-        .control-btn { width: 45px; height: 45px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; font-size: 16px; color: white; background: rgba(255,255,255,0.1); cursor: pointer; }
-        .control-btn.btn-end { background: #ff3333; }
-        .premium-mesh-workspace { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 24px; box-sizing: border-box; gap: 40px; }
-        .mesh-action-circle-row { display: flex; gap: 35px; justify-content: center; align-items: center; width: 100%; }
-        .mesh-circle-btn { width: 85px; height: 85px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg-card); display: flex; align-items: center; justify-content: center; font-size: 28px; color: var(--text); cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .mesh-search-wrapper { width: 100%; max-width: 320px; position: relative; display: flex; align-items: center; }
-        .mesh-search-bar { width: 100%; padding: 14px 16px; padding-left: 45px; border-radius: 28px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text); font-size: 14px; box-sizing: border-box; }
-        .mesh-search-icon { position: absolute; left: 18px; color: var(--text-muted); font-size: 15px; }
-        .mesh-popup-modal-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 9, 17, 0.96); z-index: 200; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
-        .modal-close-top-btn { position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; font-size: 16px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); border: none; font-size: 16px; color: #000; }
+        .premium-mesh-workspace { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 24px; gap: 40px; }
+        .mesh-action-circle-row { display: flex; gap: 35px; }
+        .mesh-circle-btn { width: 85px; height: 85px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg-card); display: flex; align-items: center; justify-content: center; font-size: 28px; color: var(--text); }
+        .mesh-popup-modal-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 9, 17, 0.96); z-index: 200; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+        .modal-close-top-btn { position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; display: flex; align-items: center; justify-content: center; }
         .qr-render-box { background: white; padding: 16px; border-radius: 20px; }
-        #scanner-preview-container { width: 290px; height: 290px; background: #000; border-radius: 24px; overflow: hidden; border: 1px solid var(--border); }
-        .settings-view { padding: 20px; display: flex; flex-direction: column; gap: 15px; }
-        .profile-card { display: flex; align-items: center; background: var(--bg-card); padding: 16px; border-radius: 16px; border: 1px solid var(--border); }
-        .setting-item { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border); }
-        .theme-selector { background: var(--bg-main); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 8px; font-size: 12px; outline: none; }
-        .bottom-nav-bar { height: 65px; min-height: 65px; background: var(--bg-nav); border-top: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; width: 100%; box-sizing: border-box; position: relative; z-index: 10; padding-bottom: env(safe-area-inset-bottom); }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--text-muted); cursor: pointer; font-size: 11px; }
+        #scanner-preview-container { width: 290px; height: 290px; background: #000; border-radius: 24px; overflow: hidden; }
+        .bottom-nav-bar { height: 65px; background: var(--bg-nav); border-top: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; width: 100%; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--text-muted); font-size: 11px; cursor: pointer; }
         .nav-item.active-nav { color: var(--accent); }
     </style>
 </head>
@@ -84,39 +51,30 @@
 
     <div class="phone-container" id="global-phone-viewport">
         <div id="page-secure-auth">
-            <div class="auth-branding">NEXUS ULTRA</div>
-            <p class="secure-subtitle">Cloudflare Worker Secured Sync Engine<br>အက်ပ်အားအသုံးပြုရန် Google အကောင့်ဖြင့် ဝင်ပါ သားကြီး။</p>
-            
-            <div id="g_id_onload" 
-                 data-client_id="976507866074-jc4p16dic2lc4qoq3t291gh7gusdp86h.apps.googleusercontent.com" 
-                 data-callback="handleSecureCredentialResponse">
-            </div>
+            <div class="auth-branding">NEXUS MESH</div>
+            <p class="secure-subtitle">အကောင့်အသစ်စက်စက် ဖွင့်လှစ်ပြီးပါပြီ သားကြီး။<br>စတင်အသုံးပြုရန် Google ဖြင့် ဝင်ပါ။</p>
+            <div id="g_id_onload" data-client_id="976507866074-jc4p16dic2lc4qoq3t291gh7gusdp86h.apps.googleusercontent.com" data-callback="handleSecureCredentialResponse"></div>
             <div class="g_id_signin" data-type="standard" data-size="large" data-theme="filled_blue"></div>
-            <p style="font-size:11px; color:#39ff14; margin-top:40px;"><i class="fas fa-shield-alt"></i> Worker Node Synced</p>
         </div>
 
         <div id="app-main-header" class="top-header">
-            <span id="app-header-title">NEXUS Chats</span>
-            <span id="network-status-indicator" class="network-status">🟢 Worker Core Live</span>
+            <span>NEXUS Chats</span>
+            <span class="network-status" style="font-size:11px; color:#39ff14;">🟢 Live Node</span>
         </div>
 
         <div class="main-viewport">
-            <div id="tab-page-chats" class="app-page active-page">
-                <div id="chats-list-dashboard" class="chat-list-container"></div>
-            </div>
-
+            <div id="tab-page-chats" class="app-page active-page"><div id="chats-list-dashboard" class="chat-list-container"></div></div>
+            
             <div id="chat-conversation-thread">
                 <div class="chat-header-bar">
                     <div style="display:flex; gap:12px; align-items:center;">
                         <button class="chat-action-icon-btn" onclick="exitChatRoomView()"><i class="fas fa-arrow-left"></i></button>
-                        <span id="chat-room-title-text" style="font-size:15px; font-weight:bold; color:var(--text);">Private Chat</span>
+                        <span id="chat-room-title-text" style="font-size:15px; font-weight:bold;">Private Chat</span>
                     </div>
                 </div>
-                <div class="messages-container" id="msg-render-box">
-                    <div style="text-align:center; font-size:11px; color:var(--text-muted); margin: 10px 0 20px 0;"><i class="fas fa-lock" style="font-size:10px;"></i> Nexus Secure Node End-to-End Encryption</div>
-                </div>
+                <div class="messages-container" id="msg-render-box"></div>
                 <div class="chat-input-bar">
-                    <input type="text" id="chat-msg-input" class="chat-input" placeholder="စာရိုက်ထည့်ပါ သားကြီး...">
+                    <input type="text" id="chat-msg-input" class="chat-input" placeholder="စာရိုက်ပါ သားကြီး...">
                     <button class="send-btn" onclick="executeTextMessageTransmission()"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </div>
@@ -124,76 +82,39 @@
             <div id="tab-page-qr" class="app-page">
                 <div class="premium-mesh-workspace">
                     <div class="mesh-action-circle-row">
-                        <div class="mesh-circle-btn qr-trigger" onclick="openMyQrPopupModal()"><i class="fas fa-qrcode"></i></div>
-                        <div class="mesh-circle-btn scan-trigger" onclick="openCameraScannerPopupModal()"><i class="fas fa-camera"></i></div>
+                        <div class="mesh-circle-btn" onclick="openMyQrPopupModal()"><i class="fas fa-qrcode"></i></div>
+                        <div class="mesh-circle-btn" onclick="openCameraScannerPopupModal()"><i class="fas fa-camera"></i></div>
                     </div>
-                    <div class="mesh-search-wrapper"><i class="fas fa-search mesh-search-icon"></i><input type="text" id="manual-mesh-ip" class="mesh-search-bar" placeholder="အကောင့်အမည်ဖြင့် ရှာရန်..."></div>
-                </div>
-            </div>
-
-            <div id="modal-my-qr-popup" class="mesh-popup-modal-overlay">
-                <button class="modal-close-top-btn" onclick="closeMyQrPopupModal()"><i class="fas fa-times"></i></button>
-                <div id="qrcode-render-area" class="qr-render-box"></div>
-                <p style="font-size: 13px; color: #8e9cb2; margin-top: 20px;">မင်းရဲ့ QR Code (ဒါကို စကင်ဖတ်ခိုင်းပါ) 📞</p>
-            </div>
-
-            <div id="modal-camera-scanner-popup" class="mesh-popup-modal-overlay">
-                <button class="modal-close-top-btn" onclick="closeCameraScannerPopupModal()"><i class="fas fa-times"></i></button>
-                <div id="scanner-preview-container"></div>
-                <p style="font-size: 13px; color: #8e9cb2; margin-top: 20px;">QR စကင်ဖတ်နေပါသည်... 📷</p>
-            </div>
-
-            <div id="tab-page-settings" class="app-page">
-                <div class="settings-view">
-                    <div class="profile-card">
-                        <div class="avatar" id="profile-avatar-char" style="margin-right:15px; width:55px; height:55px; font-size:20px;">U</div>
-                        <div><h4 id="profile-display-name" style="margin:0 0 4px 0; font-size:16px;">Google User</h4><p id="profile-display-email" style="margin:0; font-size:12px; color:var(--text-muted);">authenticated</p></div>
-                    </div>
-                    <div class="setting-item"><span>စနစ်၏ အရောင်အသွေး (Theme)</span><select class="theme-selector" onchange="executeSystemThemeTransition(this.value)"><option value="cyber">Cyber Neon</option><option value="romantic">Romantic Light</option><option value="glass">Glass Morph</option></select></div>
                 </div>
             </div>
         </div>
 
         <div class="bottom-nav-bar" id="app-footer-navigation">
-            <div class="nav-item active-nav" onclick="switchApplicationViewportTab('chats')"><i class="fas fa-comment-alt"></i><span>Chats</span></div>
-            <div class="nav-item" onclick="switchApplicationViewportTab('qr')"><i class="fas fa-qrcode"></i><span>QR Mesh</span></div>
-            <div class="nav-item" onclick="switchApplicationViewportTab('settings')"><i class="fas fa-cog"></i><span>Settings</span></div>
+            <div class="nav-item active-nav" onclick="switchTab('chats')"><i class="fas fa-comment-alt"></i><span>Chats</span></div>
+            <div class="nav-item" onclick="switchTab('qr')"><i class="fas fa-qrcode"></i><span>QR Mesh</span></div>
         </div>
     </div>
 
     <script>
-        // 🚨 CLOUDFLARE WORKER ROUTE DIRECT-LINK (အရှုပ်အထွေးကင်းအောင် ဤလင့်ခ်သို့ တိုက်ရိုက် ဦးတည်သည်)
-        let signalingUrl = "https://nexus-chat-nfiq.vercel.app/";
-        let currentRoomId = null, myUsername = "GoogleUser";
-        let privateContactsList = JSON.parse(localStorage.getItem('nexus_private_contacts') || "[]");
+        // အော်တိုလမ်းကြောင်းရှာဖွေစနစ် (Cloudflare Pages Functions Engine သို့ ကွက်တိ ဦးတည်သည်)
+        let signalingUrl = window.location.origin; 
+        let currentRoomId = null, myUsername = "User";
+        let privateContactsList = JSON.parse(localStorage.getItem('nexus_contacts') || "[]");
         let qrScannerInstance = null;
 
-        document.addEventListener('DOMContentLoaded', () => {
-            renderPrivateContactsDashboard();
-            executeSystemThemeTransition(localStorage.getItem('nexus_applied_theme') || 'cyber');
-        });
-
-        function executeSystemThemeTransition(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('nexus_applied_theme', theme);
-        }
+        document.addEventListener('DOMContentLoaded', () => { renderDashboard(); });
 
         function handleSecureCredentialResponse(response) {
             const base64Url = response.credential.split('.')[1];
             const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
             const userData = JSON.parse(decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')));
-            
             myUsername = userData.name.replace(/\s+/g, ''); 
-            document.getElementById('profile-display-name').innerText = userData.name;
-            document.getElementById('profile-display-email').innerText = userData.email;
-            document.getElementById('profile-avatar-char').innerText = userData.name.charAt(0).toUpperCase();
             document.getElementById('page-secure-auth').style.display = 'none';
-            
-            renderPrivateContactsDashboard();
-            startRealtimeDatabaseMeshSync();
+            renderDashboard();
+            startMeshSync();
         }
 
-        function renderPrivateContactsDashboard() {
+        function renderDashboard() {
             const container = document.getElementById('chats-list-dashboard');
             container.innerHTML = "";
             if(privateContactsList.length === 0) {
@@ -204,82 +125,77 @@
                 const card = document.createElement('div');
                 card.className = "chat-card";
                 let roomId = [myUsername, contact].sort().join("-to-");
-                card.onclick = () => openActiveChatRoom(roomId, `${contact} (🔒 Private)`);
-                card.innerHTML = `<div class="avatar">${contact.charAt(0).toUpperCase()}</div><div class="chat-details" style="text-align: left;"><div class="name-row"><span>${contact}</span></div><p style="margin:0; font-size:13px; color:var(--text-muted);">သီးသန့် Private Chat ပြောရန်...</p></div>`;
+                card.onclick = () => openChat(roomId, contact);
+                card.innerHTML = `<div class="avatar">${contact.charAt(0).toUpperCase()}</div><div class="chat-details" style="text-align:left;"><div class="name-row"><span>${contact}</span></div><p style="margin:0;font-size:13px;color:var(--text-muted);">သီးသန့် Private Chat...</p></div>`;
                 container.appendChild(card);
             });
         }
 
-        function startRealtimeDatabaseMeshSync() {
+        function startMeshSync() {
             setInterval(async () => {
                 try {
-                    // တစ်ဖက်လူက Add ထားသည့် Signal ကို လှမ်းဖတ်ခြင်း
-                    const res = await fetch(`${signalingUrl}/api/room/viber-add-signal-to-${myUsername}`);
+                    const res = await fetch(`${signalingUrl}/api/room/add-signal-to-${myUsername}`);
                     if (res.ok) {
                         const data = await res.json();
                         if(data.sender && !privateContactsList.includes(data.sender)) {
                             privateContactsList.push(data.sender);
-                            localStorage.setItem('nexus_private_contacts', JSON.stringify(privateContactsList));
-                            renderPrivateContactsDashboard();
+                            localStorage.setItem('nexus_contacts', JSON.stringify(privateContactsList));
+                            renderDashboard();
                         }
                     }
                 } catch(e) {}
 
                 if (!currentRoomId) return; 
                 try {
-                    // လက်ရှိ Chat room ထဲမှ စာအသစ်များကို လှမ်းဆွဲခြင်း
                     const res = await fetch(`${signalingUrl}/api/room/${currentRoomId}`);
                     if (res.ok) {
                         const data = await res.json();
                         if(data.text_message && data.sender !== myUsername) {
-                            if (localStorage.getItem(`last_msg_${currentRoomId}`) !== data.text_message) {
-                                appendMessageViewElement(data.sender, data.text_message, "in", currentRoomId, true);
-                                localStorage.setItem(`last_msg_${currentRoomId}`, data.text_message);
+                            if (localStorage.getItem(`last_${currentRoomId}`) !== data.text_message) {
+                                appendMsg(data.sender, data.text_message, "in", currentRoomId, true);
+                                localStorage.setItem(`last_${currentRoomId}`, data.text_message);
                             }
                         }
                     }
                 } catch (e) {}
-            }, 2000); // ၂ စက္ကန့်တစ်ကြိမ် Sync လုပ်မည်
+            }, 2000);
         }
 
         function openCameraScannerPopupModal() {
             document.getElementById('modal-camera-scanner-popup').style.display = "flex";
             qrScannerInstance = new Html5Qrcode("scanner-preview-container");
             qrScannerInstance.start({ facingMode: "environment" }, { fps: 10, qrbox: 230 },
-                async qrCodeMessage => {
-                    if(qrCodeMessage.startsWith("NEXUS-VIBER-NODE:")) {
-                        const peerUser = qrCodeMessage.split(":")[1];
-                        if(peerUser !== myUsername && !privateContactsList.includes(peerUser)) {
-                            privateContactsList.push(peerUser);
-                            localStorage.setItem('nexus_private_contacts', JSON.stringify(privateContactsList));
-                            
+                async msg => {
+                    if(msg.startsWith("NEXUS-NODE:")) {
+                        const peer = msg.split(":")[1];
+                        if(peer !== myUsername && !privateContactsList.includes(peer)) {
+                            privateContactsList.push(peer);
+                            localStorage.setItem('nexus_contacts', JSON.stringify(privateContactsList));
                             await fetch(`${signalingUrl}/api/room`, {
                                 method: "POST",
                                 headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({ room_id: `viber-add-signal-to-${peerUser}`, sender: myUsername })
+                                body: JSON.stringify({ room_id: `add-signal-to-${peer}`, sender: myUsername })
                             });
                         }
-                        closeCameraScannerPopupModal();
-                        switchApplicationViewportTab('chats');
+                        closeScanner();
+                        switchTab('chats');
                     }
                 }, err => {}
             ).catch(e => alert("ကင်မရာဖွင့်မရပါ"));
         }
 
-        function openActiveChatRoom(roomId, title) { currentRoomId = roomId; document.getElementById('chat-room-title-text').innerText = title; document.getElementById('app-main-header').style.display = 'none'; document.getElementById('app-footer-navigation').style.display = 'none'; document.getElementById('chat-conversation-thread').style.display = 'flex'; loadSavedMessagesFromStorage(roomId); }
+        function openChat(roomId, title) { currentRoomId = roomId; document.getElementById('chat-room-title-text').innerText = title; document.getElementById('app-main-header').style.display = 'none'; document.getElementById('app-footer-navigation').style.display = 'none'; document.getElementById('chat-conversation-thread').style.display = 'flex'; loadMsgs(roomId); }
         function exitChatRoomView() { document.getElementById('chat-conversation-thread').style.display = 'none'; document.getElementById('app-main-header').style.display = 'flex'; document.getElementById('app-footer-navigation').style.display = 'flex'; currentRoomId = null; }
-        function openMyQrPopupModal() { document.getElementById('modal-my-qr-popup').style.display = "flex"; const qr = qrcode(4, 'L'); qr.addData(`NEXUS-VIBER-NODE:${myUsername}`); qr.make(); document.getElementById('qrcode-render-area').innerHTML = qr.createImgTag(6); }
+        function openMyQrPopupModal() { document.getElementById('modal-my-qr-popup').style.display = "flex"; const qr = qrcode(4, 'L'); qr.addData(`NEXUS-NODE:${myUsername}`); qr.make(); document.getElementById('qrcode-render-area').innerHTML = qr.createImgTag(6); }
         function closeMyQrPopupModal() { document.getElementById('modal-my-qr-popup').style.display = "none"; }
-        function closeCameraScannerPopupModal() { if(qrScannerInstance) { qrScannerInstance.stop().then(() => { qrScannerInstance = null; document.getElementById('modal-camera-scanner-popup').style.display = "none"; }); } }
+        function closeScanner() { if(qrScannerInstance) { qrScannerInstance.stop().then(() => { qrScannerInstance = null; document.getElementById('modal-camera-scanner-popup').style.display = "none"; }); } }
         
         async function executeTextMessageTransmission() { 
             const input = document.getElementById('chat-msg-input'); 
             if(!input.value || !currentRoomId) return; 
-            
             let text = input.value; 
-            appendMessageViewElement(myUsername, text, "out", currentRoomId, false); 
+            appendMsg(myUsername, text, "out", currentRoomId, false); 
             input.value = ""; 
-            
             await fetch(`${signalingUrl}/api/room`, { 
                 method: "POST", 
                 headers: { "Content-Type": "application/json" }, 
@@ -287,28 +203,20 @@
             }); 
         }
         
-        function appendMessageViewElement(sender, text, dir, rId, isPollingUpdate) { 
-            let box = JSON.parse(localStorage.getItem(`nexus_cache_${rId}`) || "[]");
-            if(isPollingUpdate) {
-                let isExist = box.some(m => m.sender === sender && m.text === text);
-                if(isExist) return;
-            }
-            box.push({ sender, text, type: dir }); 
-            localStorage.setItem(`nexus_cache_${rId}`, JSON.stringify(box)); 
-            
+        function appendMsg(sender, text, dir, rId, isPoll) { 
+            let cache = JSON.parse(localStorage.getItem(`cache_${rId}`) || "[]");
+            if(isPoll && cache.some(m => m.sender === sender && m.text === text)) return;
+            cache.push({ sender, text, type: dir }); 
+            localStorage.setItem(`cache_${rId}`, JSON.stringify(cache)); 
             if(currentRoomId === rId) { 
                 const container = document.getElementById('msg-render-box'); 
-                const b = document.createElement('div'); 
-                b.className = `msg-bubble msg-${dir}`; 
-                b.innerText = `${sender}: ${text}`; 
-                container.appendChild(b); 
-                container.scrollTop = container.scrollHeight; 
+                const b = document.createElement('div'); b.className = `msg-bubble msg-${dir}`; b.innerText = `${sender}: ${text}`; 
+                container.appendChild(b); container.scrollTop = container.scrollHeight; 
             } 
         }
         
-        function loadSavedMessagesFromStorage(rId) { const container = document.getElementById('msg-render-box'); container.innerHTML = `<div style="text-align:center; font-size:11px; color:var(--text-muted); margin: 10px 0 20px 0;"><i class="fas fa-lock" style="font-size:10px;"></i> Nexus Secure Node End-to-End Private Encryption</div>`; JSON.parse(localStorage.getItem(`nexus_cache_${rId}`) || "[]").forEach(m => { const b = document.createElement('div'); b.className = `msg-bubble msg-${m.type}`; b.innerText = `${m.sender}: ${m.text}`; container.appendChild(b); }); container.scrollTop = container.scrollHeight; }
-        function switchApplicationViewportTab(t) { document.querySelectorAll('.app-page').forEach(p => p.classList.remove('active-page')); document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active-nav')); const nav = document.getElementById('app-footer-navigation').children; if (t === 'chats') { document.getElementById('tab-page-chats').classList.add('active-page'); nav[0].classList.add('active-nav'); renderPrivateContactsDashboard(); } else if (t === 'qr') { document.getElementById('tab-page-qr').classList.add('active-page'); nav[1].classList.add('active-nav'); } else if (t === 'settings') { document.getElementById('tab-page-settings').classList.add('active-page'); nav[2].classList.add('active-nav'); } }
+        function loadMsgs(rId) { const container = document.getElementById('msg-render-box'); container.innerHTML = ""; JSON.parse(localStorage.getItem(`cache_${rId}`) || "[]").forEach(m => { const b = document.createElement('div'); b.className = `msg-bubble msg-${m.type}`; b.innerText = `${m.sender}: ${m.text}`; container.appendChild(b); }); container.scrollTop = container.scrollHeight; }
+        function switchTab(t) { document.querySelectorAll('.app-page').forEach(p => p.classList.remove('active-page')); document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active-nav')); const nav = document.getElementById('app-footer-navigation').children; if (t === 'chats') { document.getElementById('tab-page-chats').classList.add('active-page'); nav[0].classList.add('active-nav'); renderDashboard(); } else if (t === 'qr') { document.getElementById('tab-page-qr').classList.add('active-page'); nav[1].classList.add('active-nav'); } }
     </script>
 </body>
 </html>
-
