@@ -89,7 +89,7 @@
         .chat-input { flex: 1; padding: 12px; background: var(--bg-card); border: 1px solid var(--border); color: white; border-radius: 20px; font-size: 14px; }
         .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); border: none; color: black; font-size: 16px; cursor: pointer; }
 
-        /* 📱 TABS 2: MISSED CALLS THREAD SCREEN (UI OPTIMIZATION) */
+        /* 📱 TABS 2: MISSED CALLS THREAD SCREEN */
         .missed-calls-view { display: flex; flex-direction: column; width: 100%; padding: 10px 0; }
         .missed-call-card { display: flex; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--border); }
         .missed-icon-avatar { width: 42px; height: 42px; border-radius: 50%; background: rgba(255, 51, 51, 0.1); display: flex; align-items: center; justify-content: center; color: #ff3333; font-size: 16px; margin-right: 14px; border: 1px solid rgba(255, 51, 51, 0.2); }
@@ -106,11 +106,47 @@
         video { width: 100%; height: 100%; object-fit: cover; }
         .video-label { position: absolute; bottom: 12px; left: 12px; background: rgba(0,0,0,0.6); padding: 4px 10px; border-radius: 8px; font-size: 11px; }
 
-        /* 🔲 TABS 3: OFF-GRID EMERGENCY MESH QR & SCANNER UI */
-        .mesh-panel-view { padding: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .mesh-btn { width: 100%; max-width: 280px; padding: 14px; border-radius: 24px; border: none; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 12px; color: black; }
-        #scanner-preview { width: 280px; height: 280px; background: #000; border-radius: 16px; overflow: hidden; margin-top: 15px; display: none; }
-        .qr-render-box { background: white; padding: 12px; border-radius: 12px; margin-top: 15px; display: none; }
+        /* 🔲 TABS 3: PREMIUM CLEAN MESH NETWORK WORKSPACE UI */
+        .premium-mesh-workspace {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            height: 100%; padding: 24px; box-sizing: border-box; gap: 40px;
+        }
+        .mesh-action-circle-row { display: flex; gap: 35px; justify-content: center; align-items: center; width: 100%; }
+        .mesh-circle-btn {
+            width: 85px; height: 85px; border-radius: 50%; border: 1px solid var(--border);
+            background: var(--bg-card); display: flex; align-items: center; justify-content: center;
+            font-size: 28px; color: var(--text); cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .mesh-circle-btn.qr-trigger { color: #00e5ff; }
+        .mesh-circle-btn.scan-trigger { color: #ff9900; }
+        .mesh-circle-btn:active { transform: scale(0.9); box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+        
+        /* Premium Dedicated Searching Bar */
+        .mesh-search-wrapper {
+            width: 100%; max-width: 320px; position: relative; display: flex; align-items: center;
+        }
+        .mesh-search-bar {
+            width: 100%; padding: 14px 16px; padding-left: 45px; border-radius: 28px;
+            border: 1px solid var(--border); background: var(--bg-card); color: white;
+            font-size: 14px; box-sizing: border-box; transition: border-color 0.2s;
+        }
+        .mesh-search-bar:focus { border-color: var(--accent); outline: none; }
+        .mesh-search-icon { position: absolute; left: 18px; color: var(--text-muted); font-size: 15px; }
+
+        /* DYNAMIC POPUP MODAL OVERLAY DIRECTIVE (QR & SCANNER ENGINE) */
+        .mesh-popup-modal-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(7, 9, 17, 0.96); z-index: 200; display: none;
+            flex-direction: column; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box;
+        }
+        .modal-close-top-btn {
+            position: absolute; top: 20px; right: 20px; width: 40px; height: 40px;
+            border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+            color: white; font-size: 16px; display: flex; align-items: center; justify-content: center; cursor: pointer;
+        }
+        .qr-render-box { background: white; padding: 16px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        #scanner-preview-container { width: 290px; height: 290px; background: #000; border-radius: 24px; overflow: hidden; border: 1px solid var(--border); }
 
         /* 🧱 TABS 4: SETTINGS MANAGEMENT PANEL */
         .settings-view { padding: 20px; display: flex; flex-direction: column; gap: 15px; }
@@ -215,18 +251,35 @@
             </div>
 
             <div id="tab-page-qr" class="app-page">
-                <div class="mesh-panel-view">
-                    <h3 style="margin-top:0;">အော့ဖ်လိုင်း ဆက်သွယ်ရေး စနစ် (Mesh Mode)</h3>
-                    <p style="font-size:13px; color:var(--text-muted); margin-bottom:25px;">တောင်ပေါ်ဒေသတွင် လိုင်းလုံးဝမရှိပါက Local WiFi/Hotspot ချိတ်ဆက်ပြီး QR စနစ်ဖြင့် အချင်းချင်း ချိတ်ဆက်နိုင်ပါသည်။</p>
+                <div class="premium-mesh-workspace">
                     
-                    <button class="mesh-btn" style="background:#00e5ff;" onclick="generateEmergencyMeshQR()"><i class="fas fa-qrcode"></i> ကျွန်ုပ်၏ QR Code ထုတ်မည်</button>
-                    <button class="mesh-btn" style="background:#ff9900;" onclick="initializeCameraMeshScanner()"><i class="fas fa-camera"></i> တစ်ဖက်လူ QR စကင်ဖတ်မည်</button>
-                    
-                    <input type="text" id="manual-mesh-ip" class="auth-input" style="margin-top:15px; width:100%;" placeholder="သို့မဟုတ် တစ်ဖက်လူ Local IP ရိုက်ထည့်ပါ">
-                    
-                    <div id="qrcode-render-area" class="qr-render-box"></div>
-                    <div id="scanner-preview"></div>
+                    <div class="mesh-action-circle-row">
+                        <div class="mesh-circle-btn qr-trigger" onclick="openMyQrPopupModal()" title="ကျွန်ုပ်၏ QR Code">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <div class="mesh-circle-btn scan-trigger" onclick="openCameraScannerPopupModal()" title="တစ်ဖက်လူ QR ဖတ်မည်">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                    </div>
+
+                    <div class="mesh-search-wrapper">
+                        <i class="fas fa-search mesh-search-icon"></i>
+                        <input type="text" id="manual-mesh-ip" class="mesh-search-bar" placeholder="တစ်ဖက်လူရဲ့ local ip နဲ့ရှာရန်...">
+                    </div>
+
                 </div>
+            </div>
+
+            <div id="modal-my-qr-popup" class="mesh-popup-modal-overlay">
+                <button class="modal-close-top-btn" onclick="closeMyQrPopupModal()"><i class="fas fa-times"></i></button>
+                <div id="qrcode-render-area" class="qr-render-box"></div>
+                <p style="font-size: 13px; color: var(--text-muted); margin-top: 20px;">မင်းရဲ့ အော့ဖ်လိုင်း QR Code Node 📞</p>
+            </div>
+
+            <div id="modal-camera-scanner-popup" class="mesh-popup-modal-overlay">
+                <button class="modal-close-top-btn" onclick="closeCameraScannerPopupModal()"><i class="fas fa-times"></i></button>
+                <div id="scanner-preview-container"></div>
+                <p style="font-size: 13px; color: var(--text-muted); margin-top: 20px;">QR Code အား စကင်ဖတ်နေပါသည်... 📷</p>
             </div>
 
             <div id="tab-page-settings" class="app-page">
@@ -339,7 +392,6 @@
             document.documentElement.setAttribute('data-theme', theme);
         }
 
-        // 🚀 FULL SCREEN CHAT HUB MOUNTING DIRECTIVE
         function openActiveChatRoom(roomId) {
             currentRoomId = roomId;
             document.getElementById('app-main-header').style.display = 'none';
@@ -353,29 +405,41 @@
             document.getElementById('app-footer-navigation').style.display = 'flex';
         }
 
-        function generateEmergencyMeshQR() {
+        /* 🔲 DYNAMIC MODAL PLATFORM IMPLEMENTATION ARCHITECTURE */
+        function openMyQrPopupModal() {
+            document.getElementById('modal-my-qr-popup').style.display = "flex";
             const renderBox = document.getElementById('qrcode-render-area');
-            renderBox.style.display = "block";
             const qr = qrcode(4, 'L');
             qr.addData(`NEXUS-NODE:${myUsername}`);
             qr.make();
-            renderBox.innerHTML = qr.createImgTag(5);
+            renderBox.innerHTML = qr.createImgTag(6);
+        }
+        function closeMyQrPopupModal() {
+            document.getElementById('modal-my-qr-popup').style.display = "none";
         }
 
-        function initializeCameraMeshScanner() {
-            document.getElementById('scanner-preview').style.display = "block";
-            qrScannerInstance = new Html5Qrcode("scanner-preview");
-            qrScannerInstance.start({ facingMode: "environment" }, { fps: 10, qrbox: 250 },
+        function openCameraScannerPopupModal() {
+            document.getElementById('modal-camera-scanner-popup').style.display = "flex";
+            qrScannerInstance = new Html5Qrcode("scanner-preview-container");
+            qrScannerInstance.start({ facingMode: "environment" }, { fps: 10, qrbox: 230 },
                 qrCodeMessage => {
                     if(qrCodeMessage.startsWith("NEXUS-NODE:")) {
                         const peerUser = qrCodeMessage.split(":")[1];
                         alert(`📡 Node Found: ${peerUser} နှင့် Local Bridge ချိတ်ဆက်မိပါပြီ သားကြီး!`);
-                        if(qrScannerInstance) {
-                            qrScannerInstance.stop().then(() => { document.getElementById('scanner-preview').style.display = "none"; });
-                        }
+                        closeCameraScannerPopupModal();
                     }
                 }, err => {}
             ).catch(e => alert("ကင်မရာဖွင့်၍မရပါ- " + e));
+        }
+        function closeCameraScannerPopupModal() {
+            if(qrScannerInstance) {
+                qrScannerInstance.stop().then(() => {
+                    qrScannerInstance = null;
+                    document.getElementById('modal-camera-scanner-popup').style.display = "none";
+                }).catch(e => { document.getElementById('modal-camera-scanner-popup').style.display = "none"; });
+            } else {
+                document.getElementById('modal-camera-scanner-popup').style.display = "none";
+            }
         }
 
         function startRealtimeDatabaseMeshSync() {
@@ -470,7 +534,6 @@
             if(element) element.scrollTop = element.scrollHeight;
         }
 
-        // 🎥 OUTBOUND ROUTING GATEWAY (VOICE OR VIDEO ROUTE OPTIMIZATION)
         async function triggerOutboundCallSession(type) {
             currentCallType = type;
             document.getElementById('active-call-overlay').style.display = 'flex';
