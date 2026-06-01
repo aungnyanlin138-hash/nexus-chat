@@ -3,18 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>NEXUS - Live Google Integration</title>
+    <title>NEXUS - 100GB Emergency Hybrid Mesh Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode"></script>
-    
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    
     <style>
         :root {
             --bg-main: #0c0f1d; --bg-card: #161b2e; --bg-nav: #111424;
             --accent: #39ff14; --text: #ffffff; --text-muted: #8e9cb2; --border: rgba(255, 255, 255, 0.08);
-            --bubble-in: #161b2e; --bubble-out: #111424; --bubble-out-text: #39ff14;
+            --bubble-in: #161b2e; --bubble-out: #2c5364; --bubble-out-text: #ffffff;
         }
         [data-theme='romantic'] {
             --bg-main: #fff0f5; --bg-card: #ffe4e1; --bg-nav: #ffb6c1;
@@ -26,19 +24,17 @@
             --accent: #00e5ff; --text: #ffffff; --text-muted: #b0bec5; --border: rgba(255, 255, 255, 0.15);
             --bubble-in: rgba(255,255,255,0.1); --bubble-out: rgba(0,229,255,0.2); --bubble-out-text: #ffffff;
         }
-
         html, body {
             margin: 0; padding: 0; width: 100%; height: 100%; height: -webkit-fill-available;
             background: #070911; color: var(--text); font-family: -apple-system, sans-serif;
             display: flex; justify-content: center; align-items: center; overflow: hidden;
         }
-
         .phone-container {
             width: 100vw; max-width: 420px; height: 100vh; height: 100dvh; 
             background: var(--bg-main); display: flex; flex-direction: column; position: relative; overflow: hidden;
         }
-
-        /* --- 🔐 ACCOUNT CREATION SCREEN --- */
+        
+        /* 🔐 AUTH & CONFIG SCREEN */
         #page-auth-screen {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--bg-main); z-index: 9999999; 
@@ -51,388 +47,357 @@
             border: 1px solid var(--border); background: var(--bg-card); color: var(--text);
             font-size: 14px; margin-bottom: 12px; box-sizing: border-box; text-align: center;
         }
-        .auth-input:focus { border-color: var(--accent); outline: none; }
         .auth-btn {
             width: 100%; max-width: 290px; padding: 13px; border-radius: 24px;
             border: none; background: var(--accent); color: #000; font-size: 14px;
-            font-weight: 700; cursor: pointer; margin-top: 5px; margin-bottom: 20px;
+            font-weight: 700; cursor: pointer; margin-top: 5px;
         }
-
-        .divider-text { color: var(--text-muted); font-size: 12px; margin: 10px 0; width: 100%; max-width: 290px; display: flex; align-items: center; justify-content: center; }
-        .divider-text::before, .divider-text::after { content: ""; flex: 1; height: 1px; background: var(--border); margin: 0 10px; }
-        
-        .social-btn {
-            width: 100%; max-width: 290px; padding: 12px; border-radius: 24px;
-            border: none; color: #ffffff; font-size: 14px; font-weight: 600;
-            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px;
-            margin-bottom: 10px; box-sizing: border-box; transition: opacity 0.2s;
-        }
-        .social-btn:active { opacity: 0.8; }
-        .btn-gmail { background: #ea4335; } 
-        .btn-facebook { background: #1877f2; } 
-        .btn-discord { background: #5865f2; } 
+        .mode-badge { background: #00e5ff; color: black; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; margin-top: 10px; }
 
         /* Top Header */
         .top-header { 
             padding: 0 16px; background: var(--bg-nav); border-bottom: 1px solid var(--border); 
             font-size: 19px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; 
-            height: 55px; min-height: 55px; box-sizing: border-box; backdrop-filter: blur(10px);
+            height: 55px; backdrop-filter: blur(10px); box-sizing: border-box;
         }
-        .theme-selector { background: var(--bg-card); border: 1px solid var(--border); color: var(--text); padding: 5px 8px; border-radius: 8px; font-size: 12px; }
+        .network-status { font-size: 11px; font-weight: bold; color: var(--accent); background: rgba(57, 255, 20, 0.1); padding: 4px 8px; border-radius: 8px; }
+        .theme-selector { background: var(--bg-card); border: 1px solid var(--border); color: var(--text); padding: 5px 8px; border-radius: 8px; font-size: 11px; }
 
         .main-viewport { flex: 1; position: relative; width: 100%; overflow: hidden; }
-        .app-page { display: none; width: 100%; height: 100%; box-sizing: border-box; flex-direction: column; overflow-y: auto; }
+        .app-page { display: none; width: 100%; height: 100%; box-sizing: border-box; flex-direction: column; }
         .app-page.active-page { display: flex !important; }
 
-        .chat-card { display: flex; align-items: center; padding: 16px; border-bottom: 1px solid var(--border); cursor: pointer; }
-        .avatar {
-            width: 48px; height: 48px; border-radius: 50%; background: var(--bg-card);
-            display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 15px;
-            color: var(--accent); border: 1px solid var(--border); flex-shrink: 0; margin-right: 14px;
-            overflow: hidden; position: relative;
-        }
-        .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-        .chat-details { flex: 1; display: flex; flex-direction: column; gap: 4px; overflow: hidden; }
-        .name-row { display: flex; justify-content: space-between; font-size: 15px; font-weight: 600; }
+        /* 💬 CHAT VIEW LAYOUT */
+        .chat-view { flex: 1; display: flex; flex-direction: column; height: 100%; }
+        .messages-container { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .msg-bubble { max-width: 75%; padding: 10px 14px; border-radius: 16px; font-size: 14px; line-height: 1.4; word-break: break-word; }
+        .msg-in { background: var(--bubble-in); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
+        .msg-out { background: var(--bubble-out); color: var(--bubble-out-text); align-self: flex-end; border-bottom-right-radius: 4px; }
+        
+        .chat-input-bar { padding: 10px; background: var(--bg-nav); border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; }
+        .chat-input { flex: 1; padding: 12px; background: var(--bg-card); border: 1px solid var(--border); color: white; border-radius: 20px; font-size: 14px; }
+        .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); border: none; color: black; font-size: 16px; cursor: pointer; }
 
-        /* 🧱 BOTTOM NAV BAR */
-        .bottom-nav-bar {
-            height: 65px; min-height: 65px; background: var(--bg-nav); border-top: 1px solid var(--border);
-            display: flex; justify-content: space-around; align-items: center; width: 100%; box-sizing: border-box;
-            position: relative; z-index: 10; padding-bottom: env(safe-area-inset-bottom); backdrop-filter: blur(10px);
-        }
-        .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; flex: 1; height: 100%; gap: 5px; }
-        .nav-item i { font-size: 20px; }
-        .nav-item span { font-size: 11px; font-weight: 500; }
-        .nav-item.active { color: var(--accent); }
+        /* 📱 VIDEO CALL SCREEN */
+        .video-grid { display: flex; flex-direction: column; gap: 10px; padding: 16px; flex: 1; background: #070911; height: calc(100% - 70px); box-sizing: border-box; }
+        .video-wrapper { position: relative; flex: 1; background: #111424; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); }
+        video { width: 100%; height: 100%; object-fit: cover; }
+        .video-label { position: absolute; bottom: 12px; left: 12px; background: rgba(0,0,0,0.6); padding: 4px 10px; border-radius: 8px; font-size: 11px; }
 
-        .pane-padded { padding: 24px; align-items: center; text-align: center; }
-        .profile-input-box { width: 100%; max-width: 260px; padding: 12px 16px; border-radius: 24px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text); font-size: 14px; text-align: center; font-weight: 600; box-sizing: border-box; }
-        .qr-card-box { background: #ffffff; padding: 12px; border-radius: 16px; margin: 15px 0; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .qr-display-area { display: none; flex-direction: column; align-items: center; width: 100%; margin-top: 15px; }
-        .upload-label { padding: 8px 16px; background: var(--bg-card); border: 1px dashed var(--accent); color: var(--text); border-radius: 20px; font-size: 12px; cursor: pointer; margin-top: 10px; display: inline-block; }
+        .call-controls { height: 70px; display: flex; justify-content: center; align-items: center; gap: 20px; background: var(--bg-nav); border-top: 1px solid var(--border); }
+        .control-btn { width: 45px; height: 45px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; font-size: 16px; color: white; background: var(--bg-card); cursor: pointer; }
+        .control-btn.btn-end { background: #ff3333; }
 
-        /* --- 💬 INSIDE CHAT ROOM --- */
-        #page-chat-room { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-main); z-index: 999999; flex-direction: column; box-sizing: border-box; }
-        #page-chat-room.active { display: flex !important; }
-        .room-header { padding: 0 14px; background: var(--bg-nav); border-bottom: 1px solid var(--border); display: flex; align-items: center; height: 55px; min-height: 55px; box-sizing: border-box; }
-        .back-btn { background: none; border: none; color: var(--accent); font-size: 20px; cursor: pointer; padding-right: 10px; }
-        .header-call-actions { margin-left: auto; display: flex; align-items: center; gap: 22px; }
-        .call-icon-btn { background: none; border: none; color: var(--accent); cursor: pointer; padding: 5px; font-size: 20px; }
-        .message-display-area { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
-        .msg-bubble { max-width: 75%; padding: 11px 15px; border-radius: 18px; font-size: 15px; }
-        .msg-bubble.incoming { background: var(--bubble-in); align-self: flex-start; color: var(--text); border-top-left-radius: 4px; border: 1px solid var(--border); }
-        .msg-bubble.outgoing { background: var(--bubble-out); align-self: flex-end; color: var(--bubble-out-text); border-top-right-radius: 4px; border: 1px solid var(--border); font-weight: 500; }
-        .room-bottom-bar { padding: 12px; background: var(--bg-nav); border-top: 1px solid var(--border); display: flex; gap: 10px; align-items: center; padding-bottom: calc(12px + env(safe-area-inset-bottom)); }
-        #reader { width: 100%; max-width: 280px; background: #000; border-radius: 12px; overflow: hidden; margin-top: 15px; display: none; }
+        /* 🔲 QR POPUP & CAMERA SCANNER */
+        #qr-popup-box, #qr-scanner-box { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7,9,17,0.95); z-index: 999999; flex-direction: column; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+        .qr-display-area { background: white; padding: 16px; border-radius: 16px; margin: 20px 0; }
+        .action-header-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--accent); padding: 6px 12px; border-radius: 14px; font-size: 12px; cursor: pointer; font-weight: bold; }
+        .bottom-nav-bar { height: 65px; background: var(--bg-nav); border-top: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; }
     </style>
 </head>
 <body>
 
-    <div class="phone-container" id="app-container">
-        
+    <div class="phone-container">
         <div id="page-auth-screen">
-            <div class="auth-logo"><i class="fa-solid fa-circle-nodes"></i> NEXUS</div>
-            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 25px;">Live Google Integrated Mode 🚀</p>
+            <div class="auth-logo">NEXUS PRO</div>
+            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">Cloudflare 100GB D1 Ecosystem & Mesh Network</p>
+            <input type="text" id="auth-username" class="auth-input" placeholder="မင်းနာမည်ရိုက်ထည့်ပါ သားကြီး">
+            <input type="text" id="local-ip-input" class="auth-input" placeholder="လိုင်းမရှိရင် တစ်ဖက်လူ IP ရိုက်ပါ">
             
-            <input type="text" id="reg-name" class="auth-input" placeholder="အမည် ရိုက်ထည့်ပါ..." />
-            <input type="tel" id="reg-phone" class="auth-input" placeholder="ဖုန်းနံပါတ် ရိုက်ထည့်ပါ..." />
-            <button class="auth-btn" onclick="registerAccountEngine()">အကောင့်အသစ်ဖွင့်မည်</button>
-            
-            <div class="divider-text">ဒါမှမဟုတ် တကယ့် ဂျီမေးလ်ဖြင့် ဝင်ပါ</div>
-            
-            <button class="social-btn btn-gmail" onclick="triggerLiveGoogleLogin()">
-                <i class="fa-brands fa-google"></i> Gmail အစစ်ဖြင့် ချိတ်ဆက်မည်
-            </button>
-            
-            <button class="social-btn btn-facebook" onclick="simulateSocialLogin('Facebook', 'Facebook User')">
-                <i class="fa-brands fa-facebook-f"></i> Facebook နှင့် ချိတ်ဆက်မည်
-            </button>
-            <button class="social-btn btn-discord" onclick="simulateSocialLogin('Discord', 'Discord Gamer')">
-                <i class="fa-brands fa-discord"></i> Discord နှင့် ချိတ်ဆက်မည်
-            </button>
+            <div style="display:flex; gap:10px; margin-bottom:15px; width:100%; max-width:290px;">
+                <button class="auth-btn" style="flex:1; background:#00e5ff;" onclick="generateMyMeshQR()"><i class="fas fa-qrcode"></i> QR ထုတ်မည်</button>
+                <button class="auth-btn" style="flex:1; background:#ff9900;" onclick="openMeshQRScanner()"><i class="fas fa-camera"></i> QR ဖတ်မည်</button>
+            </div>
+
+            <button class="auth-btn" onclick="initiateMeshNetwork()">ကွန်ရက်ထဲသို့ဝင်မည်</button>
+            <div id="g_id_onload" data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com" data-callback="handleCredentialResponse"></div>
+            <div class="g_id_signin style='margin-top:15px;'" data-type="standard"></div>
+            <div class="mode-badge">📡 100 GB Cloud Database Engine Ready</div>
         </div>
-        
+
+        <div id="qr-popup-box">
+            <h3>မင်းရဲ့ အော့ဖ်လိုင်း QR Code 📞</h3>
+            <div id="qrcode-render" class="qr-display-area"></div>
+            <button class="auth-btn" style="background:#ff3333; color:white;" onclick="closeQRBox()">ပိတ်မည်</button>
+        </div>
+
+        <div id="qr-scanner-box">
+            <h3>QR Code ဖတ်နေသည်... 📷</h3>
+            <div id="scanner-preview" style="width: 280px; height: 280px; background:#111; border-radius:16px; overflow:hidden;"></div>
+            <button class="auth-btn" style="background:#ff3333; color:white; margin-top:20px;" onclick="closeQRScannerBox()">ပိတ်မည်</button>
+        </div>
+
         <div class="top-header">
-            <span id="header-title">NEXUS</span>
-            <select class="theme-selector" onchange="applyDynamicThemeSystem(this.value)">
-                <option value="cyber" selected>Cyber Neon 🟢</option>
-                <option value="romantic">Sweet Rs 🌸</option>
-                <option value="glass">Minimal Glass ❄️</option>
+            <span>NEXUS Chat</span>
+            <select class="theme-selector" onchange="changeTheme(this.value)">
+                <option value="cyber">Cyber Dark</option>
+                <option value="romantic">Romantic</option>
+                <option value="glass">Glass Morph</option>
             </select>
+            <span id="status-text" class="network-status">🟢 100GB D1 Connected</span>
         </div>
 
         <div class="main-viewport">
-            <div id="tab-chats" class="app-page active-page">
-                <div id="friends-list-box">
-                    <div class="chat-card" onclick="openChatRoom('Ma Cho', 'MC')">
-                        <div class="avatar">MC</div>
-                        <div class="chat-details">
-                            <div class="name-row"><span>Ma Cho</span><span style="color:var(--text-muted); font-size:11px;">15:45</span></div>
-                            <div style="font-size: 13px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">တကယ့် Gmail Login ရော ပရိုဖိုင်ပုံစံပါ Live ချိတ်သွားပြီ သားကြီး!</div>
-                        </div>
+            <div id="page-chat" class="app-page active-page">
+                <div class="chat-view">
+                    <div style="padding: 10px; background: rgba(255,255,255,0.02); display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border);">
+                        <span style="font-size:13px; color:var(--text-muted);" id="chatting-with">Emergency Channel (100GB D1 Stack)</span>
+                        <button class="action-header-btn" onclick="triggerVoiceVideoCall()"><i class="fas fa-video"></i> Call ခေါ်မည်</button>
+                    </div>
+                    <div class="messages-container" id="msg-box"></div>
+                    <div class="chat-input-bar">
+                        <input type="text" id="chat-msg-input" class="chat-input" placeholder="စာရိုက်ထည့်ပါ သားကြီး...">
+                        <button class="send-btn" onclick="sendTextMessage()"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
             </div>
 
-            <div id="tab-calls" class="app-page pane-padded" style="justify-content: center;">
-                <i id="calls-empty-icon" class="fa-solid fa-phone-slash" style="font-size: 40px; color: var(--accent); margin-bottom: 15px;"></i>
-                <h3>ဖုန်းခေါ်ဆိုမှုများ</h3>
-                <p style="color:var(--text-muted); font-size:14px;">လတ်တလော ဖုန်းခေါ်ဆိုမှု မရှိသေးပါ သားကြီး။</p>
-            </div>
-
-            <div id="tab-scan" class="app-page pane-padded">
-                <h3>QR သူငယ်ချင်းအပ်ရန်</h3>
-                <div style="display: flex; gap: 10px; width: 100%; max-width: 280px; margin-top: 15px;">
-                    <button class="profile-input-box" style="background:var(--accent); border:none; color:#000; cursor:pointer; flex:1; padding:10px;" onclick="toggleScannerEngine(true)">📷 စကင်ဖတ်မည်</button>
-                    <button class="profile-input-box" style="background:var(--bg-card); border:1px solid var(--border); color:var(--text); cursor:pointer; flex:1; padding:10px;" onclick="showScanTabQRCode()">🔲 ကုဒ်ထုတ်ပြရန်</button>
+            <div id="page-video-call" class="app-page">
+                <div class="video-grid">
+                    <div class="video-wrapper">
+                        <video id="remoteVideo" autoplay playsinline></video>
+                        <div class="video-label">Remote Stream (Adaptive)</div>
+                    </div>
+                    <div class="video-wrapper" style="flex: 0; height: 110px;">
+                        <video id="localVideo" autoplay playsinline muted></video>
+                        <div class="video-label">မင်း (Local)</div>
+                    </div>
                 </div>
-                <div id="reader"></div>
-                <div id="scan-tab-qr-area" class="qr-display-area">
-                    <h4 style="margin: 15px 0 5px 0; color: var(--text-muted);">ကျွန်ုပ်၏ NEXUS QR</h4>
-                    <div id="qrcode-scan-tab" class="qr-card-box"></div>
-                </div>
-            </div>
-
-            <div id="tab-more" class="app-page pane-padded">
-                <h3>ကျွန်ုပ်၏ ပရိုဖိုင်</h3>
-                <div class="avatar" style="width:85px; height:85px; font-size:24px; margin: 0 auto 5px auto;" id="my-large-avatar">Ny</div>
-                <label class="upload-label" for="profile-image-upload"><i class="fa-solid fa-camera"></i> ပရိုဖိုင်ပုံတင်ရန်</label>
-                <input type="file" id="profile-image-upload" accept="image/*" style="display:none;" onchange="uploadProfileImage(event)" />
-                <div style="margin-top:25px; width:100%; display:flex; justify-content:center;">
-                    <input type="text" id="my-id" class="profile-input-box" value="Nyanlinaung" oninput="syncProfileNameAndQR()" placeholder="အမည်ရိုက်ထည့်ပါ..." />
+                <div class="call-controls">
+                    <button class="control-btn" onclick="toggleMute()"><i class="fas fa-microphone"></i></button>
+                    <button class="control-btn btn-end" onclick="endCallSession()"><i class="fas fa-phone-slash"></i></button>
+                    <button class="control-btn" onclick="toggleCamera()"><i class="fas fa-video"></i></button>
                 </div>
             </div>
         </div>
 
-        <div class="bottom-nav-bar" id="app-bottom-nav">
-            <div class="nav-item active" onclick="switchTab('chats', this)"><i id="icon-chats" class="fa-solid fa-user-ninja"></i><span>Chats</span></div>
-            <div class="nav-item" onclick="switchTab('calls', this)"><i id="icon-calls" class="fa-solid fa-phone-volume"></i><span>Calls</span></div>
-            <div class="nav-item" onclick="switchTab('scan', this)"><i id="icon-scan" class="fa-solid fa-qrcode"></i><span>QR Scan</span></div>
-            <div class="nav-item" onclick="switchTab('more', this)"><i id="icon-more" class="fa-solid fa-gear"></i><span>More</span></div>
+        <div class="bottom-nav-bar">
+            <i class="fas fa-comment-alt" style="color: var(--accent); font-size: 20px;"></i>
+            <i class="fas fa-users" style="color: var(--text-muted); font-size: 20px;"></i>
+            <i class="fas fa-cog" style="color: var(--text-muted); font-size: 20px;"></i>
         </div>
-
-        <div id="page-chat-room">
-            <div class="room-header">
-                <button class="back-btn" onclick="closeChatRoom()"><i class="fa-solid fa-arrow-left"></i></button>
-                <div class="avatar" id="room-avatar" style="width:36px; height:36px; font-size:13px; margin:0 10px 0 0;">??</div>
-                <div>
-                    <div id="room-title" style="font-size: 16px; font-weight: bold; color: var(--text);">Name</div>
-                    <div style="font-size: 11px; color: var(--accent);">လိုင်းပွင့်နေပါသည်</div>
-                </div>
-                <div class="header-call-actions">
-                    <button class="call-icon-btn" onclick="triggerCallNotification('Voice Call')"><i id="icon-room-voice" class="fa-solid fa-phone"></i></button>
-                    <button class="call-icon-btn" onclick="triggerCallNotification('Video Call')"><i id="icon-room-video" class="fa-solid fa-video"></i></button>
-                </div>
-            </div>
-            <div class="message-display-area" id="room-messages"></div>
-            <div class="room-bottom-bar">
-                <input type="text" id="msg-text" class="profile-input-box" style="margin:0; text-align:left; max-width:100%; flex:1; border-radius: 24px;" placeholder="ဒီနေရာမှာ စာရေးပါ..." />
-                <button class="profile-input-box" style="margin:0; max-width:80px; background:var(--accent); border:none; color:#000; border-radius: 24px;" onclick="sendDirectMessage()">ပို့ရန်</button>
-            </div>
-        </div>
-
     </div>
 
-    <script {nonce}>
-        let currentActiveTab = "chats";
-        let html5QrEngine = null;
-        let globalProfileImgData = null; 
+    <script>
+        let signalingUrl = "https://nexus-call-server.aungnyanlin138.workers.dev";
+        let isOnline = true;
+        let localTargetIP = ""; 
+        let localStream, peerConnection, currentRoomId = "global-mesh";
+        let myUsername = "User";
+        let qrScannerInstance = null;
 
-        // 🔥 မင်းဆီက ရလာတဲ့ တကယ့် Google Client ID အစစ်ကြီးကို ဒီမှာ တိုက်ရိုက် မောင်းနှင်လိုက်ပြီ သားကြီး!
-        const GOOGLE_CLIENT_ID = "823907583784-1kn0n578nip7rbkv65h2l6k4fhk9g3qb.apps.googleusercontent.com";
-
-        window.onload = function() { 
-            applyDynamicThemeSystem('cyber'); 
-            initGoogleIdentitySDK(); // Page စဖွင့်တာနဲ့ Google Engine စမောင်းမယ်
+        const rtcConfig = { 
+            iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
+            iceTransportPolicy: "all",
+            iceCandidatePoolSize: 2
         };
 
-        // 🔐 --- 🔴 LIVE GOOGLE IDENTITY SDK INITIALIZER ---
-        function initGoogleIdentitySDK() {
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSavedMessages();
+            if (Notification.permission !== "granted") Notification.requestPermission();
+        });
+
+        function changeTheme(theme) { document.documentElement.setAttribute('data-theme', theme); }
+
+        function handleCredentialResponse(response) {
+            const data = jwt_decode(response.credential);
+            myUsername = data.name;
+            document.getElementById('page-auth-screen').style.display = 'none';
+            startRealtimeMeshSync();
+        }
+
+        function generateMyMeshQR() {
+            document.getElementById('qr-popup-box').style.display = "flex";
+            const qr = qrcode(4, 'L');
+            qr.addData(`NEXUS-MESH:${document.getElementById('auth-username').value || 'User'}`);
+            qr.make();
+            document.getElementById('qrcode-render').innerHTML = qr.createImgTag(6);
+        }
+        function closeQRBox() { document.getElementById('qr-popup-box').style.display = "none"; }
+
+        function openMeshQRScanner() {
+            document.getElementById('qr-scanner-box').style.display = "flex";
+            qrScannerInstance = new Html5Qrcode("scanner-preview");
+            qrScannerInstance.start(
+                { facingMode: "environment" },
+                { fps: 10, qrbox: 250 },
+                qrCodeMessage => {
+                    if(qrCodeMessage.startsWith("NEXUS-MESH:")) {
+                        const targetUser = qrCodeMessage.split(":")[1];
+                        alert(`NEXUS: ${targetUser} ၏ QR Code ကို ဖတ်မိပါပြီ။ ချိတ်ဆက်နေပါသည်။`);
+                        document.getElementById('auth-username').value = "Peer-Device";
+                        closeQRScannerBox();
+                        initiateMeshNetwork();
+                    }
+                },
+                errorMessage => { }
+            ).catch(err => alert("Scanner အမှား: " + err));
+        }
+        function closeQRScannerBox() {
+            if(qrScannerInstance) { qrScannerInstance.stop().then(() => { document.getElementById('qr-scanner-box').style.display = "none"; }); }
+        }
+
+        function initiateMeshNetwork() {
+            const user = document.getElementById('auth-username').value;
+            localTargetIP = document.getElementById('local-ip-input').value;
+            if(!user) return alert("နာမည်ထည့်ပါ သားကြီး!");
+            myUsername = user;
+            document.getElementById('page-auth-screen').style.display = 'none';
+            startRealtimeMeshSync();
+        }
+
+        // 🔄 100GB Cloud D1 Database Sync Engine (စာရော Signals ပါ တစ်ပြိုင်နက် သိမ်းဆည်းဖတ်ရှုခြင်း)
+        function startRealtimeMeshSync() {
+            setInterval(async () => {
+                let fetchUrl = (navigator.onLine && !localTargetIP) ? `${signalingUrl}/api/room/${currentRoomId}` : `http://${localTargetIP}:8080/api/sync`;
+                try {
+                    const res = await fetch(fetchUrl);
+                    if (res.status === 200) {
+                        const data = await res.json();
+                        
+                        // 100GB D1 Storage ထဲမှ စာအသစ်များကို အချိန်နဲ့တပြေးညီ ဆွဲယူခြင်း
+                        if(data.text_message && data.sender !== myUsername) {
+                            const lastMsg = localStorage.getItem('last_msg_check');
+                            if(lastMsg !== data.text_message) {
+                                appendMessage(data.sender, data.text_message, "in");
+                                localStorage.setItem('last_msg_check', data.text_message);
+                            }
+                        }
+                        if (data.offer && !data.answer && !peerConnection) {
+                            triggerInboundCallAlert(data);
+                        }
+                    }
+                } catch (e) { console.log("Database Syncing..."); }
+            }, 3000);
+        }
+
+        function triggerInboundCallAlert(data) {
+            if (Notification.permission === "granted") {
+                const n = new Notification("NEXUS PRO Call Incoming 📞", { body: "အရေးပေါ် ချန်နယ်မှ ဖုန်းခေါ်ဆိုနေပါသည်။" });
+                n.onclick = () => { window.focus(); acceptIncomingCall(data); };
+            }
+            if(confirm("NEXUS Call: အရေးပေါ် ဖုန်းခေါ်ဆိုမှု ရောက်နေပါသည်။ ကိုင်မလား သားကြီး?")) { acceptIncomingCall(data); }
+        }
+
+        // 💬 စာပို့စနစ် (Cloud D1 100GB Storage ထဲသို့ တိုက်ရိုက်တွန်းပို့သိမ်းဆည်းခြင်း)
+        async function sendTextMessage() {
+            const input = document.getElementById('chat-msg-input');
+            const text = input.value;
+            if(!text) return;
+
+            appendMessage(myUsername, text, "out");
+            input.value = "";
+
+            // 🚀 100GB Storage စနစ်ထဲ စာများကို ထည့်သွင်းရန် ပို့ဆောင်ခြင်း
+            let payload = { room_id: currentRoomId, text_message: text, sender: myUsername };
+            await sendPayloadToMesh(payload);
+        }
+
+        function appendMessage(sender, text, type) {
+            const box = document.getElementById('msg-box');
+            const bubble = document.createElement('div');
+            bubble.className = `msg-bubble msg-${type}`;
+            bubble.innerText = `${sender}: ${text}`;
+            box.appendChild(bubble);
+            box.scrollTop = box.scrollHeight;
+
+            let savedBox = JSON.parse(localStorage.getItem('nexus_chat_history') || "[]");
+            savedBox.push({ sender, text, type });
+            localStorage.setItem('nexus_chat_history', JSON.stringify(savedBox));
+        }
+
+        function loadSavedMessages() {
+            let savedBox = JSON.parse(localStorage.getItem('nexus_chat_history') || "[]");
+            savedBox.forEach(m => {
+                const box = document.getElementById('msg-box');
+                const bubble = document.createElement('div');
+                bubble.className = `msg-bubble msg-${m.type}`;
+                bubble.innerText = `${m.sender}: ${m.text}`;
+                box.appendChild(bubble);
+            });
+            const b = document.getElementById('msg-box'); b.scrollTop = b.scrollHeight;
+        }
+
+        // 📞 2G Optimized Call Logic
+        async function triggerVoiceVideoCall() {
+            document.getElementById('page-chat').classList.remove('active-page');
+            document.getElementById('page-video-call').classList.add('active-page');
+
             try {
-                google.accounts.id.initialize({
-                    client_id: GOOGLE_CLIENT_ID,
-                    callback: handleGoogleCredentialResponseBox
+                localStream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { width: 176, height: 144, frameRate: { max: 7 } }, 
+                    audio: { echoCancellation: true, noiseSuppression: true } 
                 });
-            } catch(e) { console.log("Google SDK Web Local Server Loading Standby..."); }
+                document.getElementById('localVideo').srcObject = localStream;
+
+                peerConnection = new RTCPeerConnection(rtcConfig);
+                localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+
+                peerConnection.ontrack = e => { document.getElementById('remoteVideo').srcObject = e.streams[0]; };
+                peerConnection.onicecandidate = e => { if (e.candidate) sendPayloadToMesh({ candidates: JSON.stringify(e.candidate) }); };
+                peerConnection.onconnectionstatechange = () => { if (peerConnection.connectionState === "connected") limitBandwidthBitrate(); };
+
+                const offer = await peerConnection.createOffer();
+                await peerConnection.setLocalDescription(offer);
+                await sendPayloadToMesh({ offer: JSON.stringify(offer) });
+            } catch (err) { initiateAudioOnlyFallback(); }
         }
 
-        function triggerLiveGoogleLogin() {
-            // Google Login Popup မျက်နှာပြင်ကြီးကို Live အစစ် ဆွဲခေါ်လိုက်ပြီ သားကြီး!
+        async function acceptIncomingCall(roomData) {
+            document.getElementById('page-chat').classList.remove('active-page');
+            document.getElementById('page-video-call').classList.add('active-page');
+
             try {
-                google.accounts.id.prompt();
-            } catch(e) {
-                // Localhost မဟုတ်တဲ့ ဖုန်းထဲမှာ စမ်းရင် Fallback အနေနဲ့ အလုပ်လုပ်အောင် သတ်မှတ်ချက်
-                alert("⚠️ Local Server ပေါ်မှာ စမ်းသပ်မှု ပုံတူစနစ်ဖြင့် ဆက်သွားပါမည်ဗျာ!");
-                simulateSocialLogin('Google (Gmail)', 'Aung Nyan Lin');
-            }
+                localStream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { width: 176, height: 144, frameRate: { max: 7 } }, 
+                    audio: { echoCancellation: true, noiseSuppression: true } 
+                });
+                document.getElementById('localVideo').srcObject = localStream;
+
+                peerConnection = new RTCPeerConnection(rtcConfig);
+                localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+                peerConnection.ontrack = e => { document.getElementById('remoteVideo').srcObject = e.streams[0]; };
+                peerConnection.onconnectionstatechange = () => { if (peerConnection.connectionState === "connected") limitBandwidthBitrate(); };
+
+                await peerConnection.setRemoteDescription(new RTCSessionDescription(JSON.parse(roomData.offer)));
+                const answer = await peerConnection.createAnswer();
+                await peerConnection.setLocalDescription(answer);
+                await sendPayloadToMesh({ answer: JSON.stringify(answer) });
+            } catch (err) { initiateAudioOnlyFallback(); }
         }
 
-        // 🔥 Google ဆီကနေ အကောင့်ဝင်ပြီးလို့ Data တွေ ပြန်ကျလာရင် ဖတ်မယ့် ဉာဏ်ရည်တု အကွက်
-        function handleGoogleCredentialResponseBox(response) {
+        function limitBandwidthBitrate() {
+            peerConnection.getSenders().forEach(sender => {
+                const parameters = sender.getParameters();
+                if (!parameters.encodings) parameters.encodings = [{}];
+                if (sender.track.kind === "video") { parameters.encodings[0].maxBitrate = 15000; } 
+                else if (sender.track.kind === "audio") { parameters.encodings[0].maxBitrate = 6000; }
+                sender.setParameters(parameters).catch(e => console.error(e));
+            });
+        }
+
+        async function initiateAudioOnlyFallback() {
+            localStream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true });
+            document.getElementById('localVideo').style.display = "none";
+            alert("Bandwidth ချုံ့စနစ်- Audio Call သီးသန့်စနစ်သို့ ပြောင်းလဲလိုက်ပါပြီ။");
+        }
+
+        async function sendPayloadToMesh(data) {
+            let targetUrl = (navigator.onLine && !localTargetIP) ? `${signalingUrl}/api/room` : `http://${localTargetIP}:8080/api/room`;
             try {
-                // Google Token ထဲကနေ နာမည်နဲ့ ပရိုဖိုင်ပုံကို ခွဲထုတ်ယူတဲ့ စနစ် (JWT Decoder)
-                const base64Url = response.credential.split('.')[1];
-                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-                }).join(''));
-
-                const googleUser = JSON.parse(jsonPayload);
-                
-                // 🎯 ကွက်တိပဲ သားကြီး! Google ထဲက နာမည်နဲ့ ပုံအစစ်ကို NEXUS ထဲ ထည့်လိုက်ပြီဗျာ
-                const gName = googleUser.name || "Google User";
-                const gPicture = googleUser.picture; // တကယ့် Google Profile Photo လင့်ခ်အစစ်
-
-                document.getElementById('my-id').value = gName;
-                if(gPicture) {
-                    globalProfileImgData = gPicture;
-                    document.getElementById('my-large-avatar').innerHTML = `<img src="${gPicture}" />`;
-                } else {
-                    document.getElementById('my-large-avatar').innerText = gName.substring(0,2);
-                }
-
-                document.getElementById('page-auth-screen').style.display = 'none';
-                alert(`🎉 တကယ့် Gmail အစစ် (${gName}) ဖြင့် အောင်မြင်စွာ ချိတ်ဆက်ပြီးပါပြီ သားကြီး!`);
-
-            } catch(error) {
-                alert("Google Sign-In Token Error ဖြစ်သွားပါတယ် သားကြီး။");
-            }
+                await fetch(targetUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ room_id: currentRoomId, ...data }) });
+            } catch(e) { console.log("D1 Payload Sync Error."); }
         }
 
-        function simulateSocialLogin(platformName, defaultUser) {
-            document.getElementById('my-id').value = defaultUser;
-            document.getElementById('my-large-avatar').innerText = defaultUser.substring(0,2);
-            document.getElementById('page-auth-screen').style.display = 'none';
-            alert(`🎉 ${platformName} အကောင့်ဖြင့် အောင်မြင်စွာ ချိတ်ဆက်ပြီးပါပြီ သားကြီး!`);
-        }
+        function toggleMute() { localStream.getAudioTracks()[0].enabled = !localStream.getAudioTracks()[0].enabled; }
+        function toggleCamera() { localStream.getVideoTracks()[0].enabled = !localStream.getVideoTracks()[0].enabled; }
 
-        function registerAccountEngine() {
-            const nameInput = document.getElementById('reg-name').value.trim();
-            const phoneInput = document.getElementById('reg-phone').value.trim();
-            if(!nameInput || !phoneInput) { alert("⚠️ အမည်နဲ့ ဖုန်းနံပါတ်ကို ဖြည့်ပေးပါဗျာ!"); return; }
-            document.getElementById('my-id').value = nameInput;
-            document.getElementById('my-large-avatar').innerText = nameInput.substring(0,2);
-            document.getElementById('page-auth-screen').style.display = 'none';
-            alert(`🎉 အကောင့်ဖွင့်ခြင်း အောင်မြင်ပါတယ် သားကြီး!`);
+        function endCallSession() {
+            if (localStream) localStream.getTracks().forEach(track => track.stop());
+            if (peerConnection) peerConnection.close(); peerConnection = null;
+            document.getElementById('page-video-call').classList.remove('active-page');
+            document.getElementById('page-chat').classList.add('active-page');
         }
-
-        function uploadProfileImage(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                globalProfileImgData = e.target.result;
-                document.getElementById('my-large-avatar').innerHTML = `<img src="${globalProfileImgData}" />`;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function syncProfileNameAndQR() {
-            const val = document.getElementById('my-id').value;
-            if(val && !globalProfileImgData) { document.getElementById('my-large-avatar').innerText = val.substring(0,2); }
-            buildLiveQRCodeEngine("qrcode-scan-tab");
-        }
-
-        function showScanTabQRCode() {
-            toggleScannerEngine(false);
-            document.getElementById('scan-tab-qr-area').style.display = 'flex';
-            buildLiveQRCodeEngine("qrcode-scan-tab");
-        }
-
-        function buildLiveQRCodeEngine(targetElementId) {
-            const currentName = document.getElementById('my-id').value || "NEXUS User";
-            const targetDiv = document.getElementById(targetElementId);
-            if(!targetDiv) return;
-            targetDiv.innerHTML = "";
-            try {
-                const qr = qrcode(0, 'M');
-                qr.addData(currentName);
-                qr.make();
-                targetDiv.innerHTML = qr.createImgTag(5, 0);
-            } catch(e) { targetDiv.innerHTML = "<p style='color:red;'>QR Error</p>"; }
-        }
-
-        function applyDynamicThemeSystem(themeName) {
-            const container = document.getElementById('app-container');
-            const iconChats = document.getElementById('icon-chats');
-            const iconCalls = document.getElementById('icon-calls');
-            const iconScan = document.getElementById('icon-scan');
-            const iconMore = document.getElementById('icon-more');
-            const iconRoomVoice = document.getElementById('icon-room-voice');
-            const iconRoomVideo = document.getElementById('icon-room-video');
-            const callsEmptyIcon = document.getElementById('calls-empty-icon');
-
-            if(themeName === 'cyber') {
-                container.removeAttribute('data-theme');
-                iconChats.className = "fa-solid fa-user-ninja"; iconCalls.className = "fa-solid fa-phone-volume";
-                iconScan.className = "fa-solid fa-qrcode"; iconMore.className = "fa-solid fa-gear";
-                iconRoomVoice.className = "fa-solid fa-phone"; iconRoomVideo.className = "fa-solid fa-video";
-                if(callsEmptyIcon) callsEmptyIcon.className = "fa-solid fa-phone-slash";
-            } 
-            else if(themeName === 'romantic') {
-                container.setAttribute('data-theme', 'romantic');
-                iconChats.className = "fa-solid fa-heart-pulse"; iconCalls.className = "fa-solid fa-heart";
-                iconScan.className = "fa-solid fa-camera-retro"; iconMore.className = "fa-solid fa-moleskine";
-                iconRoomVoice.className = "fa-solid fa-phone-flip"; iconRoomVideo.className = "fa-solid fa-video-slash";
-                if(callsEmptyIcon) callsEmptyIcon.className = "fa-solid fa-heart-crack";
-            } 
-            else if(themeName === 'glass') {
-                container.setAttribute('data-theme', 'glass');
-                iconChats.className = "fa-regular fa-comment-dots"; iconCalls.className = "fa-regular fa-compass";
-                iconScan.className = "fa-solid fa-expand"; iconMore.className = "fa-regular fa-user";
-                iconRoomVoice.className = "fa-solid fa-headset"; iconRoomVideo.className = "fa-solid fa-display";
-                if(callsEmptyIcon) callsEmptyIcon.className = "fa-solid fa-circle-nodes";
-            }
-        }
-
-        // Switch Tabs Engine
-        function switchTab(tabId, element) {
-            currentActiveTab = tabId;
-            document.querySelectorAll('.app-page').forEach(page => page.classList.remove('active-page'));
-            document.getElementById('tab-' + tabId).classList.add('active-page');
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            element.classList.add('active');
-            const titles = { chats: "NEXUS", calls: "Calls History", scan: "QR Add Friend", more: "Settings & Profile" };
-            document.getElementById('header-title').innerText = titles[tabId];
-            if(tabId !== 'scan') { toggleScannerEngine(false); document.getElementById('scan-tab-qr-area').style.display = 'none'; }
-        }
-
-        function toggleScannerEngine(start) {
-            document.getElementById('scan-tab-qr-area').style.display = 'none';
-            const readerBox = document.getElementById('reader');
-            if(!start) { readerBox.style.display = 'none'; if(html5QrEngine) { html5QrEngine.stop().then(() => { html5QrEngine = null; }); } return; }
-            readerBox.style.display = 'block';
-            html5QrEngine = new Html5Qrcode("reader");
-            html5QrEngine.start({ facingMode: "environment" }, { fps: 10, qrbox: 220 }, (text) => { addNewFriendFromScannedQR(text); toggleScannerEngine(false); switchTab('chats', document.querySelectorAll('.nav-item')[0]); }, () => {}).catch(() => { alert("ကင်မရာဖွင့်ခွင့်ပေးပါ သားကြီး။"); readerBox.style.display = 'none'; });
-        }
-
-        function addNewFriendFromScannedQR(name) {
-            if(!name) return;
-            const id = name.replace(/\s+/g, '');
-            if(document.getElementById(`card-${id}`)) return;
-            const node = document.createElement('div');
-            node.className = "chat-card"; node.id = `card-${id}`;
-            node.onclick = () => openChatRoom(name, name.substring(0,2).toUpperCase());
-            node.innerHTML = `<div class="avatar">${name.substring(0,2).toUpperCase()}</div><div class="chat-details"><div class="name-row"><span>${name}</span><span style="color:var(--accent); font-size:11px;">ယခုလေးတင်</span></div><div style="font-size: 13px; color: var(--text-muted);">QR Code ဖြင့် အပ်နှံပြီးပါပြီ...</div></div>`;
-            document.getElementById('friends-list-box').prepend(node);
-            alert(`🎉 ${name} ကို အောင်မြင်စွာ သူငယ်ချင်းအပ်ပြီးပါပြီ သားကြီး!`);
-        }
-
-        function openChatRoom(title, short) {
-            document.getElementById('room-title').innerText = title;
-            document.getElementById('room-avatar').innerText = short;
-            document.getElementById('room-messages').innerHTML = `<p style="color:var(--text-muted); text-align:center; font-size:12px;">── ${title} နှင့် စကားပြောခန်း ──</p>`;
-            document.getElementById('page-chat-room').classList.add('active');
-        }
-        function closeChatRoom() { document.getElementById('page-chat-room').classList.remove('active'); }
-        function sendDirectMessage() {
-            const text = document.getElementById('msg-text').value; if(!text) return;
-            const area = document.getElementById('room-messages'); area.innerHTML += `<div class="msg-bubble outgoing">${text}</div>`;
-            area.scrollTop = area.scrollHeight; document.getElementById('msg-text').value = "";
-        }
-        function triggerCallNotification(type) { alert(`📞 ${document.getElementById('room-title').innerText} ထံသို့ ${type} ခေါ်ဆိုနေပါသည် သားကြီး...`); }
     </script>
 </body>
 </html>
-
