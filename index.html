@@ -38,7 +38,7 @@
         #page-secure-auth {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: #0c0f1d; z-index: 9999999; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; padding: 30px; box-box-sizing: border-box; text-align: center;
+            align-items: center; justify-content: center; padding: 30px; box-sizing: border-box; text-align: center;
         }
         .auth-branding { font-size: 42px; font-weight: 900; color: var(--accent); letter-spacing: 2px; margin-bottom: 5px; }
         .secure-subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 35px; line-height: 1.5; }
@@ -57,9 +57,17 @@
         .app-page { display: none; width: 100%; height: 100%; box-sizing: border-box; flex-direction: column; overflow-y: auto; }
         .app-page.active-page { display: flex !important; }
 
-        /* 💬 TABS 1: CHATS LIST DISPLAY (🚨 CLEAN PLATFORM STYLE) */
-        .chat-list-container { display: flex; flex-direction: column; width: 100%; height: 100%; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
-        .empty-state-text { color: var(--text-muted); font-size: 14px; text-align: center; line-height: 1.6; }
+        /* 💬 TABS 1: CHATS LIST DISPLAY (🚨 ABSOLUTELY CLEAN PLATFORM STYLE) */
+        .chat-list-container { display: flex; flex-direction: column; width: 100%; height: 100%; padding: 0; margin: 0; }
+        
+        /* ✨ FLOATING ACTION BUTTON (TELEGRAM STYLE) FOR CHAT CREATION */
+        .chat-fab-btn {
+            position: absolute; bottom: 20px; right: 20px; width: 56px; height: 56px;
+            border-radius: 50%; background: var(--accent); color: black; border: none;
+            font-size: 24px; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(57, 255, 20, 0.4); cursor: pointer; z-index: 40; transition: transform 0.2s;
+        }
+        .chat-fab-btn:active { transform: scale(0.9); }
         
         /* 🚀 CHAT BOX INTERFACE (🚨 FULL SCREEN OVERLAY ENGINE) */
         #chat-conversation-thread {
@@ -148,7 +156,7 @@
         .setting-item { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border); }
         .theme-selector { background: #0c0f1d; border: 1px solid var(--border); color: white; padding: 6px 12px; border-radius: 8px; font-size: 12px; }
 
-        /* 🧱 PREMIUM 4-TAB NAVIGATION BAR */
+        /* 🧱 PREMIUM 4-TAB NAVIGATION FOOTER BAR */
         .bottom-nav-bar {
             height: 65px; min-height: 65px; background: var(--bg-nav); border-top: 1px solid var(--border);
             display: flex; justify-content: space-around; align-items: center; width: 100%; box-sizing: border-box;
@@ -183,13 +191,12 @@
 
         <div class="main-viewport">
             
-            <div id="tab-page-chats" class="app-page active-page">
-                <div id="chats-list-dashboard" class="chat-list-container">
-                    <div class="empty-state-text" onclick="openActiveChatRoom('global-mesh-room')" style="cursor:pointer; padding: 20px; background: var(--bg-card); border-radius: 16px; border: 1px solid var(--border); width: 100%;">
-                        <i class="fas fa-comments" style="font-size: 24px; color: var(--accent); margin-bottom: 10px; display: block;"></i>
-                        <span>စကားပြောခန်းမရှိသေးပါ။<br><strong style="color:var(--accent);">ဒီနေရာကိုနှိပ်ပြီး</strong> Chat Screen သို့ တိုက်ရိုက်ဝင်ပါ သားကြီး။</span>
-                    </div>
-                </div>
+            <div id="tab-page-chats" class="app-page active-page" style="position: relative;">
+                <div id="chats-list-dashboard" class="chat-list-container"></div>
+                
+                <button class="chat-fab-btn" onclick="openActiveChatRoom('global-mesh-room')">
+                    <i class="fas fa-comment-dots"></i>
+                </button>
             </div>
 
             <div id="chat-conversation-thread">
@@ -203,7 +210,13 @@
                         <button class="chat-action-icon-btn" onclick="triggerOutboundCallSession('video')"><i class="fas fa-video" style="color:var(--accent);"></i></button>
                     </div>
                 </div>
-                <div class="messages-container" id="msg-render-box"></div>
+                
+                <div class="messages-container" id="msg-render-box">
+                    <div style="text-align:center; font-size:11px; color:var(--text-muted); margin: 10px 0 20px 0;">
+                        <i class="fas fa-lock" style="font-size:10px;"></i> Secured by 100GB D1 Cloud Ecosystem
+                    </div>
+                </div>
+                
                 <div class="chat-input-bar">
                     <input type="text" id="chat-msg-input" class="chat-input" placeholder="စာရိုက်ထည့်ပါ သားကြီး...">
                     <button class="send-btn" onclick="executeTextMessageTransmission()"><i class="fas fa-paper-plane"></i></button>
@@ -212,7 +225,7 @@
 
             <div id="tab-page-calls" class="app-page">
                 <div class="missed-calls-view" id="missed-calls-log-list">
-                    <p class="empty-state-text">လွတ်သွားသော ဖုန်းခေါ်ဆိုမှု မှတ်တမ်း မရှိသေးပါ။</p>
+                    <p style="color: var(--text-muted); font-size: 14px;">လွတ်သွားသော ဖုန်းခေါ်ဆိုမှု မှတ်တမ်း မရှိသေးပါ။</p>
                 </div>
             </div>
 
@@ -338,7 +351,6 @@
             document.getElementById('page-secure-auth').style.display = 'none';
             alert(`🎉 မင်္ဂလာပါ သားကြီး ${userData.name}။ အကောင့်ဝင်ရောက်မှု အောင်မြင်ပါသည်။`);
             
-            // 🚨 JavaScript ကနေ မလိုချင်တဲ့ အကွက်ဟောင်းကြီး အတင်းပြန်ဆောက်ခိုင်းနေတဲ့ Logic ဟောင်းကို လုံးဝ (လုံးဝ) ဖြတ်ပစ်လိုက်ပါပြီ သားကြီး!
             startRealtimeDatabaseMeshSync();
         }
 
