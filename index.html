@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>NEXUS ULTRA - Premium One-Sided Add Private System</title>
+    <title>NEXUS ULTRA - Final Premium System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode"></script>
@@ -13,7 +13,7 @@
         :root {
             --bg-main: #0c0f1d; --bg-card: #161b2e; --bg-nav: #111424;
             --accent: #39ff14; --text: #ffffff; --text-muted: #8e9cb2; --border: rgba(255, 255, 255, 0.08);
-            --bubble-in: #161b2e; --bubble-out: #2c5364; --bubble-out-text: #ffffff; --body-bg: #070911; --backdrop: none;
+            --bubble-in: #161b2e; --bubble-out: #2c5364; --bubble-out-text: #ffffff; --body-bg: #070911;
         }
         [data-theme="romantic"] {
             --bg-main: #f4f6f9; --bg-card: #ffffff; --bg-nav: #ecf0f5; --accent: #e91e63;
@@ -24,10 +24,10 @@
             --bg-main: rgba(22, 27, 46, 0.7); --bg-card: rgba(255, 255, 255, 0.05); --bg-nav: rgba(17, 20, 36, 0.8);
             --accent: #00e5ff; --text: #ffffff; --text-muted: #a2b4cd; --border: rgba(255, 255, 255, 0.1);
             --bubble-in: rgba(255, 255, 255, 0.08); --bubble-out: rgba(0, 229, 255, 0.3); --bubble-out-text: #ffffff;
-            --body-bg: linear-gradient(135deg, #0f2027, #203a43, #2c5364); --backdrop: blur(12px);
+            --body-bg: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
         }
         html, body { margin: 0; padding: 0; width: 100%; height: 100%; height: -webkit-fill-available; background: var(--body-bg); color: var(--text); font-family: -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; overflow: hidden; transition: background 0.3s; }
-        .phone-container { width: 100vw; max-width: 420px; height: 100vh; height: 100dvh; background: var(--bg-main); display: flex; flex-direction: column; position: relative; overflow: hidden; backdrop-filter: var(--backdrop); -webkit-backdrop-filter: var(--backdrop); transition: all 0.3s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+        .phone-container { width: 100vw; max-width: 420px; height: 100vh; height: 100dvh; background: var(--bg-main); display: flex; flex-direction: column; position: relative; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
         #page-secure-auth { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #0c0f1d; z-index: 9999999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; box-sizing: border-box; text-align: center; }
         .auth-branding { font-size: 42px; font-weight: 900; color: #39ff14; letter-spacing: 2px; margin-bottom: 5px; }
         .secure-subtitle { color: #8e9cb2; font-size: 13px; margin-bottom: 35px; line-height: 1.5; }
@@ -53,7 +53,6 @@
         .chat-input-bar { padding: 10px; background: var(--bg-nav); border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; padding-bottom: env(safe-area-inset-bottom); }
         .chat-input { flex: 1; padding: 12px; background: var(--bg-card); border: 1px solid var(--border); color: var(--text); border-radius: 20px; font-size: 14px; outline: none; }
         .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); border: none; font-size: 16px; cursor: pointer; color: #000; }
-        .missed-calls-view { display: flex; flex-direction: column; width: 100%; height: 100%; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
         #active-call-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #070911; z-index: 100; display: none; flex-direction: column; }
         .video-grid { display: flex; flex-direction: column; gap: 10px; padding: 16px; flex: 1; box-sizing: border-box; }
         .video-wrapper { position: relative; flex: 1; background: #111424; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
@@ -65,8 +64,6 @@
         .premium-mesh-workspace { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 24px; box-sizing: border-box; gap: 40px; }
         .mesh-action-circle-row { display: flex; gap: 35px; justify-content: center; align-items: center; width: 100%; }
         .mesh-circle-btn { width: 85px; height: 85px; border-radius: 50%; border: 1px solid var(--border); background: var(--bg-card); display: flex; align-items: center; justify-content: center; font-size: 28px; color: var(--text); cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .mesh-circle-btn.qr-trigger { color: #00e5ff; }
-        .mesh-circle-btn.scan-trigger { color: #ff9900; }
         .mesh-search-wrapper { width: 100%; max-width: 320px; position: relative; display: flex; align-items: center; }
         .mesh-search-bar { width: 100%; padding: 14px 16px; padding-left: 45px; border-radius: 28px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text); font-size: 14px; box-sizing: border-box; }
         .mesh-search-icon { position: absolute; left: 18px; color: var(--text-muted); font-size: 15px; }
@@ -81,7 +78,6 @@
         .bottom-nav-bar { height: 65px; min-height: 65px; background: var(--bg-nav); border-top: 1px solid var(--border); display: flex; justify-content: space-around; align-items: center; width: 100%; box-sizing: border-box; position: relative; z-index: 10; padding-bottom: env(safe-area-inset-bottom); }
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--text-muted); cursor: pointer; font-size: 11px; }
         .nav-item.active-nav { color: var(--accent); }
-        .nav-item i { font-size: 20px; }
     </style>
 </head>
 <body>
@@ -90,14 +86,18 @@
         <div id="page-secure-auth">
             <div class="auth-branding">NEXUS ULTRA</div>
             <p class="secure-subtitle">Cloudflare 100GB D1 Secure Platform<br>အက်ပ်အားအသုံးပြုရန် Google အကောင့်ဖြင့် အရင်ဝင်ပါ သားကြီး။</p>
-            <div id="g_id_onload" data-client_id="976507866074-jc4p16dic2lc4qoq3t291gh7gusdp86h.apps.googleusercontent.com" data-callback="handleSecureCredentialResponse"></div>
+            
+            <div id="g_id_onload" 
+                 data-client_id="976507866074-jc4p16dic2lc4qoq3t291gh7gusdp86h.apps.googleusercontent.com" 
+                 data-callback="handleSecureCredentialResponse">
+            </div>
             <div class="g_id_signin" data-type="standard" data-size="large" data-theme="filled_blue"></div>
-            <p style="font-size:11px; color:#ff9900; margin-top:40px;"><i class="fas fa-shield-alt"></i> One-Sided Viber Auto Link Active</p>
+            <p style="font-size:11px; color:#ff9900; margin-top:40px;"><i class="fas fa-shield-alt"></i> E2E Connection Engine Active</p>
         </div>
 
         <div id="app-main-header" class="top-header">
             <span id="app-header-title">NEXUS Chats</span>
-            <span id="network-status-indicator" class="network-status">🟢 100GB D1 Ready</span>
+            <span id="network-status-indicator" class="network-status">🟢 Mesh Active</span>
         </div>
 
         <div class="main-viewport">
@@ -122,22 +122,6 @@
                 <div class="chat-input-bar">
                     <input type="text" id="chat-msg-input" class="chat-input" placeholder="စာရိုက်ထည့်ပါ သားကြီး...">
                     <button class="send-btn" onclick="executeTextMessageTransmission()"><i class="fas fa-paper-plane"></i></button>
-                </div>
-            </div>
-
-            <div id="tab-page-calls" class="app-page">
-                <div class="missed-calls-view" id="missed-calls-log-list"><p class="empty-state-text">လွတ်သွားသော ဖုန်းခေါ်ဆိုမှု မှတ်တမ်း မရှိသေးပါ။</p></div>
-            </div>
-
-            <div id="active-call-overlay">
-                <div class="video-grid">
-                    <div class="video-wrapper"><video id="remoteVideo" autoplay playsinline></video><div class="video-label" id="remote-stream-label">Remote Stream (Adaptive P2P)</div></div>
-                    <div class="video-wrapper" id="local-video-wrapper" style="flex: 0; height: 110px;"><video id="localVideo" autoplay playsinline muted></video><div class="video-label">မင်း (Local)</div></div>
-                </div>
-                <div class="call-controls">
-                    <button class="control-btn" onclick="toggleMuteState()"><i class="fas fa-microphone"></i></button>
-                    <button class="control-btn btn-end" onclick="terminateActiveCallSession()"><i class="fas fa-phone-slash"></i></button>
-                    <button class="control-btn" id="cam-toggle-btn" onclick="toggleCameraState()"><i class="fas fa-video"></i></button>
                 </div>
             </div>
 
@@ -176,16 +160,16 @@
 
         <div class="bottom-nav-bar" id="app-footer-navigation">
             <div class="nav-item active-nav" onclick="switchApplicationViewportTab('chats')"><i class="fas fa-comment-alt"></i><span>Chats</span></div>
-            <div class="nav-item" onclick="switchApplicationViewportTab('calls')"><i class="fas fa-phone-alt"></i><span>Calls</span></div>
             <div class="nav-item" onclick="switchApplicationViewportTab('qr')"><i class="fas fa-qrcode"></i><span>QR Mesh</span></div>
             <div class="nav-item" onclick="switchApplicationViewportTab('settings')"><i class="fas fa-cog"></i><span>Settings</span></div>
         </div>
     </div>
 
     <script>
+        // 📡 CORE CLOUDFLARE SIGNALLING SERVER ROUTE
         let signalingUrl = "https://nexus-call-server.aungnyanlin138.workers.dev";
         let localStream = null, peerConnection = null, currentRoomId = null, myUsername = "GoogleUser";
-        let isMuted = false, isCamOff = false, currentCallType = "video", qrScannerInstance = null, heartbeatInterval = null;
+        let isMuted = false, isCamOff = false, currentCallType = "video", qrScannerInstance = null;
         let privateContactsList = JSON.parse(localStorage.getItem('nexus_private_contacts') || "[]");
 
         const rtcConfig = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
@@ -227,24 +211,21 @@
                 card.className = "chat-card";
                 let roomId = [myUsername, contact].sort().join("-to-");
                 card.onclick = () => openActiveChatRoom(roomId, `${contact} (🔒 Private)`);
-                card.innerHTML = `<div class="avatar">${contact.charAt(0).toUpperCase()}</div><div class="chat-details" style="text-align: left;"><div class="name-row"><span>${contact}</span></div><p style="margin:0; font-size:13px; color:var(--text-muted);">သီးသန့် Private Chat ပြောရန် နှိပ်ပါ...</p></div>`;
+                card.innerHTML = `<div class="avatar">${contact.charAt(0).toUpperCase()}</div><div class="chat-details" style="text-align: left;"><div class="name-row"><span>${contact}</span></div><p style="margin:0; font-size:13px; color:var(--text-muted);">သီးသန့် Private Chat ပြောရန်...</p></div>`;
                 container.appendChild(card);
             });
         }
 
-        // 📡 ဆာဗာမှတစ်ဆင့် တစ်ဖက်လူ Add လိုက်တာကို အော်တို ဖမ်းယူမည့် စနစ်သစ် Logic
         function startRealtimeDatabaseMeshSync() {
             setInterval(async () => {
-                // အမြဲတမ်း ကိုယ့်နာမည်နဲ့ ပတ်သက်တဲ့ Add Link Signal ရှိလား စောင့်ကြည့်မယ်
-                let globalSyncEndpoint = `${signalingUrl}/api/room/viber-add-signal-to-${myUsername}`;
                 try {
-                    const res = await fetch(globalSyncEndpoint);
-                    if (res.status === 200) {
+                    const res = await fetch(`${signalingUrl}/api/room/viber-add-signal-to-${myUsername}`);
+                    if (res.ok) {
                         const data = await res.json();
                         if(data.sender && !privateContactsList.includes(data.sender)) {
                             privateContactsList.push(data.sender);
                             localStorage.setItem('nexus_private_contacts', JSON.stringify(privateContactsList));
-                            renderPrivateContactsDashboard(); // တစ်ဖက်က အော်တို ပွင့်လာစေရမယ်
+                            renderPrivateContactsDashboard();
                         }
                     }
                 } catch(e) {}
@@ -252,7 +233,7 @@
                 if (!currentRoomId) return; 
                 try {
                     const res = await fetch(`${signalingUrl}/api/room/${currentRoomId}`);
-                    if (res.status === 200) {
+                    if (res.ok) {
                         const data = await res.json();
                         if(data.text_message && data.sender !== myUsername) {
                             if (localStorage.getItem(`last_msg_${currentRoomId}`) !== data.text_message) {
@@ -263,12 +244,14 @@
                         if (data.offer && !data.answer && !peerConnection && data.target_room === currentRoomId) {
                             if(confirm(`📞 [${data.sender}] ထံမှ ဖုန်းခေါ်ဆိုမှု ရောက်လာပါပြီ ကိုင်မလား သားကြီး?`)) acceptIncomingCallTransmission(data);
                         }
+                        if (data.answer && peerConnection && peerConnection.signalingState === "have-local-offer") {
+                            await peerConnection.setRemoteDescription(new RTCSessionDescription(JSON.parse(data.answer)));
+                        }
                     }
                 } catch (e) {}
-            }, 3000);
+            }, 2500);
         }
 
-        // 🚨 တစ်ဖက်က စကင်ဖတ်လိုက်တာနဲ့ နှစ်ဖက်စလုံး ဆာဗာပေါ်မှာ အော်တို Add သွားမည့် ခလုတ်စနစ်
         function openCameraScannerPopupModal() {
             document.getElementById('modal-camera-scanner-popup').style.display = "flex";
             qrScannerInstance = new Html5Qrcode("scanner-preview-container");
@@ -280,14 +263,11 @@
                             privateContactsList.push(peerUser);
                             localStorage.setItem('nexus_private_contacts', JSON.stringify(privateContactsList));
                             
-                            // 📡 ဆာဗာပေါ်လှမ်းတင်ပြီး တစ်ဖက်လူ့ဖုန်းထဲမှာပါ အော်တို အကွက်တန်းပွင့်အောင် လုပ်တဲ့ကွက်
                             await fetch(`${signalingUrl}/api/room`, {
                                 method: "POST",
                                 headers: { "Content-Type": "application/json" },
                                 body: JSON.stringify({ room_id: `viber-add-signal-to-${peerUser}`, sender: myUsername })
                             });
-                            
-                            alert(`📡 Added: ${peerUser} နှင့် Private ချိတ်ဆက်မိပါပြီ။`);
                         }
                         closeCameraScannerPopupModal();
                         switchApplicationViewportTab('chats');
@@ -304,12 +284,9 @@
         async function executeTextMessageTransmission() { const input = document.getElementById('chat-msg-input'); if(!input.value || !currentRoomId) return; appendMessageViewElement(myUsername, input.value, "out", currentRoomId); let text = input.value; input.value = ""; await fetch(`${signalingUrl}/api/room`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ room_id: currentRoomId, text_message: text, sender: myUsername }) }); }
         function appendMessageViewElement(sender, text, dir, rId) { let box = JSON.parse(localStorage.getItem(`nexus_cache_${rId}`) || "[]"); box.push({ sender, text, type: dir }); localStorage.setItem(`nexus_cache_${rId}`, JSON.stringify(box)); if(currentRoomId === rId) { const container = document.getElementById('msg-render-box'); const b = document.createElement('div'); b.className = `msg-bubble msg-${dir}`; b.innerText = `${sender}: ${text}`; container.appendChild(b); container.scrollTop = container.scrollHeight; } }
         function loadSavedMessagesFromStorage(rId) { const container = document.getElementById('msg-render-box'); container.innerHTML = `<div style="text-align:center; font-size:11px; color:var(--text-muted); margin: 10px 0 20px 0;"><i class="fas fa-lock" style="font-size:10px;"></i> Viber Style End-to-End Private Encryption</div>`; JSON.parse(localStorage.getItem(`nexus_cache_${rId}`) || "[]").forEach(m => { const b = document.createElement('div'); b.className = `msg-bubble msg-${m.type}`; b.innerText = `${m.sender}: ${m.text}`; container.appendChild(b); }); container.scrollTop = container.scrollHeight; }
-        function switchApplicationViewportTab(t) { document.querySelectorAll('.app-page').forEach(p => p.classList.remove('active-page')); document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active-nav')); const nav = document.getElementById('app-footer-navigation').children; if (t === 'chats') { document.getElementById('tab-page-chats').classList.add('active-page'); nav[0].classList.add('active-nav'); renderPrivateContactsDashboard(); } else if (t === 'calls') { document.getElementById('tab-page-calls').classList.add('active-page'); nav[1].classList.add('active-nav'); } else if (t === 'qr') { document.getElementById('tab-page-qr').classList.add('active-page'); nav[2].classList.add('active-nav'); } else if (t === 'settings') { document.getElementById('tab-page-settings').classList.add('active-page'); nav[3].classList.add('active-nav'); } }
-        async function triggerOutboundCallSession(type) { currentCallType = type; document.getElementById('active-call-overlay').style.display = 'flex'; let consts = { audio: true, video: type === 'video' ? { width: 176, height: 144, frameRate: 7 } : false }; try { localStream = await navigator.mediaDevices.getUserMedia(consts); if(type === 'video') document.getElementById('localVideo').srcObject = localStream; peerConnection = new RTCPeerConnection(rtcConfig); localStream.getTracks().forEach(t => peerConnection.addTrack(t, localStream)); peerConnection.ontrack = e => { document.getElementById('remoteVideo').srcObject = e.streams[0]; }; const offer = await peerConnection.createOffer(); await peerConnection.setLocalDescription(offer); await fetch(`${signalingUrl}/api/room`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ room_id: currentRoomId, offer: JSON.stringify(offer), call_mode: type, sender: myUsername, target_room: currentRoomId }) }); } catch (e) {} }
-        async function acceptIncomingCallTransmission(data) { currentCallType = data.call_mode; document.getElementById('active-call-overlay').style.display = 'flex'; let consts = { audio: true, video: data.call_mode === 'video' ? { width: 176, height: 144, frameRate: 7 } : false }; try { localStream = await navigator.mediaDevices.getUserMedia(consts); if(data.call_mode === 'video') document.getElementById('localVideo').srcObject = localStream; peerConnection = new RTCPeerConnection(rtcConfig); localStream.getTracks().forEach(t => peerConnection.addTrack(t, localStream)); peerConnection.ontrack = e => { document.getElementById('remoteVideo').srcObject = e.streams[0]; }; await peerConnection.setRemoteDescription(new RTCSessionDescription(JSON.parse(data.offer))); const answer = await peerConnection.createAnswer(); await peerConnection.setLocalDescription(answer); await fetch(`${signalingUrl}/api/room`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ room_id: currentRoomId, answer: JSON.stringify(answer) }) }); } catch (e) {} }
-        function terminateActiveCallSession() { if (localStream) localStream.getTracks().forEach(t => t.stop()); if (peerConnection) peerConnection.close(); peerConnection = null; document.getElementById('active-call-overlay').style.display = 'none'; }
-        function toggleMuteState() { isMuted = !isMuted; localStream.getAudioTracks()[0].enabled = !isMuted; }
-        function toggleCameraState() { if(currentCallType === 'video') { isCamOff = !isCamOff; localStream.getVideoTracks()[0].enabled = !isCamOff; } }
+        function switchApplicationViewportTab(t) { document.querySelectorAll('.app-page').forEach(p => p.classList.remove('active-page')); document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active-nav')); const nav = document.getElementById('app-footer-navigation').children; if (t === 'chats') { document.getElementById('tab-page-chats').classList.add('active-page'); nav[0].classList.add('active-nav'); renderPrivateContactsDashboard(); } else if (t === 'qr') { document.getElementById('tab-page-qr').classList.add('active-page'); nav[1].classList.add('active-nav'); } else if (t === 'settings') { document.getElementById('tab-page-settings').classList.add('active-page'); nav[2].classList.add('active-nav'); } }
+        async function triggerOutboundCallSession(type) { currentCallType = type; alert("ဖုန်းခေါ်ဆိုမှု စတင်နေပါသည်... တစ်ဖက်လူ ဖုန်းမျက်နှာပြင်ကို ကြည့်ခိုင်းထားပါ သားကြီး။"); let consts = { audio: true, video: type === 'video' ? { width: 176, height: 144, frameRate: 7 } : false }; try { localStream = await navigator.mediaDevices.getUserMedia(consts); peerConnection = new RTCPeerConnection(rtcConfig); localStream.getTracks().forEach(t => peerConnection.addTrack(t, localStream)); const offer = await peerConnection.createOffer(); await peerConnection.setLocalDescription(offer); await fetch(`${signalingUrl}/api/room`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ room_id: currentRoomId, offer: JSON.stringify(offer), call_mode: type, sender: myUsername, target_room: currentRoomId }) }); } catch (e) {} }
+        async function acceptIncomingCallTransmission(data) { currentCallType = data.call_mode; let consts = { audio: true, video: data.call_mode === 'video' ? { width: 176, height: 144, frameRate: 7 } : false }; try { localStream = await navigator.mediaDevices.getUserMedia(consts); peerConnection = new RTCPeerConnection(rtcConfig); localStream.getTracks().forEach(t => peerConnection.addTrack(t, localStream)); await peerConnection.setRemoteDescription(new RTCSessionDescription(JSON.parse(data.offer))); const answer = await peerConnection.createAnswer(); await peerConnection.setLocalDescription(answer); await fetch(`${signalingUrl}/api/room`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ room_id: currentRoomId, answer: JSON.stringify(answer) }) }); alert("ကောလ် ချိတ်ဆက်မှု အောင်မြင်ပါပြီ သားကြီး!"); } catch (e) {} }
     </script>
 </body>
 </html>
