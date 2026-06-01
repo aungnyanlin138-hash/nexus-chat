@@ -49,6 +49,10 @@
             font-size: 19px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; 
             height: 55px; min-height: 55px; box-sizing: border-box;
         }
+        .network-status { 
+            font-size: 11px; font-weight: bold; color: var(--accent); 
+            background: rgba(57, 255, 20, 0.1); padding: 4px 8px; border-radius: 8px; 
+        }
         .main-viewport { flex: 1; position: relative; width: 100%; overflow: hidden; background: #070911; }
         .app-page { display: none; width: 100%; height: 100%; box-sizing: border-box; flex-direction: column; overflow-y: auto; }
         .app-page.active-page { display: flex !important; }
@@ -64,26 +68,45 @@
         .chat-details { flex: 1; display: flex; flex-direction: column; gap: 4px; overflow: hidden; }
         .name-row { display: flex; justify-content: space-between; font-size: 15px; font-weight: 600; }
         
-        /* 💬 TEXT CONVERSATION STREAM INTERFACE */
-        .chat-window-view { flex: 1; display: flex; flex-direction: column; height: 100%; }
+        /* 🚀 CHAT BOX INTERFACE (FULL SCREEN STRUCTURE MOUNTED ON OVERLAY) */
+        #chat-conversation-thread {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0c0f1d; z-index: 50; display: none; flex-direction: column;
+        }
+        .chat-header-bar {
+            height: 55px; background: var(--bg-nav); border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center; padding: 0 16px; box-sizing: border-box;
+        }
+        .chat-header-actions { display: flex; gap: 20px; align-items: center; }
+        .chat-action-icon-btn { background: none; border: none; color: white; font-size: 18px; cursor: pointer; transition: color 0.2s; }
+        .chat-action-icon-btn:hover { color: var(--accent); }
+        
         .messages-container { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
         .msg-bubble { max-width: 75%; padding: 10px 14px; border-radius: 16px; font-size: 14px; line-height: 1.4; word-break: break-word; }
         .msg-in { background: var(--bubble-in); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
         .msg-out { background: var(--bubble-out); color: var(--bubble-out-text); align-self: flex-end; border-bottom-right-radius: 4px; }
-        .chat-input-bar { padding: 10px; background: var(--bg-nav); border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; }
+        .chat-input-bar { padding: 10px; background: var(--bg-nav); border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; padding-bottom: env(safe-area-inset-bottom); }
         .chat-input { flex: 1; padding: 12px; background: var(--bg-card); border: 1px solid var(--border); color: white; border-radius: 20px; font-size: 14px; }
         .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); border: none; color: black; font-size: 16px; cursor: pointer; }
 
-        /* 📱 TABS 2: VIDEO STREAM WEBRTC SCREEN COMPONENTS */
+        /* 📱 TABS 2: MISSED CALLS THREAD SCREEN (UI OPTIMIZATION) */
+        .missed-calls-view { display: flex; flex-direction: column; width: 100%; padding: 10px 0; }
+        .missed-call-card { display: flex; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--border); }
+        .missed-icon-avatar { width: 42px; height: 42px; border-radius: 50%; background: rgba(255, 51, 51, 0.1); display: flex; align-items: center; justify-content: center; color: #ff3333; font-size: 16px; margin-right: 14px; border: 1px solid rgba(255, 51, 51, 0.2); }
+        .missed-details { flex: 1; }
+        .missed-time { font-size: 12px; color: var(--text-muted); }
+
+        /* ACTIVE EMERGENCY WEBRTC CALL RENDER BOX OVERLAY */
+        #active-call-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: #070911; z-index: 100; display: none; flex-direction: column;
+        }
         .video-grid { display: flex; flex-direction: column; gap: 10px; padding: 16px; flex: 1; box-sizing: border-box; height: calc(100% - 70px); }
         .video-wrapper { position: relative; flex: 1; background: #111424; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); }
         video { width: 100%; height: 100%; object-fit: cover; }
         .video-label { position: absolute; bottom: 12px; left: 12px; background: rgba(0,0,0,0.6); padding: 4px 10px; border-radius: 8px; font-size: 11px; }
-        .call-controls { height: 70px; display: flex; justify-content: center; align-items: center; gap: 20px; background: var(--bg-nav); border-top: 1px solid var(--border); }
-        .control-btn { width: 45px; height: 45px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; font-size: 16px; color: white; background: var(--bg-card); cursor: pointer; }
-        .control-btn.btn-end { background: #ff3333; }
 
-        /* 🔲 TABS 3: OFF-GRID EMERGENCY MESH WIFI CONNECTION PANEL */
+        /* 🔲 TABS 3: OFF-GRID EMERGENCY MESH QR & SCANNER UI */
         .mesh-panel-view { padding: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; }
         .mesh-btn { width: 100%; max-width: 280px; padding: 14px; border-radius: 24px; border: none; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 12px; color: black; }
         #scanner-preview { width: 280px; height: 280px; background: #000; border-radius: 16px; overflow: hidden; margin-top: 15px; display: none; }
@@ -123,9 +146,9 @@
             <p style="font-size:11px; color:#ff9900; margin-top:40px;"><i class="fas fa-shield-alt"></i> rtcHeartbeat & 5M Free Daily Reads Protected</p>
         </div>
 
-        <div class="top-header">
+        <div id="app-main-header" class="top-header">
             <span id="app-header-title">NEXUS Chats</span>
-            <span id="network-status-indicator" class="network-status" style="background: rgba(57, 255, 20, 0.1); color: var(--accent);">🟢 100GB D1 Ready</span>
+            <span id="network-status-indicator" class="network-status">🟢 100GB D1 Ready</span>
         </div>
 
         <div class="main-viewport">
@@ -140,27 +163,46 @@
                         </div>
                     </div>
                 </div>
-                
-                <div id="chat-conversation-thread" class="chat-window-view" style="display:none;">
-                    <div style="padding: 10px; background: rgba(255,255,255,0.02); display:flex; gap:10px; align-items:center; border-bottom:1px solid var(--border);">
-                        <button class="action-header-btn" style="background:none; border:none; color:white; font-size:16px; cursor:pointer;" onclick="exitChatRoomView()"><i class="fas fa-arrow-left"></i></button>
-                        <span id="chat-room-title-text" style="font-size:14px; font-weight:bold;">Global Channel</span>
+            </div>
+
+            <div id="chat-conversation-thread">
+                <div class="chat-header-bar">
+                    <div style="display:flex; gap:12px; align-items:center;">
+                        <button class="chat-action-icon-btn" onclick="exitChatRoomView()"><i class="fas fa-arrow-left"></i></button>
+                        <span id="chat-room-title-text" style="font-size:15px; font-weight:bold;">Global Channel</span>
                     </div>
-                    <div class="messages-container" id="msg-render-box"></div>
-                    <div class="chat-input-bar">
-                        <input type="text" id="chat-msg-input" class="chat-input" placeholder="စာရိုက်ထည့်ပါ သားကြီး...">
-                        <button class="send-btn" onclick="executeTextMessageTransmission()"><i class="fas fa-paper-plane"></i></button>
+                    <div class="chat-header-actions">
+                        <button class="chat-action-icon-btn" onclick="triggerOutboundCallSession('audio')"><i class="fas fa-phone-alt" style="color:var(--accent);"></i></button>
+                        <button class="chat-action-icon-btn" onclick="triggerOutboundCallSession('video')"><i class="fas fa-video" style="color:var(--accent);"></i></button>
                     </div>
+                </div>
+                <div class="messages-container" id="msg-render-box"></div>
+                <div class="chat-input-bar">
+                    <input type="text" id="chat-msg-input" class="chat-input" placeholder="စာရိုက်ထည့်ပါ သားကြီး...">
+                    <button class="send-btn" onclick="executeTextMessageTransmission()"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </div>
 
             <div id="tab-page-calls" class="app-page">
+                <div class="missed-calls-view" id="missed-calls-log-list">
+                    <div class="missed-call-card">
+                        <div class="missed-icon-avatar"><i class="fas fa-phone-slash"></i></div>
+                        <div class="missed-details">
+                            <h4 style="margin:0 0 4px 0; font-size:14px; color:#ff3333;">Missed Call (လွတ်သွားသောဖုန်းခေါ်ဆိုမှု)</h4>
+                            <p style="margin:0; font-size:12px; color:var(--text-muted);">အရေးပေါ်ချန်နယ်မှ ဖုန်းခေါ်ဆိုမှု လွတ်သွားခဲ့သည်။</p>
+                        </div>
+                        <div class="missed-time">ယနေ့ ၁၅:၄၅</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="active-call-overlay">
                 <div class="video-grid">
                     <div class="video-wrapper">
                         <video id="remoteVideo" autoplay playsinline></video>
-                        <div class="video-label">Remote Stream (Adaptive P2P)</div>
+                        <div class="video-label" id="remote-stream-label">Remote Stream (Adaptive P2P)</div>
                     </div>
-                    <div class="video-wrapper" style="flex: 0; height: 110px;">
+                    <div class="video-wrapper" id="local-video-wrapper" style="flex: 0; height: 110px;">
                         <video id="localVideo" autoplay playsinline muted></video>
                         <div class="video-label">မင်း (Local)</div>
                     </div>
@@ -168,7 +210,7 @@
                 <div class="call-controls">
                     <button class="control-btn" onclick="toggleMuteState()"><i class="fas fa-microphone"></i></button>
                     <button class="control-btn btn-end" onclick="terminateActiveCallSession()"><i class="fas fa-phone-slash"></i></button>
-                    <button class="control-btn" onclick="toggleCameraState()"><i class="fas fa-video"></i></button>
+                    <button class="control-btn" id="cam-toggle-btn" onclick="toggleCameraState()"><i class="fas fa-video"></i></button>
                 </div>
             </div>
 
@@ -234,7 +276,7 @@
         let signalingUrl = "https://nexus-call-server.aungnyanlin138.workers.dev";
         let localStream = null, peerConnection = null;
         let currentRoomId = "global-mesh-room", myUsername = "Google User";
-        let isMuted = false, isCamOff = false, isMeshOfflineMode = false;
+        let isMuted = false, isCamOff = false, currentCallType = "video";
         let qrScannerInstance = null, heartbeatInterval = null;
 
         const rtcConfig = { 
@@ -248,7 +290,6 @@
             if (Notification.permission !== "granted") Notification.requestPermission();
         });
 
-        // 🔐 GOOGLE SECURE AUTH GATEWAY SUCCESS TRIGGER
         function handleSecureCredentialResponse(response) {
             const base64Url = response.credential.split('.')[1];
             const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -274,18 +315,22 @@
             if (targetTab === 'chats') {
                 document.getElementById('tab-page-chats').classList.add('active-page');
                 navItems[0].classList.add('active-nav');
+                document.getElementById('app-main-header').style.display = "flex";
                 document.getElementById('app-header-title').innerText = "NEXUS Chats";
             } else if (targetTab === 'calls') {
                 document.getElementById('tab-page-calls').classList.add('active-page');
                 navItems[1].classList.add('active-nav');
-                document.getElementById('app-header-title').innerText = "NEXUS Call Engine";
+                document.getElementById('app-main-header').style.display = "flex";
+                document.getElementById('app-header-title').innerText = "Missed Calls";
             } else if (targetTab === 'qr') {
                 document.getElementById('tab-page-qr').classList.add('active-page');
                 navItems[2].classList.add('active-nav');
+                document.getElementById('app-main-header').style.display = "flex";
                 document.getElementById('app-header-title').innerText = "NEXUS QR Mesh";
             } else if (targetTab === 'settings') {
                 document.getElementById('tab-page-settings').classList.add('active-page');
                 navItems[3].classList.add('active-nav');
+                document.getElementById('app-main-header').style.display = "flex";
                 document.getElementById('app-header-title').innerText = "NEXUS Settings";
             }
         }
@@ -294,15 +339,18 @@
             document.documentElement.setAttribute('data-theme', theme);
         }
 
+        // 🚀 FULL SCREEN CHAT HUB MOUNTING DIRECTIVE
         function openActiveChatRoom(roomId) {
             currentRoomId = roomId;
-            document.getElementById('chats-list-dashboard').style.display = 'none';
+            document.getElementById('app-main-header').style.display = 'none';
+            document.getElementById('app-footer-navigation').style.display = 'none';
             document.getElementById('chat-conversation-thread').style.display = 'flex';
         }
 
         function exitChatRoomView() {
             document.getElementById('chat-conversation-thread').style.display = 'none';
-            document.getElementById('chats-list-dashboard').style.display = 'flex';
+            document.getElementById('app-main-header').style.display = 'flex';
+            document.getElementById('app-footer-navigation').style.display = 'flex';
         }
 
         function generateEmergencyMeshQR() {
@@ -361,9 +409,27 @@
                 });
                 callNotification.onclick = () => { window.focus(); acceptIncomingCallTransmission(data); };
             }
-            if(confirm("📞 NEXUS Call Engine: အဝင်ကောလ် ရောက်ရှိလာပါသည်။ လက်ခံမလား သားကြီး?")) {
+            if(confirm(`📞 NEXUS Call: [${data.call_mode || 'video'}] အဝင်ကောလ် ရောက်ရှိလာပါသည်။ ကိုင်မလား သားကြီး?`)) {
                 acceptIncomingCallTransmission(data);
+            } else {
+                logMissedCallSession(data.sender || "Emergency Channel");
             }
+        }
+
+        function logMissedCallSession(caller) {
+            const container = document.getElementById('missed-calls-log-list');
+            const card = document.createElement('div');
+            card.className = "missed-call-card";
+            const now = new Date();
+            card.innerHTML = `
+                <div class="missed-icon-avatar"><i class="fas fa-phone-slash"></i></div>
+                <div class="missed-details">
+                    <h4 style="margin:0 0 4px 0; font-size:14px; color:#ff3333;">Missed Call (လွတ်သွားသောဖုန်း)</h4>
+                    <p style="margin:0; font-size:12px; color:var(--text-muted);">${caller} ထံမှ ဖုန်းခေါ်ဆိုမှု လွတ်သွားခဲ့သည်။</p>
+                </div>
+                <div class="missed-time">${now.getHours()}:${now.getMinutes()}</div>
+            `;
+            container.insertBefore(card, container.firstChild);
         }
 
         async function executeTextMessageTransmission() {
@@ -404,14 +470,26 @@
             if(element) element.scrollTop = element.scrollHeight;
         }
 
-        async function triggerVoiceVideoCall() {
-            switchApplicationViewportTab('calls');
+        // 🎥 OUTBOUND ROUTING GATEWAY (VOICE OR VIDEO ROUTE OPTIMIZATION)
+        async function triggerOutboundCallSession(type) {
+            currentCallType = type;
+            document.getElementById('active-call-overlay').style.display = 'flex';
+            
+            let constraints = { audio: { echoCancellation: true, noiseSuppression: true }, video: false };
+            if(type === 'video') {
+                constraints.video = { width: 176, height: 144, frameRate: { max: 7 } };
+                document.getElementById('local-video-wrapper').style.display = "block";
+                document.getElementById('cam-toggle-btn').style.display = "flex";
+                document.getElementById('remote-stream-label').innerText = "Remote Stream (Adaptive P2P)";
+            } else {
+                document.getElementById('local-video-wrapper').style.display = "none";
+                document.getElementById('cam-toggle-btn').style.display = "none";
+                document.getElementById('remote-stream-label').innerText = "Audio Call (အသံသီးသန့်ပြောနေသည်...)";
+            }
+
             try {
-                localStream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { width: 176, height: 144, frameRate: { max: 7 } }, 
-                    audio: { echoCancellation: true, noiseSuppression: true } 
-                });
-                document.getElementById('localVideo').srcObject = localStream;
+                localStream = await navigator.mediaDevices.getUserMedia(constraints);
+                if(type === 'video') document.getElementById('localVideo').srcObject = localStream;
 
                 peerConnection = new RTCPeerConnection(rtcConfig);
                 localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
@@ -429,18 +507,29 @@
 
                 const offer = await peerConnection.createOffer();
                 await peerConnection.setLocalDescription(offer);
-                await transmitPayloadPackageToMesh({ offer: JSON.stringify(offer) });
+                await transmitPayloadPackageToMesh({ offer: JSON.stringify(offer), call_mode: type, sender: myUsername });
             } catch (err) { executeAudioOnlyQualityFallback(); }
         }
 
         async function acceptIncomingCallTransmission(roomData) {
-            switchApplicationViewportTab('calls');
+            currentCallType = roomData.call_mode || "video";
+            document.getElementById('active-call-overlay').style.display = 'flex';
+            
+            let constraints = { audio: { echoCancellation: true, noiseSuppression: true }, video: false };
+            if(currentCallType === 'video') {
+                constraints.video = { width: 176, height: 144, frameRate: { max: 7 } };
+                document.getElementById('local-video-wrapper').style.display = "block";
+                document.getElementById('cam-toggle-btn').style.display = "flex";
+                document.getElementById('remote-stream-label').innerText = "Remote Stream (Adaptive P2P)";
+            } else {
+                document.getElementById('local-video-wrapper').style.display = "none";
+                document.getElementById('cam-toggle-btn').style.display = "none";
+                document.getElementById('remote-stream-label').innerText = "Audio Call (အသံသီးသန့်ပြောနေသည်...)";
+            }
+
             try {
-                localStream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { width: 176, height: 144, frameRate: { max: 7 } }, 
-                    audio: { echoCancellation: true, noiseSuppression: true } 
-                });
-                document.getElementById('localVideo').srcObject = localStream;
+                localStream = await navigator.mediaDevices.getUserMedia(constraints);
+                if(currentCallType === 'video') document.getElementById('localVideo').srcObject = localStream;
 
                 peerConnection = new RTCPeerConnection(rtcConfig);
                 localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
@@ -485,7 +574,9 @@
         async function executeAudioOnlyQualityFallback() {
             localStream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true });
             document.getElementById('localVideo').style.display = "none";
-            alert("⚠️ Bandwidth ကန့်သတ်ချက်ကြောင့် ရုပ်သံပိတ်၍ အသံသီးသန့်ဖုန်းလိုင်းသို့ ပြောင်းလဲလိုက်ပါပြီ။");
+            document.getElementById('local-video-wrapper').style.display = "none";
+            document.getElementById('cam-toggle-btn').style.display = "none";
+            document.getElementById('remote-stream-label').innerText = "Audio Call (အသံသီးသန့်ပြောင်းလဲလိုက်ပါပြီ)";
         }
 
         async function transmitPayloadPackageToMesh(data) {
@@ -501,14 +592,14 @@
         }
 
         function toggleMuteState() { isMuted = !isMuted; localStream.getAudioTracks()[0].enabled = !isMuted; }
-        function toggleCameraState() { isCamOff = !isCamOff; localStream.getVideoTracks()[0].enabled = !isCamOff; }
+        function toggleCameraState() { if(currentCallType === 'video') { isCamOff = !isCamOff; localStream.getVideoTracks()[0].enabled = !isCamOff; } }
 
         function terminateActiveCallSession() {
             if(heartbeatInterval) clearInterval(heartbeatInterval);
             if (localStream) localStream.getTracks().forEach(track => track.stop());
             if (peerConnection) peerConnection.close();
             peerConnection = null;
-            switchApplicationViewportTab('chats');
+            document.getElementById('active-call-overlay').style.display = 'none';
         }
     </script>
 </body>
