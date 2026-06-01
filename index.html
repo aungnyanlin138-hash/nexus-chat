@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>NEXUS ULTRA - Premium Emergency System</title>
+    <title>NEXUS ULTRA - Premium Private Emergency System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     
     <style>
-        /* 🎨 THEME MANAGEMENT SYSTEM (CYBER NEON CORE DIRECTIVE) */
+        /* 🎨 THEME MANAGEMENT SYSTEM (GLOBAL VARIABLE ENGINE) */
         :root {
             --bg-main: #0c0f1d; 
             --bg-card: #161b2e; 
@@ -22,16 +22,54 @@
             --bubble-in: #161b2e; 
             --bubble-out: #2c5364; 
             --bubble-out-text: #ffffff;
+            --body-bg: #070911;
+            --backdrop: none;
+        }
+
+        /* 🌸 ROMANTIC LIGHT THEME CONFIGURATION */
+        [data-theme="romantic"] {
+            --bg-main: #f4f6f9;
+            --bg-card: #ffffff;
+            --bg-nav: #ecf0f5;
+            --accent: #e91e63;
+            --text: #1a1a2e;
+            --text-muted: #64748b;
+            --border: rgba(0, 0, 0, 0.08);
+            --bubble-in: #e2e8f0;
+            --bubble-out: #e91e63;
+            --bubble-out-text: #ffffff;
+            --body-bg: #cbd5e1;
+            --backdrop: none;
+        }
+
+        /* 💎 GLASS MORPH PREMIUM THEME CONFIGURATION */
+        [data-theme="glass"] {
+            --bg-main: rgba(22, 27, 46, 0.7);
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --bg-nav: rgba(17, 20, 36, 0.8);
+            --accent: #00e5ff;
+            --text: #ffffff;
+            --text-muted: #a2b4cd;
+            --border: rgba(255, 255, 255, 0.1);
+            --bubble-in: rgba(255, 255, 255, 0.08);
+            --bubble-out: rgba(0, 229, 255, 0.3);
+            --bubble-out-text: #ffffff;
+            --body-bg: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            --backdrop: blur(12px);
         }
 
         html, body {
             margin: 0; padding: 0; width: 100%; height: 100%; height: -webkit-fill-available;
-            background: #070911; color: var(--text); font-family: -apple-system, sans-serif;
+            background: var(--body-bg); color: var(--text); font-family: -apple-system, sans-serif;
             display: flex; justify-content: center; align-items: center; overflow: hidden;
+            transition: background 0.3s ease;
         }
         .phone-container {
             width: 100vw; max-width: 420px; height: 100vh; height: 100dvh; 
             background: var(--bg-main); display: flex; flex-direction: column; position: relative; overflow: hidden;
+            backdrop-filter: var(--backdrop); -webkit-backdrop-filter: var(--backdrop);
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
         }
 
         /* 🔐 EXCLUSIVE GOOGLE SECURITY MANDATORY GATEWAY */
@@ -40,55 +78,68 @@
             background: #0c0f1d; z-index: 9999999; display: flex; flex-direction: column;
             align-items: center; justify-content: center; padding: 30px; box-sizing: border-box; text-align: center;
         }
-        .auth-branding { font-size: 42px; font-weight: 900; color: var(--accent); letter-spacing: 2px; margin-bottom: 5px; }
-        .secure-subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 35px; line-height: 1.5; }
+        .auth-branding { font-size: 42px; font-weight: 900; color: #39ff14; letter-spacing: 2px; margin-bottom: 5px; }
+        .secure-subtitle { color: #8e9cb2; font-size: 13px; margin-bottom: 35px; line-height: 1.5; }
 
         /* 👑 MAIN FRAMEWORK & VIEWPORT CONTROLLER */
         .top-header { 
             padding: 0 16px; background: var(--bg-nav); border-bottom: 1px solid var(--border); 
             font-size: 19px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; 
-            height: 55px; min-height: 55px; box-sizing: border-box;
+            height: 55px; min-height: 55px; box-sizing: border-box; color: var(--text);
+            transition: all 0.3s ease;
         }
         .network-status { 
             font-size: 11px; font-weight: bold; color: var(--accent); 
             background: rgba(57, 255, 20, 0.1); padding: 4px 8px; border-radius: 8px; 
+            transition: all 0.3s ease;
         }
-        .main-viewport { flex: 1; position: relative; width: 100%; overflow: hidden; background: #070911; }
+        [data-theme="romantic"] .network-status { background: rgba(233, 30, 99, 0.1); }
+        [data-theme="glass"] .network-status { background: rgba(0, 229, 255, 0.1); }
+
+        .main-viewport { flex: 1; position: relative; width: 100%; overflow: hidden; }
         .app-page { display: none; width: 100%; height: 100%; box-sizing: border-box; flex-direction: column; overflow-y: auto; }
         .app-page.active-page { display: flex !important; }
 
-        /* 💬 TABS 1: CHATS LIST DISPLAY (🚨 ABSOLUTELY CLEAN PLATFORM STYLE) */
-        .chat-list-container { display: flex; flex-direction: column; width: 100%; height: 100%; padding: 0; margin: 0; }
-        
-        /* ✨ FLOATING ACTION BUTTON (TELEGRAM STYLE) FOR CHAT CREATION */
-        .chat-fab-btn {
-            position: absolute; bottom: 20px; right: 20px; width: 56px; height: 56px;
-            border-radius: 50%; background: var(--accent); color: black; border: none;
-            font-size: 24px; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 15px rgba(57, 255, 20, 0.4); cursor: pointer; z-index: 40; transition: transform 0.2s;
+        /* 💬 TABS 1: CHATS LIST DISPLAY */
+        .chat-list-container { display: flex; flex-direction: column; width: 100%; }
+        .chat-card { display: flex; align-items: center; padding: 16px; border-bottom: 1px solid var(--border); cursor: pointer; background: transparent; transition: background 0.2s; }
+        .chat-card:active { background: rgba(255, 255, 255, 0.04); }
+        [data-theme="romantic"] .chat-card:active { background: rgba(0, 0, 0, 0.03); }
+
+        .avatar {
+            width: 48px; height: 48px; border-radius: 50%; background: var(--bg-card);
+            display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;
+            color: var(--accent); border: 1px solid var(--border); margin-right: 14px;
+            transition: all 0.3s ease;
         }
-        .chat-fab-btn:active { transform: scale(0.9); }
+        .chat-details { flex: 1; display: flex; flex-direction: column; gap: 4px; overflow: hidden; }
+        .name-row { display: flex; justify-content: space-between; font-size: 15px; font-weight: 600; color: var(--text); }
+        .empty-state-text { color: var(--text-muted); font-size: 14px; text-align: center; line-height: 1.6; padding: 40px 20px; }
         
         /* 🚀 CHAT BOX INTERFACE (🚨 FULL SCREEN OVERLAY ENGINE) */
         #chat-conversation-thread {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: #0c0f1d; z-index: 50; display: none; flex-direction: column;
+            background: var(--bg-main); z-index: 50; display: none; flex-direction: column;
+            transition: background 0.3s ease;
         }
         .chat-header-bar {
             height: 55px; background: var(--bg-nav); border-bottom: 1px solid var(--border);
             display: flex; justify-content: space-between; align-items: center; padding: 0 16px; box-sizing: border-box;
+            transition: background 0.3s ease;
         }
         .chat-header-actions { display: flex; gap: 20px; align-items: center; }
-        .chat-action-icon-btn { background: none; border: none; color: white; font-size: 18px; cursor: pointer; transition: color 0.2s; outline: none; padding: 5px; }
+        .chat-action-icon-btn { background: none; border: none; color: var(--text); font-size: 18px; cursor: pointer; transition: color 0.2s; outline: none; padding: 5px; }
         .chat-action-icon-btn:hover { color: var(--accent); }
         
         .messages-container { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-        .msg-bubble { max-width: 75%; padding: 10px 14px; border-radius: 16px; font-size: 14px; line-height: 1.4; word-break: break-word; }
-        .msg-in { background: var(--bubble-in); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
+        .msg-bubble { max-width: 75%; padding: 10px 14px; border-radius: 16px; font-size: 14px; line-height: 1.4; word-break: break-word; transition: all 0.3s ease; }
+        .msg-in { background: var(--bubble-in); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid var(--border); }
         .msg-out { background: var(--bubble-out); color: var(--bubble-out-text); align-self: flex-end; border-bottom-right-radius: 4px; }
-        .chat-input-bar { padding: 10px; background: var(--bg-nav); border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; padding-bottom: env(safe-area-inset-bottom); }
-        .chat-input { flex: 1; padding: 12px; background: var(--bg-card); border: 1px solid var(--border); color: white; border-radius: 20px; font-size: 14px; }
-        .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); border: none; color: black; font-size: 16px; cursor: pointer; }
+        
+        .chat-input-bar { padding: 10px; background: var(--bg-nav); border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; padding-bottom: env(safe-area-inset-bottom); transition: background 0.3s ease; }
+        .chat-input { flex: 1; padding: 12px; background: var(--bg-card); border: 1px solid var(--border); color: var(--text); border-radius: 20px; font-size: 14px; outline: none; transition: all 0.3s ease; }
+        .chat-input:focus { border-color: var(--accent); }
+        .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); border: none; color: white; font-size: 16px; cursor: pointer; transition: all 0.3s ease; color: #000; }
 
         /* 📞 PAGE TABS 2: CLEAN CALLS VIEWPORT */
         .missed-calls-view { display: flex; flex-direction: column; width: 100%; height: 100%; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
@@ -103,11 +154,11 @@
             background: #070911; z-index: 100; display: none; flex-direction: column;
         }
         .video-grid { display: flex; flex-direction: column; gap: 10px; padding: 16px; flex: 1; box-sizing: border-box; height: calc(100% - 70px); }
-        .video-wrapper { position: relative; flex: 1; background: #111424; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); }
+        .video-wrapper { position: relative; flex: 1; background: #111424; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
         video { width: 100%; height: 100%; object-fit: cover; }
-        .video-label { position: absolute; bottom: 12px; left: 12px; background: rgba(0,0,0,0.6); padding: 4px 10px; border-radius: 8px; font-size: 11px; }
-        .call-controls { height: 70px; display: flex; justify-content: center; align-items: center; gap: 20px; background: var(--bg-nav); border-top: 1px solid var(--border); }
-        .control-btn { width: 45px; height: 45px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; font-size: 16px; color: white; background: var(--bg-card); cursor: pointer; }
+        .video-label { position: absolute; bottom: 12px; left: 12px; background: rgba(0,0,0,0.6); padding: 4px 10px; border-radius: 8px; font-size: 11px; color: white; }
+        .call-controls { height: 70px; display: flex; justify-content: center; align-items: center; gap: 20px; background: #111424; border-top: 1px solid rgba(255,255,255,0.08); }
+        .control-btn { width: 45px; height: 45px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; font-size: 16px; color: white; background: rgba(255,255,255,0.1); cursor: pointer; }
         .control-btn.btn-end { background: #ff3333; }
 
         /* 🔲 TABS 3: PREMIUM CLEAN MESH NETWORK WORKSPACE UI */
@@ -120,21 +171,19 @@
             width: 85px; height: 85px; border-radius: 50%; border: 1px solid var(--border);
             background: var(--bg-card); display: flex; align-items: center; justify-content: center;
             font-size: 28px; color: var(--text); cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         .mesh-circle-btn.qr-trigger { color: #00e5ff; }
         .mesh-circle-btn.scan-trigger { color: #ff9900; }
-        .mesh-circle-btn:active { transform: scale(0.9); box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+        .mesh-circle-btn:active { transform: scale(0.9); }
         
-        .mesh-search-wrapper {
-            width: 100%; max-width: 320px; position: relative; display: flex; align-items: center;
-        }
+        .mesh-search-wrapper { width: 100%; max-width: 320px; position: relative; display: flex; align-items: center; }
         .mesh-search-bar {
             width: 100%; padding: 14px 16px; padding-left: 45px; border-radius: 28px;
-            border: 1px solid var(--border); background: var(--bg-card); color: white;
-            font-size: 14px; box-sizing: border-box; transition: border-color 0.2s;
+            border: 1px solid var(--border); background: var(--bg-card); color: var(--text);
+            font-size: 14px; box-sizing: border-box; transition: all 0.3s ease;
         }
-        .mesh-search-bar:focus { border-color: var(--accent); outline: none; }
+        .mesh-search-bar:focus { border-color: var(--accent); }
         .mesh-search-icon { position: absolute; left: 18px; color: var(--text-muted); font-size: 15px; }
 
         .mesh-popup-modal-overlay {
@@ -152,15 +201,15 @@
 
         /* 🧱 TABS 4: SETTINGS MANAGEMENT PANEL */
         .settings-view { padding: 20px; display: flex; flex-direction: column; gap: 15px; }
-        .profile-card { display: flex; align-items: center; background: var(--bg-card); padding: 16px; border-radius: 16px; border: 1px solid var(--border); }
-        .setting-item { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border); }
-        .theme-selector { background: #0c0f1d; border: 1px solid var(--border); color: white; padding: 6px 12px; border-radius: 8px; font-size: 12px; }
+        .profile-card { display: flex; align-items: center; background: var(--bg-card); padding: 16px; border-radius: 16px; border: 1px solid var(--border); transition: all 0.3s ease; }
+        .setting-item { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border); transition: all 0.3s ease; }
+        .theme-selector { background: var(--bg-main); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 8px; font-size: 12px; outline: none; }
 
-        /* 🧱 PREMIUM 4-TAB NAVIGATION FOOTER BAR */
+        /* 🧱 PREMIUM 4-TAB NAVIGATION BAR */
         .bottom-nav-bar {
             height: 65px; min-height: 65px; background: var(--bg-nav); border-top: 1px solid var(--border);
             display: flex; justify-content: space-around; align-items: center; width: 100%; box-sizing: border-box;
-            position: relative; z-index: 10; padding-bottom: env(safe-area-inset-bottom);
+            position: relative; z-index: 10; padding-bottom: env(safe-area-inset-bottom); transition: background 0.3s ease;
         }
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--text-muted); cursor: pointer; font-size: 11px; transition: color 0.2s; }
         .nav-item.active-nav { color: var(--accent); }
@@ -169,7 +218,7 @@
 </head>
 <body>
 
-    <div class="phone-container">
+    <div class="phone-container" id="global-phone-viewport">
         
         <div id="page-secure-auth">
             <div class="auth-branding">NEXUS ULTRA</div>
@@ -181,7 +230,7 @@
             </div>
             <div class="g_id_signin" data-type="standard" data-size="large" data-theme="filled_blue"></div>
             
-            <p style="font-size:11px; color:#ff9900; margin-top:40px;"><i class="fas fa-shield-alt"></i> rtcHeartbeat & 5M Free Daily Reads Protected</p>
+            <p style="font-size:11px; color:#ff9900; margin-top:40px;"><i class="fas fa-shield-alt"></i> rtcHeartbeat & Private Rooms Theme-Engine Powered</p>
         </div>
 
         <div id="app-main-header" class="top-header">
@@ -191,19 +240,15 @@
 
         <div class="main-viewport">
             
-            <div id="tab-page-chats" class="app-page active-page" style="position: relative;">
+            <div id="tab-page-chats" class="app-page active-page">
                 <div id="chats-list-dashboard" class="chat-list-container"></div>
-                
-                <button class="chat-fab-btn" onclick="openActiveChatRoom('global-mesh-room')">
-                    <i class="fas fa-comment-dots"></i>
-                </button>
             </div>
 
             <div id="chat-conversation-thread">
                 <div class="chat-header-bar">
                     <div style="display:flex; gap:12px; align-items:center;">
                         <button class="chat-action-icon-btn" onclick="exitChatRoomView()"><i class="fas fa-arrow-left"></i></button>
-                        <span id="chat-room-title-text" style="font-size:15px; font-weight:bold;">Global Channel</span>
+                        <span id="chat-room-title-text" style="font-size:15px; font-weight:bold; color:var(--text);">Private Chat</span>
                     </div>
                     <div class="chat-header-actions">
                         <button class="chat-action-icon-btn" onclick="triggerOutboundCallSession('audio')"><i class="fas fa-phone-alt" style="color:var(--accent);"></i></button>
@@ -213,7 +258,7 @@
                 
                 <div class="messages-container" id="msg-render-box">
                     <div style="text-align:center; font-size:11px; color:var(--text-muted); margin: 10px 0 20px 0;">
-                        <i class="fas fa-lock" style="font-size:10px;"></i> Secured by 100GB D1 Cloud Ecosystem
+                        <i class="fas fa-lock" style="font-size:10px;"></i> Viber Style End-to-End Private Encryption
                     </div>
                 </div>
                 
@@ -225,7 +270,7 @@
 
             <div id="tab-page-calls" class="app-page">
                 <div class="missed-calls-view" id="missed-calls-log-list">
-                    <p style="color: var(--text-muted); font-size: 14px;">လွတ်သွားသော ဖုန်းခေါ်ဆိုမှု မှတ်တမ်း မရှိသေးပါ။</p>
+                    <p class="empty-state-text">လွတ်သွားသော ဖုန်းခေါ်ဆိုမှု မှတ်တမ်း မရှိသေးပါ။</p>
                 </div>
             </div>
 
@@ -259,7 +304,7 @@
                     </div>
                     <div class="mesh-search-wrapper">
                         <i class="fas fa-search mesh-search-icon"></i>
-                        <input type="text" id="manual-mesh-ip" class="mesh-search-bar" placeholder="တစ်ဖက်လူရဲ့ local ip နဲ့ရှာရန်...">
+                        <input type="text" id="manual-mesh-ip" class="mesh-search-bar" placeholder="တစ်ဖက်လူရဲ့ အကောင့်အမည်ဖြင့် ရှာရန်...">
                     </div>
                 </div>
             </div>
@@ -267,13 +312,13 @@
             <div id="modal-my-qr-popup" class="mesh-popup-modal-overlay">
                 <button class="modal-close-top-btn" onclick="closeMyQrPopupModal()"><i class="fas fa-times"></i></button>
                 <div id="qrcode-render-area" class="qr-render-box"></div>
-                <p style="font-size: 13px; color: var(--text-muted); margin-top: 20px;">မင်းရဲ့ အော့ဖ်လိုင်း QR Code Node 📞</p>
+                <p style="font-size: 13px; color: #8e9cb2; margin-top: 20px;">မင်းရဲ့ သီးသန့် QR Node (ဒီကောင်ကို စကင်ဖတ်ခိုင်းပါ) 📞</p>
             </div>
 
             <div id="modal-camera-scanner-popup" class="mesh-popup-modal-overlay">
                 <button class="modal-close-top-btn" onclick="closeCameraScannerPopupModal()"><i class="fas fa-times"></i></button>
                 <div id="scanner-preview-container"></div>
-                <p style="font-size: 13px; color: var(--text-muted); margin-top: 20px;">QR Code အား စကင်ဖတ်နေပါသည်... 📷</p>
+                <p style="font-size: 13px; color: #8e9cb2; margin-top: 20px;">တစ်ဖက်လူ၏ QR အား စကင်ဖတ်ပြီး Private Add နေပါသည်... 📷</p>
             </div>
 
             <div id="tab-page-settings" class="app-page">
@@ -322,9 +367,10 @@
     <script>
         let signalingUrl = "https://nexus-call-server.aungnyanlin138.workers.dev";
         let localStream = null, peerConnection = null;
-        let currentRoomId = "global-mesh-room", myUsername = "Google User";
+        let currentRoomId = null, myUsername = "Google User";
         let isMuted = false, isCamOff = false, currentCallType = "video";
         let qrScannerInstance = null, heartbeatInterval = null;
+        let privateContactsList = JSON.parse(localStorage.getItem('nexus_private_contacts') || "[]");
 
         const rtcConfig = { 
             iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
@@ -333,9 +379,21 @@
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-            loadSavedMessagesFromStorage();
+            renderPrivateContactsDashboard();
+            // သိမ်းထားခဲ့တဲ့ Theme အဟောင်းရှိရင် Auto ပြန်ပွင့်စေမည့် Logic
+            let savedTheme = localStorage.getItem('nexus_applied_theme') || 'cyber';
+            executeSystemThemeTransition(savedTheme);
+            document.querySelector('.theme-selector').value = savedTheme;
+            
             if (Notification.permission !== "granted") Notification.requestPermission();
         });
+
+        // 🚨 THEME TRANSITION REVOLUTION ENGINE (ကုဒ်အသစ်စက်စက် လုံးဝအလုပ်လုပ်သွားစေရမည်)
+        function executeSystemThemeTransition(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('nexus_applied_theme', theme);
+            console.log(`🎨 Theme Ecosystem Transformed to: ${theme}`);
+        }
 
         function handleSecureCredentialResponse(response) {
             const base64Url = response.credential.split('.')[1];
@@ -343,15 +401,52 @@
             const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
             const userData = JSON.parse(jsonPayload);
             
-            myUsername = userData.name;
+            myUsername = userData.name.replace(/\s+/g, ''); 
             document.getElementById('profile-display-name').innerText = userData.name;
             document.getElementById('profile-display-email').innerText = userData.email;
             document.getElementById('profile-avatar-char').innerText = userData.name.charAt(0).toUpperCase();
             
             document.getElementById('page-secure-auth').style.display = 'none';
-            alert(`🎉 မင်္ဂလာပါ သားကြီး ${userData.name}။ အကောင့်ဝင်ရောက်မှု အောင်မြင်ပါသည်။`);
             
+            if(!privateContactsList.includes("GlobalRoom")) {
+                privateContactsList.push("GlobalRoom");
+                localStorage.setItem('nexus_private_contacts', JSON.stringify(privateContactsList));
+            }
+            
+            renderPrivateContactsDashboard();
             startRealtimeDatabaseMeshSync();
+        }
+
+        function renderPrivateContactsDashboard() {
+            const container = document.getElementById('chats-list-dashboard');
+            container.innerHTML = "";
+            
+            if(privateContactsList.length === 0) {
+                container.innerHTML = `<p class="empty-state-text">စကားပြောခန်းမရှိသေးပါ။<br>Viber ကဲ့သို့ စမ်းသပ်ရန် QR Mesh မှတစ်ဆင့် တစ်ဖက်လူအား Add ပါ သားကြီး။</p>`;
+                return;
+            }
+            
+            privateContactsList.forEach(contact => {
+                const card = document.createElement('div');
+                card.className = "chat-card";
+                
+                let isGlobal = contact === "GlobalRoom";
+                let displayName = isGlobal ? "Global Master Room 🌍" : `${contact} (Private 🔒)`;
+                let subText = isGlobal ? "မြန်မာနိုင်ငံနှင့် အများသုံးချန်နယ်..." : "ဒီနေရာမှာ သီးသန့် Private Chat ပြောပါ သားကြီး...";
+                let letter = displayName.charAt(0).toUpperCase();
+                
+                let roomId = isGlobal ? "global-mesh-room" : [myUsername, contact].sort().join("-to-");
+                
+                card.onclick = () => openActiveChatRoom(roomId, displayName);
+                card.innerHTML = `
+                    <div class="avatar">${letter}</div>
+                    <div class="chat-details" style="text-align: left;">
+                        <div class="name-row"><span>${displayName}</span></div>
+                        <p style="margin:0; font-size:13px; color:var(--text-muted);">${subText}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
         }
 
         function switchApplicationViewportTab(targetTab) {
@@ -364,6 +459,7 @@
                 navItems[0].classList.add('active-nav');
                 document.getElementById('app-main-header').style.display = "flex";
                 document.getElementById('app-header-title').innerText = "NEXUS Chats";
+                renderPrivateContactsDashboard();
             } else if (targetTab === 'calls') {
                 document.getElementById('tab-page-calls').classList.add('active-page');
                 navItems[1].classList.add('active-nav');
@@ -382,28 +478,27 @@
             }
         }
 
-        function executeSystemThemeTransition(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-        }
-
-        function openActiveChatRoom(roomId) {
+        function openActiveChatRoom(roomId, title) {
             currentRoomId = roomId;
+            document.getElementById('chat-room-title-text').innerText = title;
             document.getElementById('app-main-header').style.display = 'none';
             document.getElementById('app-footer-navigation').style.display = 'none';
             document.getElementById('chat-conversation-thread').style.display = 'flex';
+            loadSavedMessagesFromStorage(roomId);
         }
 
         function exitChatRoomView() {
             document.getElementById('chat-conversation-thread').style.display = 'none';
             document.getElementById('app-main-header').style.display = 'flex';
             document.getElementById('app-footer-navigation').style.display = 'flex';
+            currentRoomId = null;
         }
 
         function openMyQrPopupModal() {
             document.getElementById('modal-my-qr-popup').style.display = "flex";
             const renderBox = document.getElementById('qrcode-render-area');
             const qr = qrcode(4, 'L');
-            qr.addData(`NEXUS-NODE:${myUsername}`);
+            qr.addData(`NEXUS-VIBER-NODE:${myUsername}`);
             qr.make();
             renderBox.innerHTML = qr.createImgTag(6);
         }
@@ -416,10 +511,15 @@
             qrScannerInstance = new Html5Qrcode("scanner-preview-container");
             qrScannerInstance.start({ facingMode: "environment" }, { fps: 10, qrbox: 230 },
                 qrCodeMessage => {
-                    if(qrCodeMessage.startsWith("NEXUS-NODE:")) {
+                    if(qrCodeMessage.startsWith("NEXUS-VIBER-NODE:")) {
                         const peerUser = qrCodeMessage.split(":")[1];
-                        alert(`📡 Node Found: ${peerUser} နှင့် Local Bridge ချိတ်ဆက်မိပါပြီ သားကြီး!`);
+                        if(peerUser !== myUsername && !privateContactsList.includes(peerUser)) {
+                            privateContactsList.push(peerUser);
+                            localStorage.setItem('nexus_private_contacts', JSON.stringify(privateContactsList));
+                            alert(`📡 Private Node Added: ${peerUser} အား Viber ကဲ့သို့ သီးသန့် Chat List ထဲ ထည့်သွင်းလိုက်ပါပြီ သားကြီး!`);
+                        }
                         closeCameraScannerPopupModal();
+                        switchApplicationViewportTab('chats');
                     }
                 }, err => {}
             ).catch(e => alert("ကင်မရာဖွင့်၍မရပါ- " + e));
@@ -437,45 +537,45 @@
 
         function startRealtimeDatabaseMeshSync() {
             setInterval(async () => {
-                let targetIP = document.getElementById('manual-mesh-ip').value;
-                let syncEndpoint = (navigator.onLine && !targetIP) ? `${signalingUrl}/api/room/${currentRoomId}` : `http://${targetIP}:8080/api/sync`;
+                if (!currentRoomId) return; 
+                let syncEndpoint = `${signalingUrl}/api/room/${currentRoomId}`;
                 
                 try {
                     const res = await fetch(syncEndpoint);
                     if (res.status === 200) {
                         const data = await res.json();
                         if(data.text_message && data.sender !== myUsername) {
-                            const lastTrackedMessage = localStorage.getItem('last_processed_msg');
+                            const lastTrackedMessage = localStorage.getItem(`last_processed_msg_${currentRoomId}`);
                             if (lastTrackedMessage !== data.text_message) {
-                                appendMessageViewElement(data.sender, data.text_message, "in");
-                                localStorage.setItem('last_processed_msg', data.text_message);
+                                appendMessageViewElement(data.sender, data.text_message, "in", currentRoomId);
+                                localStorage.setItem(`last_processed_msg_${currentRoomId}`, data.text_message);
                             }
                         }
-                        if (data.offer && !data.answer && !peerConnection) {
+                        if (data.offer && !data.answer && !peerConnection && data.target_room === currentRoomId) {
                             dispatchInboundCallBannerNotification(data);
                         }
                     }
-                } catch (e) { console.log("Ecosystem synchronization running..."); }
+                } catch (e) { console.log("Private Sync Route Pulse..."); }
             }, 3000);
         }
 
         function dispatchInboundCallBannerNotification(data) {
             if (Notification.permission === "granted") {
-                const callNotification = new Notification("NEXUS Call Incoming 📞", {
-                    body: "အကန့်အသတ်မဲ့ ချန်နယ်မှ ဖုန်းခေါ်ဆိုနေပါသည်။ ကိုင်ရန် နှိပ်ပါ သားကြီး။"
+                const callNotification = new Notification("NEXUS Private Call Incoming 📞", {
+                    body: `${data.sender} ထံမှ သီးသန့် ဖုန်းခေါ်ဆိုနေပါသည်။`
                 });
                 callNotification.onclick = () => { window.focus(); acceptIncomingCallTransmission(data); };
             }
-            if(confirm(`📞 NEXUS Call: [${data.call_mode || 'video'}] အဝင်ကောလ် ရောက်ရှိလာပါသည်။ ကိုင်မလား သားကြီး?`)) {
+            if(confirm(`📞 Private Call: [${data.sender}] ထံမှ အဝင်ကောလ် ရောက်ရှိလာပါသည်။ ကိုင်မလား သားကြီး?`)) {
                 acceptIncomingCallTransmission(data);
             } else {
-                logMissedCallSession(data.sender || "Emergency Channel");
+                logMissedCallSession(data.sender || "Private Line");
             }
         }
 
         function logMissedCallSession(caller) {
             const container = document.getElementById('missed-calls-log-list');
-            if(container.querySelector('p')) container.innerHTML = '';
+            if(container.querySelector('.empty-state-text')) container.innerHTML = '';
             
             const card = document.createElement('div');
             card.className = "missed-call-card";
@@ -484,7 +584,7 @@
                 <div class="missed-icon-avatar"><i class="fas fa-phone-slash"></i></div>
                 <div class="missed-details">
                     <h4 style="margin:0 0 4px 0; font-size:14px; color:#ff3333;">Missed Call (လွတ်သွားသောဖုန်း)</h4>
-                    <p style="margin:0; font-size:12px; color:var(--text-muted);">${caller} ထံမှ ဖုန်းခေါ်ဆိုမှု လွတ်သွားခဲ့သည်။</p>
+                    <p style="margin:0; font-size:12px; color:var(--text-muted);">${caller} ထံမှ သီးသန့်ခဆိုမှု လွတ်သွားခဲ့သည်။</p>
                 </div>
                 <div class="missed-time">${now.getHours()}:${now.getMinutes()}</div>
             `;
@@ -494,39 +594,46 @@
         async function executeTextMessageTransmission() {
             const inputField = document.getElementById('chat-msg-input');
             const plainText = inputField.value;
-            if(!plainText) return;
+            if(!plainText || !currentRoomId) return;
 
-            appendMessageViewElement(myUsername, plainText, "out");
+            appendMessageViewElement(myUsername, plainText, "out", currentRoomId);
             inputField.value = "";
 
             let payload = { room_id: currentRoomId, text_message: plainText, sender: myUsername };
             await transmitPayloadPackageToMesh(payload);
         }
 
-        function appendMessageViewElement(sender, text, layoutDirection) {
-            const container = document.getElementById('msg-render-box');
-            const bubble = document.createElement('div');
-            bubble.className = `msg-bubble msg-${layoutDirection}`;
-            bubble.innerText = `${sender}: ${text}`;
-            container.appendChild(bubble);
-            container.scrollTop = container.scrollHeight;
-
-            let cacheBox = JSON.parse(localStorage.getItem('nexus_chat_history_cache') || "[]");
+        function appendMessageViewElement(sender, text, layoutDirection, roomId) {
+            let cacheBox = JSON.parse(localStorage.getItem(`nexus_chat_cache_${roomId}`) || "[]");
             cacheBox.push({ sender, text, type: layoutDirection });
-            localStorage.setItem('nexus_chat_history_cache', JSON.stringify(cacheBox));
+            localStorage.setItem(`nexus_chat_cache_${roomId}`, JSON.stringify(cacheBox));
+
+            if(currentRoomId === roomId) {
+                const container = document.getElementById('msg-render-box');
+                const bubble = document.createElement('div');
+                bubble.className = `msg-bubble msg-${layoutDirection}`;
+                bubble.innerText = `${sender}: ${text}`;
+                container.appendChild(bubble);
+                container.scrollTop = container.scrollHeight;
+            }
         }
 
-        function loadSavedMessagesFromStorage() {
-            let cacheBox = JSON.parse(localStorage.getItem('nexus_chat_history_cache') || "[]");
+        function loadSavedMessagesFromStorage(roomId) {
+            const container = document.getElementById('msg-render-box');
+            container.innerHTML = `
+                <div style="text-align:center; font-size:11px; color:var(--text-muted); margin: 10px 0 20px 0;">
+                    <i class="fas fa-lock" style="font-size:10px;"></i> Viber Style End-to-End Private Encryption
+                </div>
+            `;
+            
+            let cacheBox = JSON.parse(localStorage.getItem(`nexus_chat_cache_${roomId}`) || "[]");
             cacheBox.forEach(m => {
-                const container = document.getElementById('msg-render-box');
                 const bubble = document.createElement('div');
                 bubble.className = `msg-bubble msg-${m.type}`;
                 bubble.innerText = `${m.sender}: ${m.text}`;
                 container.appendChild(bubble);
             });
-            const element = document.getElementById('msg-render-box');
-            if(element) element.scrollTop = element.scrollHeight;
+            container.scrollTop = container.scrollHeight;
         }
 
         async function triggerOutboundCallSession(type) {
@@ -565,7 +672,7 @@
 
                 const offer = await peerConnection.createOffer();
                 await peerConnection.setLocalDescription(offer);
-                await transmitPayloadPackageToMesh({ offer: JSON.stringify(offer), call_mode: type, sender: myUsername });
+                await transmitPayloadPackageToMesh({ offer: JSON.stringify(offer), call_mode: type, sender: myUsername, target_room: currentRoomId });
             } catch (err) { executeAudioOnlyQualityFallback(); }
         }
 
@@ -611,7 +718,6 @@
             heartbeatInterval = setInterval(() => {
                 if(peerConnection && peerConnection.connectionState === "connected") {
                     transmitPayloadPackageToMesh({ keep_alive_pulse: "ALIVE", sender: myUsername });
-                    console.log("♾️ Session Keeper Heartbeat Packet Dispatched.");
                 }
             }, 15000);
         }
@@ -638,15 +744,15 @@
         }
 
         async function transmitPayloadPackageToMesh(data) {
-            let targetIP = document.getElementById('manual-mesh-ip').value;
-            let targetEndpoint = (navigator.onLine && !targetIP) ? `${signalingUrl}/api/room` : `http://${targetIP}:8080/api/room`;
+            if (!currentRoomId) return;
+            let targetEndpoint = `${signalingUrl}/api/room`;
             try {
                 await fetch(targetEndpoint, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ room_id: currentRoomId, ...data })
                 });
-            } catch(e) { console.error("Mesh Synchronization Route Failure."); }
+            } catch(e) { console.error("Mesh Route Sync Error."); }
         }
 
         function toggleMuteState() { isMuted = !isMuted; localStream.getAudioTracks()[0].enabled = !isMuted; }
