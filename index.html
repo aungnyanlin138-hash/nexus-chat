@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>NEXUS - 100GB Unlimited Emergency Hybrid Mesh Platform</title>
+    <title>NEXUS ULTRA - Premium Emergency System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     
     <style>
-        /* 🎨 THEME MANAGEMENT SYSTEM (CYBER DARK, ROMANTIC, GLASS) */
+        /* 🎨 THEME MANAGEMENT SYSTEM (CYBER NEON CORE DIRECTIVE) */
         :root {
             --bg-main: #0c0f1d; 
             --bg-card: #161b2e; 
@@ -23,401 +23,142 @@
             --bubble-out: #2c5364; 
             --bubble-out-text: #ffffff;
         }
-        [data-theme='romantic'] {
-            --bg-main: #fff0f5; 
-            --bg-card: #ffe4e1; 
-            --bg-nav: #ffb6c1;
-            --accent: #ff4500; 
-            --text: #4a0e17; 
-            --text-muted: #a17a80; 
-            --border: rgba(74, 14, 23, 0.1);
-            --bubble-in: #ffffff; 
-            --bubble-out: #ffb6c1; 
-            --bubble-out-text: #4a0e17;
-        }
-        [data-theme='glass'] {
-            --bg-main: linear-gradient(135deg, #0f2027, #203a43, #2c5364); 
-            --bg-card: rgba(255,255,255,0.08); 
-            --bg-nav: rgba(0,0,0,0.4);
-            --accent: #00e5ff; 
-            --text: #ffffff; 
-            --text-muted: #b0bec5; 
-            --border: rgba(255, 255, 255, 0.15);
-            --bubble-in: rgba(255,255,255,0.1); 
-            --bubble-out: rgba(0,229,255,0.2); 
-            --bubble-out-text: #ffffff;
-        }
 
-        /* 📱 RESPONSIVE MOBILE VIEWPORT CONFIGURATION */
         html, body {
-            margin: 0; 
-            padding: 0; 
-            width: 100%; 
-            height: 100%; 
-            height: -webkit-fill-available;
-            background: #070911; 
-            color: var(--text); 
-            font-family: -apple-system, sans-serif;
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            overflow: hidden;
+            margin: 0; padding: 0; width: 100%; height: 100%; height: -webkit-fill-available;
+            background: #070911; color: var(--text); font-family: -apple-system, sans-serif;
+            display: flex; justify-content: center; align-items: center; overflow: hidden;
         }
         .phone-container {
-            width: 100vw; 
-            max-width: 420px; 
-            height: 100vh; 
-            height: 100dvh; 
-            background: var(--bg-main); 
-            display: flex; 
-            flex-direction: column; 
-            position: relative; 
-            overflow: hidden;
-        }
-        
-        /* 🔐 LOGIN & CONFIGURATION SCREEN PANEL */
-        #page-auth-screen {
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%;
-            background: var(--bg-main); 
-            z-index: 9999999; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-            padding: 24px; 
-            box-sizing: border-box; 
-            text-align: center; 
-            overflow-y: auto;
-        }
-        .auth-logo { 
-            font-size: 38px; 
-            font-weight: 800; 
-            color: var(--accent); 
-            margin-bottom: 5px; 
-            letter-spacing: 1px; 
-        }
-        .auth-input {
-            width: 100%; 
-            max-width: 290px; 
-            padding: 12px 18px; 
-            border-radius: 24px;
-            border: 1px solid var(--border); 
-            background: var(--bg-card); 
-            color: var(--text);
-            font-size: 14px; 
-            margin-bottom: 12px; 
-            box-sizing: border-box; 
-            text-align: center;
-        }
-        .auth-input:focus { 
-            border-color: var(--accent); 
-            outline: none; 
-        }
-        .auth-btn {
-            width: 100%; 
-            max-width: 290px; 
-            padding: 13px; 
-            border-radius: 24px;
-            border: none; 
-            background: var(--accent); 
-            color: #000; 
-            font-size: 14px;
-            font-weight: 700; 
-            cursor: pointer; 
-            margin-top: 5px;
-        }
-        .mode-badge { 
-            background: #39ff14; 
-            color: black; 
-            padding: 4px 10px; 
-            border-radius: 12px; 
-            font-size: 11px; 
-            font-weight: bold; 
-            margin-top: 15px; 
+            width: 100vw; max-width: 420px; height: 100vh; height: 100dvh; 
+            background: var(--bg-main); display: flex; flex-direction: column; position: relative; overflow: hidden;
         }
 
-        /* 👑 TOP NAV HEADER */
+        /* 🔐 EXCLUSIVE GOOGLE SECURITY MANDATORY GATEWAY */
+        #page-secure-auth {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0c0f1d; z-index: 9999999; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; padding: 30px; box-sizing: border-box; text-align: center;
+        }
+        .auth-branding { font-size: 42px; font-weight: 900; color: var(--accent); letter-spacing: 2px; margin-bottom: 5px; }
+        .secure-subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 35px; line-height: 1.5; }
+
+        /* 👑 MAIN FRAMEWORK & VIEWPORT CONTROLLER */
         .top-header { 
-            padding: 0 16px; 
-            background: var(--bg-nav); 
-            border-bottom: 1px solid var(--border); 
-            font-size: 19px; 
-            font-weight: 700; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            height: 55px; 
-            backdrop-filter: blur(10px); 
-            box-sizing: border-box;
+            padding: 0 16px; background: var(--bg-nav); border-bottom: 1px solid var(--border); 
+            font-size: 19px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; 
+            height: 55px; min-height: 55px; box-sizing: border-box;
         }
-        .network-status { 
-            font-size: 11px; 
-            font-weight: bold; 
-            color: var(--accent); 
-            background: rgba(57, 255, 20, 0.1); 
-            padding: 4px 8px; 
-            border-radius: 8px; 
-        }
-        .theme-selector { 
-            background: var(--bg-card); 
-            border: 1px solid var(--border); 
-            color: var(--text); 
-            padding: 5px 8px; 
-            border-radius: 8px; 
-            font-size: 11px; 
-        }
+        .main-viewport { flex: 1; position: relative; width: 100%; overflow: hidden; background: #070911; }
+        .app-page { display: none; width: 100%; height: 100%; box-sizing: border-box; flex-direction: column; overflow-y: auto; }
+        .app-page.active-page { display: flex !important; }
 
-        .main-viewport { 
-            flex: 1; 
-            position: relative; 
-            width: 100%; 
-            overflow: hidden; 
+        /* 💬 TABS 1: CHATS SYSTEM LIST */
+        .chat-list-container { display: flex; flex-direction: column; width: 100%; }
+        .chat-card { display: flex; align-items: center; padding: 16px; border-bottom: 1px solid var(--border); cursor: pointer; }
+        .avatar {
+            width: 48px; height: 48px; border-radius: 50%; background: var(--bg-card);
+            display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;
+            color: var(--accent); border: 1px solid var(--border); margin-right: 14px;
         }
-        .app-page { 
-            display: none; 
-            width: 100%; 
-            height: 100%; 
-            box-sizing: border-box; 
-            flex-direction: column; 
-        }
-        .app-page.active-page { 
-            display: flex !important; 
-        }
+        .chat-details { flex: 1; display: flex; flex-direction: column; gap: 4px; overflow: hidden; }
+        .name-row { display: flex; justify-content: space-between; font-size: 15px; font-weight: 600; }
+        
+        /* 💬 TEXT CONVERSATION STREAM INTERFACE */
+        .chat-window-view { flex: 1; display: flex; flex-direction: column; height: 100%; }
+        .messages-container { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .msg-bubble { max-width: 75%; padding: 10px 14px; border-radius: 16px; font-size: 14px; line-height: 1.4; word-break: break-word; }
+        .msg-in { background: var(--bubble-in); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
+        .msg-out { background: var(--bubble-out); color: var(--bubble-out-text); align-self: flex-end; border-bottom-right-radius: 4px; }
+        .chat-input-bar { padding: 10px; background: var(--bg-nav); border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; }
+        .chat-input { flex: 1; padding: 12px; background: var(--bg-card); border: 1px solid var(--border); color: white; border-radius: 20px; font-size: 14px; }
+        .send-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); border: none; color: black; font-size: 16px; cursor: pointer; }
 
-        /* 💬 CHAT SYSTEM VIEW LAYOUT CODE */
-        .chat-view { 
-            flex: 1; 
-            display: flex; 
-            flex-direction: column; 
-            height: 100%; 
-        }
-        .messages-container { 
-            flex: 1; 
-            padding: 16px; 
-            overflow-y: auto; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 10px; 
-        }
-        .msg-bubble { 
-            max-width: 75%; 
-            padding: 10px 14px; 
-            border-radius: 16px; 
-            font-size: 14px; 
-            line-height: 1.4; 
-            word-break: break-word; 
-        }
-        .msg-in { 
-            background: var(--bubble-in); 
-            color: var(--text); 
-            align-self: flex-start; 
-            border-bottom-left-radius: 4px; 
-        }
-        .msg-out { 
-            background: var(--bubble-out); 
-            color: var(--bubble-out-text); 
-            align-self: flex-end; 
-            border-bottom-right-radius: 4px; 
-        }
-        .chat-input-bar { 
-            padding: 10px; 
-            background: var(--bg-nav); 
-            border-top: 1px solid var(--border); 
-            display: flex; 
-            gap: 8px; 
-            align-items: center; 
-        }
-        .chat-input { 
-            flex: 1; 
-            padding: 12px; 
-            background: var(--bg-card); 
-            border: 1px solid var(--border); 
-            color: white; 
-            border-radius: 20px; 
-            font-size: 14px; 
-        }
-        .send-btn { 
-            width: 40px; 
-            height: 40px; 
-            border-radius: 50%; 
-            background: var(--accent); 
-            border: none; 
-            color: black; 
-            font-size: 16px; 
-            cursor: pointer; 
-        }
+        /* 📱 TABS 2: VIDEO STREAM WEBRTC SCREEN COMPONENTS */
+        .video-grid { display: flex; flex-direction: column; gap: 10px; padding: 16px; flex: 1; box-sizing: border-box; height: calc(100% - 70px); }
+        .video-wrapper { position: relative; flex: 1; background: #111424; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); }
+        video { width: 100%; height: 100%; object-fit: cover; }
+        .video-label { position: absolute; bottom: 12px; left: 12px; background: rgba(0,0,0,0.6); padding: 4px 10px; border-radius: 8px; font-size: 11px; }
+        .call-controls { height: 70px; display: flex; justify-content: center; align-items: center; gap: 20px; background: var(--bg-nav); border-top: 1px solid var(--border); }
+        .control-btn { width: 45px; height: 45px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; font-size: 16px; color: white; background: var(--bg-card); cursor: pointer; }
+        .control-btn.btn-end { background: #ff3333; }
 
-        /* 📱 REAL-TIME WEBRTC VIDEO CALL COMPONENT LAYOUT */
-        .video-grid { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 10px; 
-            padding: 16px; 
-            flex: 1; 
-            background: #070911; 
-            height: calc(100% - 70px); 
-            box-sizing: border-box; 
-        }
-        .video-wrapper { 
-            position: relative; 
-            flex: 1; 
-            background: #111424; 
-            border-radius: 16px; 
-            overflow: hidden; 
-            border: 1px solid var(--border); 
-        }
-        video { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-        }
-        .video-label { 
-            position: absolute; 
-            bottom: 12px; 
-            left: 12px; 
-            background: rgba(0,0,0,0.6); 
-            padding: 4px 10px; 
-            border-radius: 8px; 
-            font-size: 11px; 
-        }
-        .call-controls { 
-            height: 70px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            gap: 20px; 
-            background: var(--bg-nav); 
-            border-top: 1px solid var(--border); 
-        }
-        .control-btn { 
-            width: 45px; 
-            height: 45px; 
-            border-radius: 50%; 
-            border: none; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 16px; 
-            color: white; 
-            background: var(--bg-card); 
-            cursor: pointer; 
-        }
-        .control-btn.btn-end { 
-            background: #ff3333; 
-        }
+        /* 🔲 TABS 3: OFF-GRID EMERGENCY MESH WIFI CONNECTION PANEL */
+        .mesh-panel-view { padding: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .mesh-btn { width: 100%; max-width: 280px; padding: 14px; border-radius: 24px; border: none; font-size: 14px; font-weight: bold; cursor: pointer; margin-bottom: 12px; color: black; }
+        #scanner-preview { width: 280px; height: 280px; background: #000; border-radius: 16px; overflow: hidden; margin-top: 15px; display: none; }
+        .qr-render-box { background: white; padding: 12px; border-radius: 12px; margin-top: 15px; display: none; }
 
-        /* 🔲 QR POPUP PANEL & CAMERA SCANNING INTERFACE UI */
-        #qr-popup-box, #qr-scanner-box { 
-            display: none; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: rgba(7,9,17,0.95); 
-            z-index: 999999; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            padding: 20px; 
-            box-sizing: border-box; 
+        /* 🧱 TABS 4: SETTINGS MANAGEMENT PANEL */
+        .settings-view { padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+        .profile-card { display: flex; align-items: center; background: var(--bg-card); padding: 16px; border-radius: 16px; border: 1px solid var(--border); }
+        .setting-item { display: flex; justify-content: space-between; align-items: center; background: var(--bg-card); padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border); }
+        .theme-selector { background: #0c0f1d; border: 1px solid var(--border); color: white; padding: 6px 12px; border-radius: 8px; font-size: 12px; }
+
+        /* 🧱 PREMIUM 4-TAB BOTTOM NAVIGATION BAR FIXED STRUCTURE */
+        .bottom-nav-bar {
+            height: 65px; min-height: 65px; background: var(--bg-nav); border-top: 1px solid var(--border);
+            display: flex; justify-content: space-around; align-items: center; width: 100%; box-sizing: border-box;
+            position: relative; z-index: 10; padding-bottom: env(safe-area-inset-bottom);
         }
-        .qr-display-area { 
-            background: white; 
-            padding: 16px; 
-            border-radius: 16px; 
-            margin: 20px 0; 
-        }
-        .action-header-btn { 
-            background: var(--bg-card); 
-            border: 1px solid var(--border); 
-            color: var(--accent); 
-            padding: 6px 12px; 
-            border-radius: 14px; 
-            font-size: 12px; 
-            cursor: pointer; 
-            font-weight: bold; 
-        }
-        .bottom-nav-bar { 
-            height: 65px; 
-            background: var(--bg-nav); 
-            border-top: 1px solid var(--border); 
-            display: flex; 
-            justify-content: space-around; 
-            align-items: center; 
-        }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--text-muted); cursor: pointer; font-size: 11px; transition: color 0.2s; }
+        .nav-item.active-nav { color: var(--accent); }
+        .nav-item i { font-size: 20px; }
     </style>
 </head>
 <body>
 
     <div class="phone-container">
-        <div id="page-auth-screen">
-            <div class="auth-logo">NEXUS ULTRA</div>
-            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">Cloudflare 100GB D1 Platform & Mesh Network Ecosystem</p>
+        
+        <div id="page-secure-auth">
+            <div class="auth-branding">NEXUS ULTRA</div>
+            <p class="secure-subtitle">Cloudflare 100GB D1 Secure Platform<br>အက်ပ်အားအသုံးပြုရန် Google အကောင့်ဖြင့် အရင်ဝင်ပါ သားကြီး။</p>
             
-            <input type="text" id="auth-username" class="auth-input" placeholder="မင်းနာမည်ရိုက်ထည့်ပါ သားကြီး">
-            <input type="text" id="local-ip-input" class="auth-input" placeholder="လိုင်းမရှိရင် တစ်ဖက်လူ IP ရိုက်ပါ">
-            
-            <div style="display:flex; gap:10px; margin-bottom:15px; width:100%; max-width:290px;">
-                <button class="auth-btn" style="flex:1; background:#00e5ff;" onclick="generateMyMeshQR()"><i class="fas fa-qrcode"></i> QR ထုတ်မည်</button>
-                <button class="auth-btn" style="flex:1; background:#ff9900;" onclick="openMeshQRScanner()"><i class="fas fa-camera"></i> QR ဖတ်မည်</button>
+            <div id="g_id_onload" 
+                 data-client_id="976507866074-jc4p16dic2lc4qoq3t291gh7gusdp86h.apps.googleusercontent.com" 
+                 data-callback="handleSecureCredentialResponse">
             </div>
-
-            <button class="auth-btn" onclick="initiateMeshNetwork()">ကွန်ရက်ထဲသို့ဝင်မည်</button>
+            <div class="g_id_signin" data-type="standard" data-size="large" data-theme="filled_blue"></div>
             
-            <div id="g_id_onload" data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com" data-callback="handleCredentialResponse"></div>
-            <div class="g_id_signin" style="margin-top: 15px;" data-type="standard"></div>
-            
-            <div class="mode-badge">♾️ rtcHeartbeat Keep-Alive & 5M Free Reads Active</div>
-        </div>
-
-        <div id="qr-popup-box">
-            <h3 style="margin: 0; font-size: 18px;">မင်းရဲ့ အော့ဖ်လိုင်း QR Code 📞</h3>
-            <p style="font-size:12px; color:var(--text-muted); text-align:center; margin: 8px 0;">တောင်ပေါ်ဒေသတွင် လိုင်းမရှိပါက ဤ QR ကို အခြားဖုန်းမှ Scan ဖတ်၍ တိုက်ရိုက်ချိတ်ဆက်နိုင်ပါသည်။</p>
-            <div id="qrcode-render" class="qr-display-area"></div>
-            <button class="auth-btn" style="background:#ff3333; color:white;" onclick="closeQRBox()">ပိတ်မည်</button>
-        </div>
-
-        <div id="qr-scanner-box">
-            <h3 style="margin: 0 0 15px 0; font-size: 18px;">QR Code ဖတ်နေသည်... 📷</h3>
-            <div id="scanner-preview" style="width: 280px; height: 280px; background:#111; border-radius:16px; overflow:hidden;"></div>
-            <button class="auth-btn" style="background:#ff3333; color:white; margin-top:20px;" onclick="closeQRScannerBox()">ပိတ်မည်</button>
+            <p style="font-size:11px; color:#ff9900; margin-top:40px;"><i class="fas fa-shield-alt"></i> rtcHeartbeat & 5M Free Daily Reads Protected</p>
         </div>
 
         <div class="top-header">
-            <span>NEXUS Chat</span>
-            <select class="theme-selector" onchange="changeTheme(this.value)">
-                <option value="cyber">Cyber Dark</option>
-                <option value="romantic">Romantic</option>
-                <option value="glass">Glass Morph</option>
-            </select>
-            <span id="status-text" class="network-status">🟢 Cloudflare D1 Active</span>
+            <span id="app-header-title">NEXUS Chats</span>
+            <span id="network-status-indicator" class="network-status" style="background: rgba(57, 255, 20, 0.1); color: var(--accent);">🟢 100GB D1 Ready</span>
         </div>
 
         <div class="main-viewport">
-            <div id="page-chat" class="app-page active-page">
-                <div class="chat-view">
-                    <div style="padding: 10px; background: rgba(255,255,255,0.02); display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border);">
-                        <span style="font-size:13px; color:var(--text-muted);" id="chatting-with">Emergency Channel (Cloudflare 5M System)</span>
-                        <button class="action-header-btn" onclick="triggerVoiceVideoCall()"><i class="fas fa-video"></i> Call ခေါ်မည်</button>
+            
+            <div id="tab-page-chats" class="app-page active-page">
+                <div id="chats-list-dashboard" class="chat-list-container">
+                    <div class="chat-card" onclick="openActiveChatRoom('global-mesh-room')">
+                        <div class="avatar">N</div>
+                        <div class="chat-details">
+                            <div class="name-row"><span>Global Mesh Room</span><span style="font-size:11px; color:var(--accent);">Active</span></div>
+                            <p style="margin:0; font-size:13px; color:var(--text-muted);">အရေးပေါ် စာတိုပေးပို့ရန် နှိပ်ပါ သားကြီး...</p>
+                        </div>
                     </div>
-                    <div class="messages-container" id="msg-box"></div>
+                </div>
+                
+                <div id="chat-conversation-thread" class="chat-window-view" style="display:none;">
+                    <div style="padding: 10px; background: rgba(255,255,255,0.02); display:flex; gap:10px; align-items:center; border-bottom:1px solid var(--border);">
+                        <button class="action-header-btn" style="background:none; border:none; color:white; font-size:16px; cursor:pointer;" onclick="exitChatRoomView()"><i class="fas fa-arrow-left"></i></button>
+                        <span id="chat-room-title-text" style="font-size:14px; font-weight:bold;">Global Channel</span>
+                    </div>
+                    <div class="messages-container" id="msg-render-box"></div>
                     <div class="chat-input-bar">
                         <input type="text" id="chat-msg-input" class="chat-input" placeholder="စာရိုက်ထည့်ပါ သားကြီး...">
-                        <button class="send-btn" onclick="sendTextMessage()"><i class="fas fa-paper-plane"></i></button>
+                        <button class="send-btn" onclick="executeTextMessageTransmission()"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
             </div>
 
-            <div id="page-video-call" class="app-page">
+            <div id="tab-page-calls" class="app-page">
                 <div class="video-grid">
                     <div class="video-wrapper">
                         <video id="remoteVideo" autoplay playsinline></video>
-                        <div class="video-label">Remote Stream (P2P Unlimited)</div>
+                        <div class="video-label">Remote Stream (Adaptive P2P)</div>
                     </div>
                     <div class="video-wrapper" style="flex: 0; height: 110px;">
                         <video id="localVideo" autoplay playsinline muted></video>
@@ -425,191 +166,247 @@
                     </div>
                 </div>
                 <div class="call-controls">
-                    <button class="control-btn" onclick="toggleMute()"><i class="fas fa-microphone"></i></button>
-                    <button class="control-btn btn-end" onclick="endCallSession()"><i class="fas fa-phone-slash"></i></button>
-                    <button class="control-btn" onclick="toggleCamera()"><i class="fas fa-video"></i></button>
+                    <button class="control-btn" onclick="toggleMuteState()"><i class="fas fa-microphone"></i></button>
+                    <button class="control-btn btn-end" onclick="terminateActiveCallSession()"><i class="fas fa-phone-slash"></i></button>
+                    <button class="control-btn" onclick="toggleCameraState()"><i class="fas fa-video"></i></button>
                 </div>
+            </div>
+
+            <div id="tab-page-qr" class="app-page">
+                <div class="mesh-panel-view">
+                    <h3 style="margin-top:0;">အော့ဖ်လိုင်း ဆက်သွယ်ရေး စနစ် (Mesh Mode)</h3>
+                    <p style="font-size:13px; color:var(--text-muted); margin-bottom:25px;">တောင်ပေါ်ဒေသတွင် လိုင်းလုံးဝမရှိပါက Local WiFi/Hotspot ချိတ်ဆက်ပြီး QR စနစ်ဖြင့် အချင်းချင်း ချိတ်ဆက်နိုင်ပါသည်။</p>
+                    
+                    <button class="mesh-btn" style="background:#00e5ff;" onclick="generateEmergencyMeshQR()"><i class="fas fa-qrcode"></i> ကျွန်ုပ်၏ QR Code ထုတ်မည်</button>
+                    <button class="mesh-btn" style="background:#ff9900;" onclick="initializeCameraMeshScanner()"><i class="fas fa-camera"></i> တစ်ဖက်လူ QR စကင်ဖတ်မည်</button>
+                    
+                    <input type="text" id="manual-mesh-ip" class="auth-input" style="margin-top:15px; width:100%;" placeholder="သို့မဟုတ် တစ်ဖက်လူ Local IP ရိုက်ထည့်ပါ">
+                    
+                    <div id="qrcode-render-area" class="qr-render-box"></div>
+                    <div id="scanner-preview"></div>
+                </div>
+            </div>
+
+            <div id="tab-page-settings" class="app-page">
+                <div class="settings-view">
+                    <div class="profile-card">
+                        <div class="avatar" id="profile-avatar-char" style="margin-right:15px; width:55px; height:55px; font-size:20px;">U</div>
+                        <div>
+                            <h4 id="profile-display-name" style="margin:0 0 4px 0; font-size:16px;">Google User</h4>
+                            <p id="profile-display-email" style="margin:0; font-size:12px; color:var(--text-muted);">authenticated</p>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <span>စနစ်၏ အရောင်အသွေး (Theme)</span>
+                        <select class="theme-selector" onchange="executeSystemThemeTransition(this.value)">
+                            <option value="cyber">Cyber Neon</option>
+                            <option value="romantic">Romantic Light</option>
+                            <option value="glass">Glass Morph</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <span>100GB D1 Cloud Sync</span>
+                        <span style="font-size:12px; color:var(--accent);">အလိုအလျောက် အလုပ်လုပ်နေသည်</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="bottom-nav-bar" id="app-footer-navigation">
+            <div class="nav-item active-nav" onclick="switchApplicationViewportTab('chats')">
+                <i class="fas fa-comment-alt"></i><span>Chats</span>
+            </div>
+            <div class="nav-item" onclick="switchApplicationViewportTab('calls')">
+                <i class="fas fa-phone-alt"></i><span>Calls</span>
+            </div>
+            <div class="nav-item" onclick="switchApplicationViewportTab('qr')">
+                <i class="fas fa-qrcode"></i><span>QR Mesh</span>
+            </div>
+            <div class="nav-item" onclick="switchApplicationViewportTab('settings')">
+                <i class="fas fa-cog"></i><span>Settings</span>
             </div>
         </div>
 
-        <div class="bottom-nav-bar">
-            <i class="fas fa-comment-alt" style="color: var(--accent); font-size: 20px;"></i>
-            <i class="fas fa-users" style="color: var(--text-muted); font-size: 20px;"></i>
-            <i class="fas fa-cog" style="color: var(--text-muted); font-size: 20px;"></i>
-        </div>
     </div>
 
     <script>
-        // Cloudflare Workers Backend Signaling Link Linkage
         let signalingUrl = "https://nexus-call-server.aungnyanlin138.workers.dev";
-        let isOnline = true;
-        let localTargetIP = ""; 
-        let localStream = null;
-        let peerConnection = null;
-        let currentRoomId = "global-mesh";
-        let myUsername = "User";
-        let qrScannerInstance = null;
-        let heartbeatInterval = null;
+        let localStream = null, peerConnection = null;
+        let currentRoomId = "global-mesh-room", myUsername = "Google User";
+        let isMuted = false, isCamOff = false, isMeshOfflineMode = false;
+        let qrScannerInstance = null, heartbeatInterval = null;
 
-        // ⚡ 2G Network Optimized Connection Architecture Setup Config
         const rtcConfig = { 
             iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
             iceTransportPolicy: "all",
             iceCandidatePoolSize: 2
         };
 
-        // 💾 Offline Persistent Management Engine Initialization
         document.addEventListener('DOMContentLoaded', () => {
-            loadSavedMessages();
-            if (Notification.permission !== "granted") {
-                Notification.requestPermission();
-            }
+            loadSavedMessagesFromStorage();
+            if (Notification.permission !== "granted") Notification.requestPermission();
         });
 
-        function changeTheme(theme) { 
-            document.documentElement.setAttribute('data-theme', theme); 
+        // 🔐 GOOGLE SECURE AUTH GATEWAY SUCCESS TRIGGER
+        function handleSecureCredentialResponse(response) {
+            const base64Url = response.credential.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+            const userData = JSON.parse(jsonPayload);
+            
+            myUsername = userData.name;
+            document.getElementById('profile-display-name').innerText = userData.name;
+            document.getElementById('profile-display-email').innerText = userData.email;
+            document.getElementById('profile-avatar-char').innerText = userData.name.charAt(0).toUpperCase();
+            
+            document.getElementById('page-secure-auth').style.display = 'none';
+            alert(`🎉 မင်္ဂလာပါ သားကြီး ${userData.name}။ အကောင့်ဝင်ရောက်မှု အောင်မြင်ပါသည်။`);
+            
+            startRealtimeDatabaseMeshSync();
         }
 
-        // Google Authentication Signal Extraction Mechanism
-        function handleCredentialResponse(response) {
-            const data = jwt_decode(response.credential); 
-            myUsername = data.name;
-            document.getElementById('page-auth-screen').style.display = 'none';
-            startRealtimeMeshSync();
+        function switchApplicationViewportTab(targetTab) {
+            document.querySelectorAll('.app-page').forEach(p => p.classList.remove('active-page'));
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active-nav'));
+            
+            const navItems = document.getElementById('app-footer-navigation').children;
+            if (targetTab === 'chats') {
+                document.getElementById('tab-page-chats').classList.add('active-page');
+                navItems[0].classList.add('active-nav');
+                document.getElementById('app-header-title').innerText = "NEXUS Chats";
+            } else if (targetTab === 'calls') {
+                document.getElementById('tab-page-calls').classList.add('active-page');
+                navItems[1].classList.add('active-nav');
+                document.getElementById('app-header-title').innerText = "NEXUS Call Engine";
+            } else if (targetTab === 'qr') {
+                document.getElementById('tab-page-qr').classList.add('active-page');
+                navItems[2].classList.add('active-nav');
+                document.getElementById('app-header-title').innerText = "NEXUS QR Mesh";
+            } else if (targetTab === 'settings') {
+                document.getElementById('tab-page-settings').classList.add('active-page');
+                navItems[3].classList.add('active-nav');
+                document.getElementById('app-header-title').innerText = "NEXUS Settings";
+            }
         }
 
-        // 🔲 QR Code Generation Database Mapping System
-        function generateMyMeshQR() {
-            document.getElementById('qr-popup-box').style.display = "flex";
-            const qr = qrcode(4, 'L'); 
-            qr.addData(`NEXUS-MESH:${document.getElementById('auth-username').value || 'User'}`); 
+        function executeSystemThemeTransition(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+        }
+
+        function openActiveChatRoom(roomId) {
+            currentRoomId = roomId;
+            document.getElementById('chats-list-dashboard').style.display = 'none';
+            document.getElementById('chat-conversation-thread').style.display = 'flex';
+        }
+
+        function exitChatRoomView() {
+            document.getElementById('chat-conversation-thread').style.display = 'none';
+            document.getElementById('chats-list-dashboard').style.display = 'flex';
+        }
+
+        function generateEmergencyMeshQR() {
+            const renderBox = document.getElementById('qrcode-render-area');
+            renderBox.style.display = "block";
+            const qr = qrcode(4, 'L');
+            qr.addData(`NEXUS-NODE:${myUsername}`);
             qr.make();
-            document.getElementById('qrcode-render').innerHTML = qr.createImgTag(6);
-        }
-        function closeQRBox() { 
-            document.getElementById('qr-popup-box').style.display = "none"; 
+            renderBox.innerHTML = qr.createImgTag(5);
         }
 
-        // 📷 Infrastructure-Free Camera Barcode Scanning Integration
-        function openMeshQRScanner() {
-            document.getElementById('qr-scanner-box').style.display = "flex";
+        function initializeCameraMeshScanner() {
+            document.getElementById('scanner-preview').style.display = "block";
             qrScannerInstance = new Html5Qrcode("scanner-preview");
             qrScannerInstance.start({ facingMode: "environment" }, { fps: 10, qrbox: 250 },
                 qrCodeMessage => {
-                    if(qrCodeMessage.startsWith("NEXUS-MESH:")) {
-                        const targetUser = qrCodeMessage.split(":")[1];
-                        alert(`NEXUS: ${targetUser} ၏ QR Code ကို ဖတ်မိပါပြီ။ ချိတ်ဆက်နေပါသည်။`);
-                        document.getElementById('auth-username').value = "Peer-Device";
-                        closeQRScannerBox(); 
-                        initiateMeshNetwork();
+                    if(qrCodeMessage.startsWith("NEXUS-NODE:")) {
+                        const peerUser = qrCodeMessage.split(":")[1];
+                        alert(`📡 Node Found: ${peerUser} နှင့် Local Bridge ချိတ်ဆက်မိပါပြီ သားကြီး!`);
+                        if(qrScannerInstance) {
+                            qrScannerInstance.stop().then(() => { document.getElementById('scanner-preview').style.display = "none"; });
+                        }
                     }
-                }, errorMessage => { }
-            ).catch(err => alert("Scanner အမှား: " + err));
-        }
-        function closeQRScannerBox() { 
-            if(qrScannerInstance) { 
-                qrScannerInstance.stop().then(() => { 
-                    document.getElementById('qr-scanner-box').style.display = "none"; 
-                }); 
-            } 
+                }, err => {}
+            ).catch(e => alert("ကင်မရာဖွင့်၍မရပါ- " + e));
         }
 
-        function initiateMeshNetwork() {
-            const user = document.getElementById('auth-username').value; 
-            localTargetIP = document.getElementById('local-ip-input').value;
-            if(!user) return alert("နာမည်ထည့်ပါ သားကြီး!"); 
-            myUsername = user;
-            document.getElementById('page-auth-screen').style.display = 'none';
-            startRealtimeMeshSync();
-        }
-
-        // 🔄 100GB Cloud D1 Database Sync Engine (CRUD Operations & Multi-Channel Polling Loop)
-        function startRealtimeMeshSync() {
+        function startRealtimeDatabaseMeshSync() {
             setInterval(async () => {
-                let fetchUrl = (navigator.onLine && !localTargetIP) ? `${signalingUrl}/api/room/${currentRoomId}` : `http://${localTargetIP}:8080/api/sync`;
+                let targetIP = document.getElementById('manual-mesh-ip').value;
+                let syncEndpoint = (navigator.onLine && !targetIP) ? `${signalingUrl}/api/room/${currentRoomId}` : `http://${targetIP}:8080/api/sync`;
+                
                 try {
-                    const res = await fetch(fetchUrl);
+                    const res = await fetch(syncEndpoint);
                     if (res.status === 200) {
                         const data = await res.json();
-                        
-                        // Cloudflare D1 Backend စာတိုများ ဖတ်ယူစိစစ်ခြင်း
                         if(data.text_message && data.sender !== myUsername) {
-                            const lastMsg = localStorage.getItem('last_msg_check');
-                            if(lastMsg !== data.text_message) {
-                                appendMessage(data.sender, data.text_message, "in");
-                                localStorage.setItem('last_msg_check', data.text_message);
+                            const lastTrackedMessage = localStorage.getItem('last_processed_msg');
+                            if (lastTrackedMessage !== data.text_message) {
+                                appendMessageViewElement(data.sender, data.text_message, "in");
+                                localStorage.setItem('last_processed_msg', data.text_message);
                             }
                         }
-                        // 🔔 Inbound Signals Analysis (Offer Detection Logic)
-                        if (data.offer && !data.answer && !peerConnection) { 
-                            triggerInboundCallAlert(data); 
+                        if (data.offer && !data.answer && !peerConnection) {
+                            dispatchInboundCallBannerNotification(data);
                         }
                     }
-                } catch (e) { console.log("Database Syncing..."); }
+                } catch (e) { console.log("Ecosystem synchronization running..."); }
             }, 3000);
         }
 
-        // 🔔 Foreground Banner/Background Push Notification Trigger Mechanism
-        function triggerInboundCallAlert(data) {
+        function dispatchInboundCallBannerNotification(data) {
             if (Notification.permission === "granted") {
-                const n = new Notification("NEXUS Call Incoming 📞", { 
-                    body: "အကန့်အသတ်မဲ့ ချန်နယ်မှ ဖုန်းခေါ်ဆိုနေပါသည်။" 
+                const callNotification = new Notification("NEXUS Call Incoming 📞", {
+                    body: "အကန့်အသတ်မဲ့ ချန်နယ်မှ ဖုန်းခေါ်ဆိုနေပါသည်။ ကိုင်ရန် နှိပ်ပါ သားကြီး။"
                 });
-                n.onclick = () => { 
-                    window.focus(); 
-                    acceptIncomingCall(data); 
-                };
+                callNotification.onclick = () => { window.focus(); acceptIncomingCallTransmission(data); };
             }
-            if(confirm("NEXUS: ဖုန်းခေါ်ဆိုမှု ရောက်နေပါသည်။ ကိုင်မလား သားကြီး?")) { 
-                acceptIncomingCall(data); 
+            if(confirm("📞 NEXUS Call Engine: အဝင်ကောလ် ရောက်ရှိလာပါသည်။ လက်ခံမလား သားကြီး?")) {
+                acceptIncomingCallTransmission(data);
             }
         }
 
-        // 💬 Text Transmission Logic Layer (D1 100GB Permanent Pipe)
-        async function sendTextMessage() {
-            const input = document.getElementById('chat-msg-input'); 
-            const text = input.value; 
-            if(!text) return;
+        async function executeTextMessageTransmission() {
+            const inputField = document.getElementById('chat-msg-input');
+            const plainText = inputField.value;
+            if(!plainText) return;
 
-            appendMessage(myUsername, text, "out"); 
-            input.value = "";
-            let payload = { room_id: currentRoomId, text_message: text, sender: myUsername };
-            await sendPayloadToMesh(payload);
+            appendMessageViewElement(myUsername, plainText, "out");
+            inputField.value = "";
+
+            let payload = { room_id: currentRoomId, text_message: plainText, sender: myUsername };
+            await transmitPayloadPackageToMesh(payload);
         }
 
-        function appendMessage(sender, text, type) {
-            const box = document.getElementById('msg-box'); 
+        function appendMessageViewElement(sender, text, layoutDirection) {
+            const container = document.getElementById('msg-render-box');
             const bubble = document.createElement('div');
-            bubble.className = `msg-bubble msg-${type}`; 
+            bubble.className = `msg-bubble msg-${layoutDirection}`;
             bubble.innerText = `${sender}: ${text}`;
-            box.appendChild(bubble); 
-            box.scrollTop = box.scrollHeight;
-            
-            // Local Storage Persistence Storage Operations
-            let savedBox = JSON.parse(localStorage.getItem('nexus_chat_history') || "[]"); 
-            savedBox.push({ sender, text, type });
-            localStorage.setItem('nexus_chat_history', JSON.stringify(savedBox));
+            container.appendChild(bubble);
+            container.scrollTop = container.scrollHeight;
+
+            let cacheBox = JSON.parse(localStorage.getItem('nexus_chat_history_cache') || "[]");
+            cacheBox.push({ sender, text, type: layoutDirection });
+            localStorage.setItem('nexus_chat_history_cache', JSON.stringify(cacheBox));
         }
 
-        function loadSavedMessages() {
-            let savedBox = JSON.parse(localStorage.getItem('nexus_chat_history') || "[]");
-            savedBox.forEach(m => {
-                const box = document.getElementById('msg-box'); 
+        function loadSavedMessagesFromStorage() {
+            let cacheBox = JSON.parse(localStorage.getItem('nexus_chat_history_cache') || "[]");
+            cacheBox.forEach(m => {
+                const container = document.getElementById('msg-render-box');
                 const bubble = document.createElement('div');
-                bubble.className = `msg-bubble msg-${m.type}`; 
-                bubble.innerText = `${m.sender}: ${m.text}`; 
-                box.appendChild(bubble);
+                bubble.className = `msg-bubble msg-${m.type}`;
+                bubble.innerText = `${m.sender}: ${m.text}`;
+                container.appendChild(bubble);
             });
-            const b = document.getElementById('msg-box'); b.scrollTop = b.scrollHeight;
+            const element = document.getElementById('msg-render-box');
+            if(element) element.scrollTop = element.scrollHeight;
         }
 
-        // 🎥 WebRTC Peer-to-Peer Outbound Initialization (Step 1: Write SDP Offer into Cloudflare D1)
         async function triggerVoiceVideoCall() {
-            document.getElementById('page-chat').classList.remove('active-page');
-            document.getElementById('page-video-call').classList.add('active-page');
-
+            switchApplicationViewportTab('calls');
             try {
-                // 📉 2G Hardware Downscaling Data Capturing
                 localStream = await navigator.mediaDevices.getUserMedia({ 
                     video: { width: 176, height: 144, frameRate: { max: 7 } }, 
                     audio: { echoCancellation: true, noiseSuppression: true } 
@@ -619,29 +416,25 @@
                 peerConnection = new RTCPeerConnection(rtcConfig);
                 localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
                 peerConnection.ontrack = e => { document.getElementById('remoteVideo').srcObject = e.streams[0]; };
-                peerConnection.onicecandidate = e => { 
-                    if (e.candidate) sendPayloadToMesh({ candidates: JSON.stringify(e.candidate) }); 
+                peerConnection.onicecandidate = e => {
+                    if (e.candidate) transmitPayloadPackageToMesh({ candidates: JSON.stringify(e.candidate) });
                 };
                 
                 peerConnection.onconnectionstatechange = () => {
                     if (peerConnection.connectionState === "connected") {
-                        limitBandwidthBitrate();
-                        startHeartbeatSession(); // 💓 P2P Network Connection Established successfully
+                        executeLowBandwidthCompressionLimits();
+                        startHeartbeatKeepAliveSession();
                     }
                 };
 
                 const offer = await peerConnection.createOffer();
                 await peerConnection.setLocalDescription(offer);
-                // Write SDP Offer array into Cloudflare Worker
-                await sendPayloadToMesh({ offer: JSON.stringify(offer) });
-            } catch (err) { initiateAudioOnlyFallback(); }
+                await transmitPayloadPackageToMesh({ offer: JSON.stringify(offer) });
+            } catch (err) { executeAudioOnlyQualityFallback(); }
         }
 
-        // 📲 Inbound Signaling Acceptance Controller (Step 2: Read SDP Offer, Respond with SDP Answer to Cloudflare)
-        async function acceptIncomingCall(roomData) {
-            document.getElementById('page-chat').classList.remove('active-page');
-            document.getElementById('page-video-call').classList.add('active-page');
-
+        async function acceptIncomingCallTransmission(roomData) {
+            switchApplicationViewportTab('calls');
             try {
                 localStream = await navigator.mediaDevices.getUserMedia({ 
                     video: { width: 176, height: 144, frameRate: { max: 7 } }, 
@@ -652,80 +445,70 @@
                 peerConnection = new RTCPeerConnection(rtcConfig);
                 localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
                 peerConnection.ontrack = e => { document.getElementById('remoteVideo').srcObject = e.streams[0]; };
-                
                 peerConnection.onconnectionstatechange = () => {
                     if (peerConnection.connectionState === "connected") {
-                        limitBandwidthBitrate();
-                        startHeartbeatSession();
+                        executeLowBandwidthCompressionLimits();
+                        startHeartbeatKeepAliveSession();
                     }
                 };
 
                 await peerConnection.setRemoteDescription(new RTCSessionDescription(JSON.parse(roomData.offer)));
                 const answer = await peerConnection.createAnswer();
                 await peerConnection.setLocalDescription(answer);
-                // Return SDP Answer code mapping array to Server Side
-                await sendPayloadToMesh({ answer: JSON.stringify(answer) });
-            } catch (err) { initiateAudioOnlyFallback(); }
+                await transmitPayloadPackageToMesh({ answer: JSON.stringify(answer) });
+            } catch (err) { executeAudioOnlyQualityFallback(); }
         }
 
-        // 💓 ♾️ Session Keeper Heartbeat Mechanism (Pulse transmission every 15s to bypass server-side inactivity timeout)
-        function startHeartbeatSession() {
+        function startHeartbeatKeepAliveSession() {
             if(heartbeatInterval) clearInterval(heartbeatInterval);
             heartbeatInterval = setInterval(() => {
                 if(peerConnection && peerConnection.connectionState === "connected") {
-                    sendPayloadToMesh({ keep_alive_pulse: "NEXUS-HEARTBEAT-ALIVE", sender: myUsername });
-                    console.log("♾️ NEXUS Cloud D1 Keep-Alive Pulse Transmitted.");
+                    transmitPayloadPackageToMesh({ keep_alive_pulse: "ALIVE", sender: myUsername });
+                    console.log("♾️ Session Keeper Heartbeat Packet Dispatched.");
                 }
             }, 15000);
         }
 
-        // 📉 2G Edge Low-Bandwidth Network Hard Compression (15kbps Video + 6kbps Audio Processing Constraints)
-        function limitBandwidthBitrate() {
+        function executeLowBandwidthCompressionLimits() {
             peerConnection.getSenders().forEach(sender => {
-                const parameters = sender.getParameters(); 
-                if (!parameters.encodings) parameters.encodings = [{}];
-                if (sender.track.kind === "video") { 
-                    parameters.encodings[0].maxBitrate = 15000; 
-                } else if (sender.track.kind === "audio") { 
-                    parameters.encodings[0].maxBitrate = 6000; 
+                const params = sender.getParameters();
+                if (!params.encodings) params.encodings = [{}];
+                if (sender.track.kind === "video") {
+                    params.encodings[0].maxBitrate = 15000;
+                } else if (sender.track.kind === "audio") {
+                    params.encodings[0].maxBitrate = 6000;
                 }
-                sender.setParameters(parameters).catch(e => console.error(e));
+                sender.setParameters(params).catch(e => console.error(e));
             });
         }
 
-        // 🎙️ Dynamic Audio-Only Quality Fallback Failover Route Switcher
-        async function initiateAudioOnlyFallback() {
+        async function executeAudioOnlyQualityFallback() {
             localStream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true });
             document.getElementById('localVideo').style.display = "none";
-            alert("Bandwidth ချုံ့စနစ်- Audio Call သီးသန့်စနစ်သို့ ပြောင်းလဲလိုက်ပါပြီ သားကြီး။");
+            alert("⚠️ Bandwidth ကန့်သတ်ချက်ကြောင့် ရုပ်သံပိတ်၍ အသံသီးသန့်ဖုန်းလိုင်းသို့ ပြောင်းလဲလိုက်ပါပြီ။");
         }
 
-        // 🚀 Dynamic Data Delivery Adapter (Cloudflare Online API / Offline LAN Router Routing Adapter)
-        async function sendPayloadToMesh(data) {
-            let targetUrl = (navigator.onLine && !localTargetIP) ? `${signalingUrl}/api/room` : `http://${localTargetIP}:8080/api/room`;
-            try { 
-                await fetch(targetUrl, { 
-                    method: "POST", 
-                    headers: { "Content-Type": "application/json" }, 
-                    body: JSON.stringify({ room_id: currentRoomId, ...data }) 
-                }); 
-            } catch(e) { console.error("Payload Sync Interrupted."); }
+        async function transmitPayloadPackageToMesh(data) {
+            let targetIP = document.getElementById('manual-mesh-ip').value;
+            let targetEndpoint = (navigator.onLine && !targetIP) ? `${signalingUrl}/api/room` : `http://${targetIP}:8080/api/room`;
+            try {
+                await fetch(targetEndpoint, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ room_id: currentRoomId, ...data })
+                });
+            } catch(e) { console.error("Mesh Synchronization Route Failure."); }
         }
 
-        function toggleMute() { 
-            localStream.getAudioTracks()[0].enabled = !localStream.getAudioTracks()[0].enabled; 
-        }
-        function toggleCamera() { 
-            localStream.getVideoTracks()[0].enabled = !localStream.getVideoTracks()[0].enabled; 
-        }
+        function toggleMuteState() { isMuted = !isMuted; localStream.getAudioTracks()[0].enabled = !isMuted; }
+        function toggleCameraState() { isCamOff = !isCamOff; localStream.getVideoTracks()[0].enabled = !isCamOff; }
 
-        function endCallSession() {
+        function terminateActiveCallSession() {
             if(heartbeatInterval) clearInterval(heartbeatInterval);
             if (localStream) localStream.getTracks().forEach(track => track.stop());
-            if (peerConnection) peerConnection.close(); 
+            if (peerConnection) peerConnection.close();
             peerConnection = null;
-            document.getElementById('page-video-call').classList.remove('active-page');
-            document.getElementById('page-chat').classList.add('active-page');
+            switchApplicationViewportTab('chats');
         }
     </script>
 </body>
